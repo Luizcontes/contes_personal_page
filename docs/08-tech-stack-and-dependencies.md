@@ -1,0 +1,28 @@
+# Tech Stack and Dependencies
+
+Status: Draft
+Last updated: 2026-04-16
+
+## Core Framework
+- Astro 6.x for routing, rendering, and static builds
+
+## Content
+- Markdown and MDX for blog authoring and optional embedded components
+
+## Styling
+- Tailwind CSS v4 for utility styling and tokenized theme control
+
+## UI Utilities
+- lucide-astro for lightweight icons
+
+## SEO and Discovery
+- astro-seo for metadata composition
+- @astrojs/sitemap for sitemap generation
+
+## Deployment Platform
+- GitHub for source control
+- GitHub Actions for automated build and deploy
+- GitHub Pages for static hosting
+
+## Email Forwarding
+- Cloudflare Email Routing for contact@ domain forwarding
