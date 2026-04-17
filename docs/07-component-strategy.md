@@ -52,6 +52,7 @@ This delays form JavaScript until the section enters viewport.
 	- list-based links
 3. Implement mobile-first behavior:
 	- collapsed menu on small screens
+	- three-strip menu button icon for mobile toggle
 	- expanded horizontal layout on md+ screens
 4. Add route/anchor behavior:
 	- /, /projects, /blog, /#who-i-am, /#contact
@@ -60,6 +61,7 @@ This delays form JavaScript until the section enters viewport.
 
 ### Navigation Acceptance Criteria
 - All required links render and point to correct routes/anchors.
+- Mobile toggle displays as three horizontal strips with an accessible text label.
 - Mobile menu can be opened/closed and is keyboard accessible.
 - Desktop nav is visible without interaction.
 - Focus indicator is visible on all interactive elements.

@@ -106,6 +106,7 @@ Footer: social links, quick links (Home, Projects, Blog, Contact), and copyright
 3. Navigation is visible and usable on mobile and desktop.
 4. Active state is present for route-based links and visually consistent with token rules.
 5. Keyboard navigation and focus visibility are required.
+6. Mobile nav toggle uses a three-strip icon (hamburger) with accessible text label.
 
 ### Small Delivery Units
 1. Data model unit

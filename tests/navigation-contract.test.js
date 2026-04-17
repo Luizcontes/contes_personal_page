@@ -37,4 +37,19 @@ describe('navigation contract', () => {
 		expect(homePage).toContain('aria-controls="primary-nav"');
 		expect(homePage).toContain('id="primary-nav"');
 	});
+
+	it('uses a three-strip icon and accessible label in mobile toggle', () => {
+		expect(homePage).toContain('class="nav-toggle-icon"');
+		expect(homePage).toContain('class="nav-toggle-bar"');
+		expect(homePage.match(/class="nav-toggle-bar"/g)?.length ?? 0).toBe(3);
+		expect(homePage).toContain('class="sr-only"');
+		expect(homePage).toContain('Menu');
+	});
+
+	it('defines mobile open-close state hooks for navigation behavior', () => {
+		expect(homePage).toContain('data-nav-open="false"');
+		expect(homePage).toContain('const navToggle = document.querySelector(\'.nav-toggle\')');
+		expect(homePage).toContain('navToggle.setAttribute(\'aria-expanded\', String(nextOpen))');
+		expect(homePage).toContain('siteHeader.dataset.navOpen = String(nextOpen)');
+	});
 });

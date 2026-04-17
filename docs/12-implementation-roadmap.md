@@ -56,10 +56,11 @@ Steps:
 Execution units:
 1. Define navigation contract tests (links, targets, semantics).
 2. Implement static nav shell in shared layout/header.
-3. Add mobile collapsible behavior and keyboard support.
-4. Add desktop horizontal behavior at md+.
-5. Add active/focus states using design tokens.
-6. Validate anchor behavior for /#who-i-am and /#contact from all routes.
+3. Implement three-strip mobile toggle button with accessible label.
+4. Add mobile collapsible behavior and keyboard support.
+5. Add desktop horizontal behavior at md+.
+6. Add active/focus states using design tokens.
+7. Validate anchor behavior for /#who-i-am and /#contact from all routes.
 
 Approval checkpoints:
 1. Contract and failing tests approved.

@@ -12,7 +12,7 @@ import '../styles/global.css';
 		<title>Astro</title>
 	</head>
 	<body>
-		<header class="site-header">
+		<header class="site-header" data-nav-open="false">
 			<div class="site-header-inner">
 				<a class="site-brand" href="/">Luiz Contes</a>
 				<button
@@ -21,7 +21,12 @@ import '../styles/global.css';
 					aria-expanded="false"
 					aria-controls="primary-nav"
 				>
-					Menu
+					<span class="sr-only">Menu</span>
+					<span class="nav-toggle-icon" aria-hidden="true">
+						<span class="nav-toggle-bar"></span>
+						<span class="nav-toggle-bar"></span>
+						<span class="nav-toggle-bar"></span>
+					</span>
 				</button>
 				<nav id="primary-nav" aria-label="Primary" class="primary-nav">
 					<ul class="primary-nav-list">
@@ -60,5 +65,34 @@ import '../styles/global.css';
 				<h2>Contact</h2>
 			</section>
 		</main>
+		<script>
+			const siteHeader = document.querySelector('.site-header');
+			const navToggle = document.querySelector('.nav-toggle');
+			const primaryNav = document.querySelector('#primary-nav');
+
+			if (siteHeader && navToggle && primaryNav) {
+				navToggle.addEventListener('click', () => {
+					const isOpen = siteHeader.dataset.navOpen === 'true';
+					const nextOpen = !isOpen;
+					siteHeader.dataset.navOpen = String(nextOpen);
+					navToggle.setAttribute('aria-expanded', String(nextOpen));
+				});
+
+				primaryNav.addEventListener('click', (event) => {
+					const target = event.target;
+					if (target instanceof HTMLAnchorElement) {
+						siteHeader.dataset.navOpen = 'false';
+						navToggle.setAttribute('aria-expanded', 'false');
+					}
+				});
+
+				document.addEventListener('keydown', (event) => {
+					if (event.key === 'Escape') {
+						siteHeader.dataset.navOpen = 'false';
+						navToggle.setAttribute('aria-expanded', 'false');
+					}
+				});
+			}
+		</script>
 	</body>
 </html>
