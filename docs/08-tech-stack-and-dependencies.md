@@ -1,7 +1,7 @@
 # Tech Stack and Dependencies
 
 Status: Draft
-Last updated: 2026-04-16
+Last updated: 2026-04-17
 
 ## Core Framework
 - Astro 6.x for routing, rendering, and static builds
@@ -14,6 +14,9 @@ Last updated: 2026-04-16
 
 ## UI Utilities
 - lucide-astro for lightweight icons
+
+## Testing
+- Vitest for token contract and adoption checks in a TDD-style workflow
 
 ## SEO and Discovery
 - astro-seo for metadata composition

@@ -75,17 +75,26 @@ Exit criteria:
 Objective: build conversion-focused content surfaces aligned with IA.
 
 Steps:
-1. Build Home sections in order:
+1. Build Home in granular chunks:
+	- Page shell and anchor skeleton
 	- Hero
 	- Who I Am
-	- Projects teaser
-	- Recent posts
-	- Contact CTA
-2. Add section anchors for Home (`#who-i-am`, `#projects`, `#contact`).
-3. Build `/projects` page with full project grid/list.
-4. Create reusable project card component used on Home and `/projects`.
-5. Build `/about` page with biography, trajectory, and skills.
-6. Validate internal linking between Home, Projects, Blog, and About.
+	- Projects teaser shell
+	- Recent posts shell
+	- Contact CTA shell
+	- Navigation integration
+	- Footer integration
+2. For each Home chunk, run approval-gated TDD loop:
+	- Define chunk contract (markup, links, token usage)
+	- Add failing tests
+	- Implement minimum code to pass
+	- Run tests and build
+	- Pause for approval before the next chunk
+3. Add section anchors for Home (`#who-i-am`, `#projects`, `#contact`).
+4. Build `/projects` page with full project grid/list.
+5. Create reusable project card component used on Home and `/projects`.
+6. Build `/about` page with biography, trajectory, and skills.
+7. Validate internal linking between Home, Projects, Blog, and About.
 
 Exit criteria:
 - Home and Projects are aligned with IA and Product Vision.

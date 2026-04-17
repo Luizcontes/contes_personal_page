@@ -51,6 +51,19 @@ This delays form JavaScript until the section enters viewport.
 - /blog/[slug] : Blog detail.
 - /about : Personal background and trajectory.
 
+## Home Incremental Delivery Order
+To keep implementation small, testable, and approval-gated, Home should be delivered in this order:
+1. Page shell and anchor skeleton
+2. Hero
+3. Who I Am
+4. Projects teaser shell
+5. Recent posts shell
+6. Contact CTA shell
+7. Navigation integration
+8. Footer integration
+
+Current first target: Page shell and anchor skeleton.
+
 ## Performance Guidelines
 - Keep non-critical interactivity deferred
 - Prefer static components for above-the-fold content
