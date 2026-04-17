@@ -47,10 +47,27 @@ Steps:
 1. Create global stylesheet with design tokens and base typography.
 2. Add layout shell for metadata, header, main content, and footer.
 3. Build navigation component with final IA behavior:
-	- Home, Who I Am, Projects, Blog, About, Contact
+	- Home, Who I Am, Projects, Blog, Contact
 4. Implement anchor linking behavior for Who I Am and Contact.
 5. Add footer quick links and social placeholders.
 6. Verify responsive behavior for header and nav states.
+
+### Next Focus Plan: Navigation Menu
+Execution units:
+1. Define navigation contract tests (links, targets, semantics).
+2. Implement static nav shell in shared layout/header.
+3. Add mobile collapsible behavior and keyboard support.
+4. Add desktop horizontal behavior at md+.
+5. Add active/focus states using design tokens.
+6. Validate anchor behavior for /#who-i-am and /#contact from all routes.
+
+Approval checkpoints:
+1. Contract and failing tests approved.
+2. Static shell approved.
+3. Mobile behavior approved.
+4. Desktop behavior approved.
+5. Accessibility and active-state behavior approved.
+6. Final tests/build verification approved.
 
 Exit criteria:
 - All core pages render through a shared layout.

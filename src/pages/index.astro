@@ -12,6 +12,53 @@ import '../styles/global.css';
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Luiz Contes</h1>
+		<header class="site-header">
+			<div class="site-header-inner">
+				<a class="site-brand" href="/">Luiz Contes</a>
+				<button
+					type="button"
+					class="nav-toggle"
+					aria-expanded="false"
+					aria-controls="primary-nav"
+				>
+					Menu
+				</button>
+				<nav id="primary-nav" aria-label="Primary" class="primary-nav">
+					<ul class="primary-nav-list">
+						<li><a href="/">Home</a></li>
+						<li><a href="/#who-i-am">Who I Am</a></li>
+						<li><a href="/projects">Projects</a></li>
+						<li><a href="/blog">Blog</a></li>
+						<li><a href="/#contact">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main class="home-shell">
+			<section id="hero" class="home-section hero-section">
+				<p class="hero-eyebrow">Software Engineer and Builder</p>
+				<h1>Luiz Contes</h1>
+				<p class="hero-support">
+					I build practical software, share what I learn, and focus on long-term thinking across
+					tech and life.
+				</p>
+				<div class="hero-actions">
+					<a class="hero-cta hero-cta-primary" href="#contact">Contact</a>
+					<a class="hero-cta hero-cta-secondary" href="/projects">View Projects</a>
+				</div>
+			</section>
+			<section id="who-i-am" class="home-section">
+				<h2>Who I Am</h2>
+			</section>
+			<section id="projects" class="home-section">
+				<h2>Projects</h2>
+			</section>
+			<section id="recent-posts" class="home-section">
+				<h2>Recent Posts</h2>
+			</section>
+			<section id="contact" class="home-section">
+				<h2>Contact</h2>
+			</section>
+		</main>
 	</body>
 </html>

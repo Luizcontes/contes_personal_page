@@ -39,10 +39,31 @@ This delays form JavaScript until the section enters viewport.
 - Contact form
 
 ## Navigation and Routing Components
-- Header navigation should include Home, Who I Am, Projects, Blog, About, Contact.
+- Header navigation should include Home, Who I Am, Projects, Blog, Contact.
 - Who I Am and Contact should route to home anchors (#who-i-am, #contact).
 - Projects should route to /projects.
 - On Home, optional in-page jump links can use #projects for fast access to the teaser section.
+
+## Navigation Build Plan
+1. Create a dedicated Navigation component with a data-driven item list.
+2. Render semantic structure:
+	- <header>
+	- <nav aria-label="Primary">
+	- list-based links
+3. Implement mobile-first behavior:
+	- collapsed menu on small screens
+	- expanded horizontal layout on md+ screens
+4. Add route/anchor behavior:
+	- /, /projects, /blog, /#who-i-am, /#contact
+5. Add active-link and focus-visible states using design tokens.
+6. Keep JS minimal and avoid hydration unless interaction cannot be done accessibly with static HTML/CSS.
+
+### Navigation Acceptance Criteria
+- All required links render and point to correct routes/anchors.
+- Mobile menu can be opened/closed and is keyboard accessible.
+- Desktop nav is visible without interaction.
+- Focus indicator is visible on all interactive elements.
+- Build passes and nav tests pass.
 
 ## Section Mapping by Route
 - / : Hero, Who I Am, Projects teaser, Recent posts, Contact.

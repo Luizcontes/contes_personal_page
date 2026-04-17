@@ -60,7 +60,7 @@ Last updated: 2026-04-17
 	- Contact action placeholder or form entry point
 	- Anchor support (#contact)
 7. Navigation integration chunk
-	- Home, Who I Am, Projects, Blog, About, Contact
+	- Home, Who I Am, Projects, Blog, Contact
 	- Who I Am and Contact mapped to home anchors
 	- Projects mapped to /projects
 8. Footer integration chunk
@@ -88,10 +88,46 @@ For each chunk:
 5. Pause for approval before next chunk
 
 ## Navigation Model
-Top navigation: Home, Who I Am, Projects, Blog, About, Contact.
+Top navigation: Home, Who I Am, Projects, Blog, Contact.
 Navigation behavior: Who I Am and Contact point to section anchors on Home; Projects points to /projects.
 In-page jump links on Home can use #who-i-am, #projects, and #contact.
 Footer: social links, quick links (Home, Projects, Blog, Contact), and copyright.
+
+## Navigation Implementation Granularity
+
+### Navigation Contract
+1. Menu items: Home, Who I Am, Projects, Blog, Contact.
+2. Link targets:
+	- Home -> /
+	- Who I Am -> /#who-i-am
+	- Projects -> /projects
+	- Blog -> /blog
+	- Contact -> /#contact
+3. Navigation is visible and usable on mobile and desktop.
+4. Active state is present for route-based links and visually consistent with token rules.
+5. Keyboard navigation and focus visibility are required.
+
+### Small Delivery Units
+1. Data model unit
+	- Single source of truth list of nav items and targets.
+2. Static nav shell unit
+	- Header wrapper, brand slot, and nav list structure.
+3. Mobile interaction unit
+	- Collapsible behavior for small screens.
+4. Desktop layout unit
+	- Horizontal layout and spacing on md+ breakpoints.
+5. Active-state and accessibility unit
+	- Current route state, focus styles, ARIA attributes.
+6. Home-anchor behavior unit
+	- Who I Am and Contact anchor behavior from non-home routes.
+
+### TDD-Like Validation Loop
+For each unit:
+1. Define contract for markup, routing behavior, and token usage.
+2. Add failing tests.
+3. Implement minimum code to pass.
+4. Run tests and build.
+5. Pause for approval before next unit.
 
 ## Category Model
 - Tech
