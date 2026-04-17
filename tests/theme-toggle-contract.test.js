@@ -4,7 +4,9 @@ import { describe, expect, it } from 'vitest';
 
 const rootDir = process.cwd();
 const homePagePath = resolve(rootDir, 'src/pages/index.astro');
+const homeScriptPath = resolve(rootDir, 'src/scripts/home-page.ts');
 const homePage = readFileSync(homePagePath, 'utf8');
+const homeScript = readFileSync(homeScriptPath, 'utf8');
 
 describe('theme toggle contract', () => {
 	it('renders a theme toggle control with accessibility semantics', () => {
@@ -14,9 +16,9 @@ describe('theme toggle contract', () => {
 	});
 
 	it('includes client-side persistence and toggle state update hooks', () => {
-		expect(homePage).toContain('const themeToggle = document.querySelector(\'.theme-toggle\')');
-		expect(homePage).toContain('localStorage.setItem(\'theme-preference\', nextTheme)');
-		expect(homePage).toContain('document.documentElement.dataset.theme = nextTheme');
-		expect(homePage).toContain('themeToggle.setAttribute(\'aria-pressed\', String(nextTheme === \'dark\'))');
+		expect(homeScript).toContain('const themeToggle = document.querySelector(\'.theme-toggle\')');
+		expect(homeScript).toContain('localStorage.setItem(\'theme-preference\', nextTheme)');
+		expect(homeScript).toContain('document.documentElement.dataset.theme = nextTheme');
+		expect(homeScript).toContain('themeToggle.setAttribute(\'aria-pressed\', String(nextTheme === \'dark\'))');
 	});
 });

@@ -4,7 +4,9 @@ import { describe, expect, it } from 'vitest';
 
 const rootDir = process.cwd();
 const homePagePath = resolve(rootDir, 'src/pages/index.astro');
+const homeScriptPath = resolve(rootDir, 'src/scripts/home-page.ts');
 const homePage = readFileSync(homePagePath, 'utf8');
+const homeScript = readFileSync(homeScriptPath, 'utf8');
 
 describe('navigation contract', () => {
 	it('renders semantic header and primary navigation landmarks', () => {
@@ -48,8 +50,8 @@ describe('navigation contract', () => {
 
 	it('defines mobile open-close state hooks for navigation behavior', () => {
 		expect(homePage).toContain('data-nav-open="false"');
-		expect(homePage).toContain('const navToggle = document.querySelector(\'.nav-toggle\')');
-		expect(homePage).toContain('navToggle.setAttribute(\'aria-expanded\', String(nextOpen))');
-		expect(homePage).toContain('siteHeader.dataset.navOpen = String(nextOpen)');
+		expect(homeScript).toContain('const navToggle = document.querySelector(\'.nav-toggle\')');
+		expect(homeScript).toContain('navToggle.setAttribute(\'aria-expanded\', String(nextOpen))');
+		expect(homeScript).toContain('siteHeader.dataset.navOpen = String(nextOpen)');
 	});
 });

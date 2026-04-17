@@ -1,5 +1,13 @@
 ---
 import '../styles/global.css';
+import flagEn from '../assets/icons/flags/gb_1x1.svg?raw';
+import flagPtBr from '../assets/icons/flags/br_1x1.svg?raw';
+import flagEs from '../assets/icons/flags/es_1x1.svg?raw';
+import optionFlagEn from '../assets/icons/flags/gb_4x3.svg?raw';
+import optionFlagPtBr from '../assets/icons/flags/br_4x3.svg?raw';
+import optionFlagEs from '../assets/icons/flags/es_4x3.svg?raw';
+import themeSun from '../assets/icons/theme/sun.svg?raw';
+import themeMoon from '../assets/icons/theme/moon.svg?raw';
 ---
 
 <html lang="en">
@@ -12,6 +20,8 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 		<script is:inline>
+			document.documentElement.dataset.i18nReady = 'false';
+
 			const storedTheme = localStorage.getItem('theme-preference');
 			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 			const resolvedTheme = storedTheme === 'light' || storedTheme === 'dark'
@@ -43,20 +53,20 @@ import '../styles/global.css';
 					aria-expanded="false"
 					aria-controls="primary-nav"
 				>
-					<span class="sr-only">Menu</span>
+					<span class="sr-only" data-i18n="nav.menu">Menu</span>
 					<span class="nav-toggle-icon" aria-hidden="true">
 						<span class="nav-toggle-bar"></span>
 						<span class="nav-toggle-bar"></span>
 						<span class="nav-toggle-bar"></span>
 					</span>
 				</button>
-				<nav id="primary-nav" aria-label="Primary" class="primary-nav">
+				<nav id="primary-nav" aria-label="Primary" class="primary-nav" data-i18n-aria-label="nav.primaryAria">
 					<ul class="primary-nav-list">
-						<li><a href="/">Home</a></li>
-						<li><a href="/#who-i-am">Who I Am</a></li>
-						<li><a href="/projects">Projects</a></li>
-						<li><a href="/blog">Blog</a></li>
-						<li><a href="/#contact">Contact</a></li>
+						<li><a href="/" data-i18n="nav.home">Home</a></li>
+						<li><a href="/#who-i-am" data-i18n="nav.whoIAm">Who I Am</a></li>
+						<li><a href="/projects" data-i18n="nav.projects">Projects</a></li>
+						<li><a href="/blog" data-i18n="nav.blog">Blog</a></li>
+						<li><a href="/#contact" data-i18n="nav.contact">Contact</a></li>
 					</ul>
 				</nav>
 				<div class="header-controls">
@@ -66,12 +76,30 @@ import '../styles/global.css';
 						aria-label="Select language"
 						aria-haspopup="listbox"
 						aria-expanded="false"
+						data-i18n-aria-label="lang.pickerLabel"
+						data-lang="en"
 					>
-						<span class="lang-picker-label" aria-live="polite">EN</span>
-						<ul class="lang-picker-list" role="listbox" aria-label="Select language">
-							<li role="option" data-lang="en" aria-selected="true">EN – English</li>
-							<li role="option" data-lang="pt-br" aria-selected="false">PT – Português</li>
-							<li role="option" data-lang="es" aria-selected="false">ES – Español</li>
+						<span class="lang-picker-icon-wrap" aria-hidden="true">
+							<span class="lang-flag lang-flag-en">
+								<Fragment set:html={flagEn} />
+							</span>
+							<span class="lang-flag lang-flag-pt-br">
+								<Fragment set:html={flagPtBr} />
+							</span>
+							<span class="lang-flag lang-flag-es">
+								<Fragment set:html={flagEs} />
+							</span>
+						</span>
+						<ul class="lang-picker-list" role="listbox" aria-label="Select language" data-i18n-aria-label="lang.pickerLabel">
+							<li role="option" data-lang="en" aria-selected="true" data-i18n-aria-label="lang.option.en">
+								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEn} /></span>
+							</li>
+							<li role="option" data-lang="pt-br" aria-selected="false" data-i18n-aria-label="lang.option.pt-br">
+								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagPtBr} /></span>
+							</li>
+							<li role="option" data-lang="es" aria-selected="false" data-i18n-aria-label="lang.option.es">
+								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEs} /></span>
+							</li>
 						</ul>
 					</button>
 					<button
@@ -79,18 +107,15 @@ import '../styles/global.css';
 						class="theme-toggle"
 						aria-pressed="false"
 						aria-label="Toggle color theme"
+						data-i18n-aria-label="theme.label"
 					>
-					<span class="sr-only">Toggle color theme</span>
+					<span class="sr-only" data-i18n="theme.label">Toggle color theme</span>
 					<span class="theme-toggle-icon-wrap" aria-hidden="true">
 						<span class="theme-icon theme-icon-sun">
-							<svg viewBox="0 0 24 24" role="img" focusable="false">
-								<path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm6.36 2.64a1 1 0 0 1 1.41 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.64 6.36.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 1 1 1.41-1.41ZM13 19v1a1 1 0 1 1-2 0v-1a1 1 0 1 1 2 0Zm-6.36-1.64a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7a1 1 0 0 1 1.41 0ZM5 11a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1Zm1.64-4.36-.7-.7a1 1 0 0 1 1.41-1.41l.7.7a1 1 0 0 1-1.41 1.41ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/>
-							</svg>
+							<Fragment set:html={themeSun} />
 						</span>
 						<span class="theme-icon theme-icon-moon">
-							<svg viewBox="0 0 24 24" role="img" focusable="false">
-								<path d="M12.3 3.2a1 1 0 0 1 .8 1.5 7.5 7.5 0 0 0 8 11.1 1 1 0 0 1 1.1 1.4A10 10 0 1 1 11.9 2.1a1 1 0 0 1 1.4 1.1Z"/>
-							</svg>
+							<Fragment set:html={themeMoon} />
 						</span>
 					</span>
 					</button>
@@ -99,204 +124,32 @@ import '../styles/global.css';
 		</header>
 		<main class="home-shell">
 			<section id="hero" class="home-section hero-section">
-				<p class="hero-eyebrow">Software Engineer and Builder</p>
-				<h1>Luiz Contes</h1>
-				<p class="hero-support">
-					I build practical software, share what I learn, and focus on long-term thinking across
-					tech and life.
+				<p class="hero-eyebrow" data-i18n="hero.eyebrow">Software Engineer and Builder</p>
+				<h1 data-i18n="hero.title">Luiz Contes</h1>
+				<p class="hero-support" data-i18n="hero.support">
+					I build practical software, share what I learn, and focus on long-term thinking across tech and life.
 				</p>
 				<div class="hero-actions">
-					<a class="hero-cta hero-cta-primary" href="#contact">Contact</a>
-					<a class="hero-cta hero-cta-secondary" href="/projects">View Projects</a>
+					<a class="hero-cta hero-cta-primary" href="#contact" data-i18n="hero.cta.contact">Contact</a>
+					<a class="hero-cta hero-cta-secondary" href="/projects" data-i18n="hero.cta.projects">View Projects</a>
 				</div>
 			</section>
 			<section id="who-i-am" class="home-section">
-				<h2>Who I Am</h2>
+				<h2 data-i18n="section.whoIAm">Who I Am</h2>
 			</section>
 			<section id="projects" class="home-section">
-				<h2>Projects</h2>
+				<h2 data-i18n="section.projects">Projects</h2>
 			</section>
 			<section id="recent-posts" class="home-section">
-				<h2>Recent Posts</h2>
+				<h2 data-i18n="section.recentPosts">Recent Posts</h2>
 			</section>
 			<section id="contact" class="home-section">
-				<h2>Contact</h2>
+				<h2 data-i18n="section.contact">Contact</h2>
 			</section>
 		</main>
 		<script>
-			const siteHeader = document.querySelector('.site-header');
-			const navToggle = document.querySelector('.nav-toggle');
-			const primaryNav = document.querySelector('#primary-nav');
-			const themeToggle = document.querySelector('.theme-toggle');
-			const langPicker = document.querySelector('.lang-picker');
-			const langLabel = document.querySelector('.lang-picker-label');
-			const langOptions = document.querySelectorAll('.lang-picker-list [role="option"]');
-
-			const normalizePath = (pathname: string) => {
-				const trimmedPath = pathname.replace(/\/+$/, '');
-				return trimmedPath === '' ? '/' : trimmedPath;
-			};
-
-			const navLinks =
-				primaryNav instanceof HTMLElement
-					? Array.from(primaryNav.querySelectorAll('a[href]')).filter(
-							(link) => link instanceof HTMLAnchorElement
-						)
-					: [];
-
-			const syncActiveNavLink = () => {
-				if (!navLinks.length) {
-					return;
-				}
-
-				const currentPath = normalizePath(window.location.pathname);
-				const currentHash = window.location.hash;
-
-				let activeLink: HTMLAnchorElement | null = null;
-
-				if (currentPath === '/' && currentHash) {
-					activeLink =
-						navLinks.find((link) => {
-							const parsedLink = new URL(link.href, window.location.origin);
-							return (
-								normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === currentHash
-							);
-						}) ?? null;
-				}
-
-				if (!activeLink) {
-					activeLink =
-						navLinks.find((link) => {
-							const parsedLink = new URL(link.href, window.location.origin);
-							return (
-								normalizePath(parsedLink.pathname) === currentPath && parsedLink.hash === ''
-							);
-						}) ?? null;
-				}
-
-				navLinks.forEach((link) => {
-					link.removeAttribute('aria-current');
-				});
-
-				if (activeLink) {
-					const currentType = activeLink.hash ? 'location' : 'page';
-					activeLink.setAttribute('aria-current', currentType);
-				}
-			};
-
-			syncActiveNavLink();
-			window.addEventListener('hashchange', syncActiveNavLink);
-
-			if (themeToggle instanceof HTMLButtonElement) {
-				const initialTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-				themeToggle.setAttribute('aria-pressed', String(initialTheme === 'dark'));
-
-				themeToggle.addEventListener('click', () => {
-					const currentTheme =
-						document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-					const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-					document.documentElement.dataset.theme = nextTheme;
-					localStorage.setItem('theme-preference', nextTheme);
-					themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
-					themeToggle.blur();
-				});
-			}
-
-			if (langPicker instanceof HTMLButtonElement && langLabel instanceof HTMLElement) {
-				const localeLabels = { en: 'EN', 'pt-br': 'PT', es: 'ES' };
-				const localeRoutes = { en: '/', 'pt-br': '/pt-br/', es: '/es/' };
-				const currentLocale = document.documentElement.lang || 'en';
-				langLabel.textContent = localeLabels[currentLocale] ?? 'EN';
-
-				langOptions.forEach((option) => {
-					if (option instanceof HTMLElement) {
-						option.setAttribute('aria-selected', String(option.dataset.lang === currentLocale));
-					}
-				});
-
-				langPicker.addEventListener('click', () => {
-					const isOpen = langPicker.getAttribute('aria-expanded') === 'true';
-					langPicker.setAttribute('aria-expanded', String(!isOpen));
-				});
-
-				langOptions.forEach((option) => {
-					if (option instanceof HTMLElement) {
-						option.addEventListener('click', (event) => {
-							event.stopPropagation();
-							const selectedLocale = option.dataset.lang ?? 'en';
-							localStorage.setItem('locale-preference', selectedLocale);
-							langPicker.setAttribute('aria-expanded', 'false');
-							langPicker.blur();
-							window.location.href = localeRoutes[selectedLocale] ?? '/';
-						});
-					}
-				});
-
-				document.addEventListener('click', (event) => {
-					if (!langPicker.contains(event.target as Node)) {
-						langPicker.setAttribute('aria-expanded', 'false');
-					}
-				});
-
-				document.addEventListener('keydown', (event) => {
-					if (event.key === 'Escape') {
-						langPicker.setAttribute('aria-expanded', 'false');
-						langPicker.blur();
-					}
-				});
-			}
-
-			if (
-				siteHeader instanceof HTMLElement &&
-				navToggle instanceof HTMLButtonElement &&
-				primaryNav instanceof HTMLElement
-			) {
-				navToggle.addEventListener('click', () => {
-					const isOpen = siteHeader.dataset.navOpen === 'true';
-					const nextOpen = !isOpen;
-					siteHeader.dataset.navOpen = String(nextOpen);
-					navToggle.setAttribute('aria-expanded', String(nextOpen));
-					navToggle.blur();
-				});
-
-				primaryNav.addEventListener('click', (event) => {
-					const target = event.target;
-					if (target instanceof HTMLAnchorElement) {
-						const parsedLink = new URL(target.href, window.location.origin);
-						const isHomeLink =
-							normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === '';
-						const isOnHomePage = normalizePath(window.location.pathname) === '/';
-						const isAnchorLink =
-							normalizePath(parsedLink.pathname) === normalizePath(window.location.pathname) &&
-							parsedLink.hash;
-
-						if (isHomeLink && isOnHomePage) {
-							event.preventDefault();
-							history.replaceState(null, '', '/');
-							window.scrollTo({ top: 0, behavior: 'smooth' });
-							syncActiveNavLink();
-						} else if (isAnchorLink) {
-							event.preventDefault();
-							const targetElement = document.querySelector(parsedLink.hash);
-							if (targetElement) {
-								history.replaceState(null, '', parsedLink.hash);
-								targetElement.scrollIntoView({ behavior: 'smooth' });
-								syncActiveNavLink();
-							}
-						}
-
-						siteHeader.dataset.navOpen = 'false';
-						navToggle.setAttribute('aria-expanded', 'false');
-					}
-				});
-
-				document.addEventListener('keydown', (event) => {
-					if (event.key === 'Escape') {
-						siteHeader.dataset.navOpen = 'false';
-						navToggle.setAttribute('aria-expanded', 'false');
-					}
-				});
-			}
+			import { initHomePage } from '../scripts/home-page';
+			initHomePage();
 		</script>
 	</body>
 </html>
