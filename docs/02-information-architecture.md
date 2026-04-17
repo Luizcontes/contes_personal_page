@@ -93,6 +93,15 @@ Navigation behavior: Who I Am and Contact point to section anchors on Home; Proj
 In-page jump links on Home can use #who-i-am, #projects, and #contact.
 Footer: social links, quick links (Home, Projects, Blog, Contact), and copyright.
 
+## Locale Model
+Supported locales: `en` (English, default), `pt-br` (Brazilian Portuguese), `es` (Spanish).
+Default locale is unprefixed: `/`, `/projects`, `/blog`.
+Secondary locales are prefixed: `/pt-br/`, `/pt-br/projects`, `/pt-br/blog` and `/es/`, `/es/projects`, `/es/blog`.
+All internal links must be locale-aware and generated using `astro:i18n` helpers.
+Anchor targets (#who-i-am, #projects, #contact) are preserved within each locale.
+On first visit, the preferred locale is resolved from `navigator.language` falling back to `en`.
+Locale preference is stored in `localStorage` and used on subsequent visits before routing resolves.
+
 ## Navigation Implementation Granularity
 
 ### Navigation Contract
@@ -107,6 +116,8 @@ Footer: social links, quick links (Home, Projects, Blog, Contact), and copyright
 4. Active state is present for route-based links and visually consistent with token rules.
 5. Keyboard navigation and focus visibility are required.
 6. Mobile nav toggle uses a three-strip icon (hamburger) with accessible text label.
+7. Header utility controls (language switcher, theme toggle) are placed to the right of the nav area.
+8. Language switcher sits immediately left of the theme toggle and shares the same visual style.
 
 ### Small Delivery Units
 1. Data model unit

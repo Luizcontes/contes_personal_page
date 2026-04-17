@@ -47,6 +47,17 @@ Tailwind CSS v4 CSS-first theme tokens in global stylesheet.
 - Use cyan for primary interactions and purple for secondary highlights.
 - Limit accent overuse to preserve visual hierarchy.
 
+## Header Utility Control Tokens
+Language switcher and theme toggle are visually paired header utility controls and must share identical token usage:
+- Same size: 2.5rem × 2.5rem touch target
+- Same border radius: `--radius-pill` for circular shape
+- Same spacing rhythm: `--space-2` gap between controls
+- Same background: transparent default, `--color-surface` on hover
+- Same border: none by default
+- Same focus ring: `--color-accent-cyan` outline with `--shadow-glow-cyan`
+- Same motion: opacity/transform transitions using `--duration-base` and `--ease-standard`
+- Icon size: 1.25rem × 1.25rem SVG or text label using `--font-size-nav`
+
 ## Spacing Tokens
 - --space-1: 0.25rem
 - --space-2: 0.5rem

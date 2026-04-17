@@ -69,6 +69,33 @@ Approval checkpoints:
 5. Persistence behavior approved.
 6. Final tests/build verification approved.
 
+### Next Focus Plan: Internationalization and Language Control
+Execution units:
+1. Define i18n contract tests (locale routing, language switcher semantics, persistence hooks, browser detection fallback).
+2. Configure Astro built-in i18n routing in `astro.config.mjs`:
+	- `defaultLocale: 'en'`, `locales: ['en', 'pt-br', 'es']`
+	- `prefixDefaultLocale: false` (English at root, Portuguese at /pt-br/, Spanish at /es/)
+3. Create locale-aware page structure:
+	- English pages remain at `src/pages/` root
+	- Brazilian Portuguese pages at `src/pages/pt-br/`
+	- Spanish pages at `src/pages/es/`
+4. Add `src/i18n/ui.ts` with translation dictionaries for UI strings.
+5. Add `src/i18n/utils.ts` with `getLangFromUrl`, `useTranslations`, and `useTranslatedPath` helpers.
+6. Add pre-paint locale bootstrap script resolving `localStorage` → `navigator.language` → `en`.
+7. Add LanguagePicker control in header immediately left of ThemeToggle.
+8. Persist locale preference in `localStorage` and sync on switch.
+9. Validate locale-aware internal links using `astro:i18n` helpers.
+10. Validate anchor behavior (#who-i-am, #contact) is preserved per locale.
+
+Approval checkpoints:
+1. Contract and failing tests approved.
+2. Astro i18n config and folder structure approved.
+3. Translation dictionary structure approved.
+4. Bootstrap script and browser detection fallback approved.
+5. LanguagePicker UI and look-and-feel parity with ThemeToggle approved.
+6. Locale persistence and switch navigation approved.
+7. Final tests/build verification approved.
+
 ### Next Focus Plan: Navigation Menu
 Execution units:
 1. Define navigation contract tests (links, targets, semantics).

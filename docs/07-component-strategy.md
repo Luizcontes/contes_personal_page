@@ -29,6 +29,7 @@ This delays form JavaScript until the section enters viewport.
 
 ## Core Components
 - Navigation
+- LanguagePicker
 - ThemeToggle
 - Footer
 - Hero
@@ -81,6 +82,24 @@ This delays form JavaScript until the section enters viewport.
 - Preference persists across reloads.
 - Initial render uses resolved preference without visible theme flash.
 - Existing navigation behavior remains intact.
+
+## Language Picker Build Plan
+1. Add a LanguagePicker control in the header immediately to the left of the ThemeToggle.
+2. Resolve initial locale before paint: check `localStorage` first, then `navigator.language`, then fall back to `en`.
+3. Persist user locale choice in `localStorage`.
+4. On locale switch, navigate to the equivalent route in the selected locale using `astro:i18n` helpers; fall back to locale home if no equivalent route exists.
+5. Reflect current locale state with accessible semantics (`aria-label`, current locale indicator).
+6. Match ThemeToggle look and feel exactly: same size, shape, spacing, hover/focus/active states, and motion tokens.
+7. Keep implementation framework-free and minimal JS.
+
+### Language Picker Acceptance Criteria
+- Control is reachable by keyboard and clearly labeled with current locale.
+- Switching locale navigates to the equivalent page in the selected locale.
+- Locale preference persists across reloads via `localStorage`.
+- On first visit, locale is resolved from browser language (`navigator.language`) falling back to `en`.
+- Control visually matches the ThemeToggle in size, shape, and interaction states.
+- No layout shift or flash of wrong locale on initial render.
+- Existing navigation and theme behavior remain intact.
 
 ## Section Mapping by Route
 - / : Hero, Who I Am, Projects teaser, Recent posts, Contact.

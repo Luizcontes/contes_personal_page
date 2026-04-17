@@ -40,6 +40,14 @@ Top navigation should prioritize discoverability and conversion:
 The site should support an accessible light/dark theme toggle so readers can choose their preferred reading mode.
 Theme preference should persist between visits and fall back to system preference when no user choice exists.
 
+## Language Preference
+The site should support English, Brazilian Portuguese, and Spanish as primary languages.
+A language switcher button should be placed immediately to the left of the dark/light theme toggle, following the same look and feel.
+On first visit, the site should detect the visitor's preferred language from the browser (`navigator.language` / `Accept-Language`) and resolve to the closest supported locale, falling back to English when no match exists.
+Language preference should persist in `localStorage` across visits and take precedence over browser detection on subsequent visits.
+Switching language should navigate the user to the equivalent route in the selected locale when available, or gracefully fall back to the locale home page.
+All language controls must be keyboard accessible and properly labeled for screen readers.
+
 ## Primary Goal
 Convert interested readers into direct contacts through a focused contact section.
 
