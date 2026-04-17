@@ -1,7 +1,7 @@
 # Design Tokens
 
 Status: Draft
-Last updated: 2026-04-16
+Last updated: 2026-04-17
 
 ## Token Source
 Tailwind CSS v4 CSS-first theme tokens in global stylesheet.
@@ -23,7 +23,34 @@ Tailwind CSS v4 CSS-first theme tokens in global stylesheet.
 - Use cyan for primary interactions and purple for secondary highlights.
 - Limit accent overuse to preserve visual hierarchy.
 
-## Future Additions
-- Spacing scale tokens
-- Radius and elevation tokens
-- Motion timing tokens
+## Spacing Tokens
+- --space-1: 0.25rem
+- --space-2: 0.5rem
+- --space-3: 0.75rem
+- --space-4: 1rem
+- --space-6: 1.5rem
+- --space-8: 2rem
+- --space-12: 3rem
+- --space-16: 4rem
+
+## Radius Tokens
+- --radius-sm: 0.375rem
+- --radius-md: 0.75rem
+- --radius-lg: 1.25rem
+- --radius-xl: 1.75rem
+- --radius-pill: 9999px
+
+## Elevation Tokens
+- --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2)
+- --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.22)
+- --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.28)
+- --shadow-glow-cyan: 0 0 0 1px rgba(34, 211, 238, 0.2), 0 0 24px rgba(34, 211, 238, 0.18)
+- --shadow-glow-purple: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 0 24px rgba(167, 139, 250, 0.16)
+
+## Motion Tokens
+- --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1)
+- --duration-fast: 120ms
+- --duration-base: 200ms
+- --duration-slow: 320ms
+
+All documented token groups are approved for development use.
