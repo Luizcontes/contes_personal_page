@@ -1,10 +1,24 @@
 # Component Strategy
 
 Status: Draft
-Last updated: 2026-04-16
+Last updated: 2026-04-17
+
+## Architecture Intent
+Components should support the IA flow and conversion path:
+Hero -> Who I Am -> Projects -> Recent Posts -> Contact.
+Projects must be usable both as a home teaser section and as a standalone /projects page.
 
 ## Hero Section
 Build with static HTML and CSS for immediate rendering and strong first impression.
+
+## Who I Am Section
+Implement as a static section on Home for fast load and immediate personal context.
+This section should support anchor navigation via #who-i-am.
+
+## Projects Layer
+Use a reusable project card component for consistency across Home and /projects.
+Home should show a curated subset (teaser), while /projects shows the complete set.
+Each project card should include title, short summary, stack, and primary link.
 
 ## Content Layer
 Use getCollection to surface latest 3 posts on home page for credibility and recency.
@@ -17,10 +31,28 @@ This delays form JavaScript until the section enters viewport.
 - Navigation
 - Footer
 - Hero
+- WhoIAmSection
+- ProjectCard
+- ProjectsSection (Home teaser)
+- ProjectsGridPage (/projects)
 - Blog card
 - Contact form
+
+## Navigation and Routing Components
+- Header navigation should include Home, Who I Am, Projects, Blog, About, Contact.
+- Who I Am and Contact should route to home anchors (#who-i-am, #contact).
+- Projects should route to /projects.
+- On Home, optional in-page jump links can use #projects for fast access to the teaser section.
+
+## Section Mapping by Route
+- / : Hero, Who I Am, Projects teaser, Recent posts, Contact.
+- /projects : Full projects grid and optional category/filter controls.
+- /blog : Blog listing.
+- /blog/[slug] : Blog detail.
+- /about : Personal background and trajectory.
 
 ## Performance Guidelines
 - Keep non-critical interactivity deferred
 - Prefer static components for above-the-fold content
 - Keep icon usage tree-shaken
+- Keep Home sections static-first; only hydrate interactive controls when required.
