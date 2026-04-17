@@ -188,12 +188,23 @@ import '../styles/global.css';
 						const isHomeLink =
 							normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === '';
 						const isOnHomePage = normalizePath(window.location.pathname) === '/';
+						const isAnchorLink =
+							normalizePath(parsedLink.pathname) === normalizePath(window.location.pathname) &&
+							parsedLink.hash;
 
 						if (isHomeLink && isOnHomePage) {
 							event.preventDefault();
 							history.replaceState(null, '', '/');
 							window.scrollTo({ top: 0, behavior: 'smooth' });
 							syncActiveNavLink();
+						} else if (isAnchorLink) {
+							event.preventDefault();
+							const targetElement = document.querySelector(parsedLink.hash);
+							if (targetElement) {
+								history.replaceState(null, '', parsedLink.hash);
+								targetElement.scrollIntoView({ behavior: 'smooth' });
+								syncActiveNavLink();
+							}
 						}
 
 						siteHeader.dataset.navOpen = 'false';
