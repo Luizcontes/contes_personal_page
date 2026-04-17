@@ -98,7 +98,7 @@ import '../styles/global.css';
 			const siteHeader = document.querySelector('.site-header');
 			const navToggle = document.querySelector('.nav-toggle');
 			const primaryNav = document.querySelector('#primary-nav');
-			const themeToggle = document.querySelector('.theme-toggle');
+			const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
 
 			const normalizePath = (pathname: string) => {
 				const trimmedPath = pathname.replace(/\/+$/, '');
@@ -166,6 +166,7 @@ import '../styles/global.css';
 					document.documentElement.dataset.theme = nextTheme;
 					localStorage.setItem('theme-preference', nextTheme);
 					themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+					themeToggle.blur();
 				});
 			}
 
@@ -179,6 +180,7 @@ import '../styles/global.css';
 					const nextOpen = !isOpen;
 					siteHeader.dataset.navOpen = String(nextOpen);
 					navToggle.setAttribute('aria-expanded', String(nextOpen));
+					navToggle.blur();
 				});
 
 				primaryNav.addEventListener('click', (event) => {
