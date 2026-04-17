@@ -5,6 +5,7 @@ import '../styles/global.css';
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
@@ -19,6 +20,18 @@ import '../styles/global.css';
 					? 'dark'
 					: 'light';
 			document.documentElement.dataset.theme = resolvedTheme;
+
+			const supportedLocales = ['en', 'pt-br', 'es'];
+			const storedLocale = localStorage.getItem('locale-preference');
+			const browserLang = navigator.language?.toLowerCase() ?? '';
+			const browserLocale = supportedLocales.find(
+				(l) => browserLang === l || browserLang.startsWith(l.split('-')[0])
+			);
+			const resolvedLocale =
+				supportedLocales.includes(storedLocale ?? '')
+					? storedLocale
+					: browserLocale ?? 'en';
+			document.documentElement.lang = resolvedLocale;
 		</script>
 	</head>
 	<body>
@@ -46,12 +59,27 @@ import '../styles/global.css';
 						<li><a href="/#contact">Contact</a></li>
 					</ul>
 				</nav>
-				<button
-					type="button"
-					class="theme-toggle"
-					aria-pressed="false"
-					aria-label="Toggle color theme"
-				>
+				<div class="header-controls">
+					<button
+						type="button"
+						class="lang-picker"
+						aria-label="Select language"
+						aria-haspopup="listbox"
+						aria-expanded="false"
+					>
+						<span class="lang-picker-label" aria-live="polite">EN</span>
+						<ul class="lang-picker-list" role="listbox" aria-label="Select language">
+							<li role="option" data-lang="en" aria-selected="true">EN – English</li>
+							<li role="option" data-lang="pt-br" aria-selected="false">PT – Português</li>
+							<li role="option" data-lang="es" aria-selected="false">ES – Español</li>
+						</ul>
+					</button>
+					<button
+						type="button"
+						class="theme-toggle"
+						aria-pressed="false"
+						aria-label="Toggle color theme"
+					>
 					<span class="sr-only">Toggle color theme</span>
 					<span class="theme-toggle-icon-wrap" aria-hidden="true">
 						<span class="theme-icon theme-icon-sun">
@@ -65,7 +93,8 @@ import '../styles/global.css';
 							</svg>
 						</span>
 					</span>
-				</button>
+					</button>
+				</div>
 			</div>
 		</header>
 		<main class="home-shell">
@@ -99,6 +128,9 @@ import '../styles/global.css';
 			const navToggle = document.querySelector('.nav-toggle');
 			const primaryNav = document.querySelector('#primary-nav');
 			const themeToggle = document.querySelector('.theme-toggle');
+			const langPicker = document.querySelector('.lang-picker');
+			const langLabel = document.querySelector('.lang-picker-label');
+			const langOptions = document.querySelectorAll('.lang-picker-list [role="option"]');
 
 			const normalizePath = (pathname: string) => {
 				const trimmedPath = pathname.replace(/\/+$/, '');
@@ -167,6 +199,50 @@ import '../styles/global.css';
 					localStorage.setItem('theme-preference', nextTheme);
 					themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
 					themeToggle.blur();
+				});
+			}
+
+			if (langPicker instanceof HTMLButtonElement && langLabel instanceof HTMLElement) {
+				const localeLabels = { en: 'EN', 'pt-br': 'PT', es: 'ES' };
+				const localeRoutes = { en: '/', 'pt-br': '/pt-br/', es: '/es/' };
+				const currentLocale = document.documentElement.lang || 'en';
+				langLabel.textContent = localeLabels[currentLocale] ?? 'EN';
+
+				langOptions.forEach((option) => {
+					if (option instanceof HTMLElement) {
+						option.setAttribute('aria-selected', String(option.dataset.lang === currentLocale));
+					}
+				});
+
+				langPicker.addEventListener('click', () => {
+					const isOpen = langPicker.getAttribute('aria-expanded') === 'true';
+					langPicker.setAttribute('aria-expanded', String(!isOpen));
+				});
+
+				langOptions.forEach((option) => {
+					if (option instanceof HTMLElement) {
+						option.addEventListener('click', (event) => {
+							event.stopPropagation();
+							const selectedLocale = option.dataset.lang ?? 'en';
+							localStorage.setItem('locale-preference', selectedLocale);
+							langPicker.setAttribute('aria-expanded', 'false');
+							langPicker.blur();
+							window.location.href = localeRoutes[selectedLocale] ?? '/';
+						});
+					}
+				});
+
+				document.addEventListener('click', (event) => {
+					if (!langPicker.contains(event.target as Node)) {
+						langPicker.setAttribute('aria-expanded', 'false');
+					}
+				});
+
+				document.addEventListener('keydown', (event) => {
+					if (event.key === 'Escape') {
+						langPicker.setAttribute('aria-expanded', 'false');
+						langPicker.blur();
+					}
 				});
 			}
 

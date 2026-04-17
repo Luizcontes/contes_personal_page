@@ -102,12 +102,87 @@ a {
 		box-shadow var(--duration-base) var(--ease-standard),
 		border-color var(--duration-base) var(--ease-standard),
 		background-color var(--duration-base) var(--ease-standard);
-	justify-self: end;
 	position: relative;
 	overflow: hidden;
 }
 
 .theme-toggle:hover,
+
+/* ---- Header utility controls (lang picker + theme toggle) ---- */
+
+.header-controls {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	justify-self: end;
+}
+
+.lang-picker {
+	border: 1px solid var(--color-border);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	border-radius: var(--radius-pill);
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	font: inherit;
+	font-size: var(--font-size-nav);
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		box-shadow var(--duration-base) var(--ease-standard),
+		border-color var(--duration-base) var(--ease-standard),
+		background-color var(--duration-base) var(--ease-standard);
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lang-picker:hover,
+.lang-picker:focus-visible {
+	box-shadow: var(--shadow-glow-cyan);
+}
+
+.lang-picker-label {
+	pointer-events: none;
+}
+
+.lang-picker-list {
+	display: none;
+	position: absolute;
+	top: calc(100% + var(--space-2));
+	right: 0;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+	list-style: none;
+	padding: var(--space-2) 0;
+	margin: 0;
+	min-width: 10rem;
+	z-index: 20;
+}
+
+.lang-picker[aria-expanded="true"] .lang-picker-list {
+	display: block;
+}
+
+.lang-picker-list li {
+	padding: var(--space-2) var(--space-4);
+	cursor: pointer;
+	white-space: nowrap;
+	font-size: var(--font-size-nav);
+	color: var(--color-text);
+	transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.lang-picker-list li:hover,
+.lang-picker-list li[aria-selected="true"] {
+	background-color: color-mix(in srgb, var(--color-accent-cyan) 12%, transparent);
+	color: var(--color-accent-cyan);
+}
+
 .theme-toggle:focus-visible {
 	box-shadow: var(--shadow-glow-cyan);
 }
