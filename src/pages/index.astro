@@ -98,7 +98,7 @@ import '../styles/global.css';
 			const siteHeader = document.querySelector('.site-header');
 			const navToggle = document.querySelector('.nav-toggle');
 			const primaryNav = document.querySelector('#primary-nav');
-			const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+			const themeToggle = document.querySelector('.theme-toggle');
 
 			const normalizePath = (pathname: string) => {
 				const trimmedPath = pathname.replace(/\/+$/, '');
@@ -155,7 +155,7 @@ import '../styles/global.css';
 			syncActiveNavLink();
 			window.addEventListener('hashchange', syncActiveNavLink);
 
-			if (themeToggle) {
+			if (themeToggle instanceof HTMLButtonElement) {
 				const initialTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 				themeToggle.setAttribute('aria-pressed', String(initialTheme === 'dark'));
 
