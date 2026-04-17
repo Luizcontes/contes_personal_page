@@ -44,8 +44,12 @@ Convert interested readers into direct contacts through a focused contact sectio
 - Other developers and technical peers
 - Readers interested in long-form thinking across tech and life
 
+## Development Style
+Mobile-first development is a core principle of this project. All layouts, components, and styles are designed for small screens first, then progressively enhanced for larger viewports. This ensures a fast, accessible, and usable experience regardless of device, and aligns with how the target audience consumes content on the go.
+
 ## Value Proposition
 - Fast, static-first experience
+- Mobile-first design ensuring full usability on any device
 - Clear personal point of view
 - Evidence of technical depth via blog content and implementation quality
 
