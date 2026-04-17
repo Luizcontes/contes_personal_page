@@ -52,6 +52,23 @@ Steps:
 5. Add footer quick links and social placeholders.
 6. Verify responsive behavior for header and nav states.
 
+### Next Focus Plan: Theme Toggle
+Execution units:
+1. Define theme contract tests (theme attribute, token maps, toggle semantics, persistence hooks).
+2. Add theme token mappings for light and dark modes.
+3. Add pre-paint theme bootstrap script in document head.
+4. Add header theme toggle control with accessible state and label.
+5. Persist preference and apply updates without breaking nav behavior.
+6. Validate contrast and usability in both themes.
+
+Approval checkpoints:
+1. Contract and failing tests approved.
+2. Token mapping approved.
+3. Bootstrap script approved.
+4. Toggle UI and accessibility approved.
+5. Persistence behavior approved.
+6. Final tests/build verification approved.
+
 ### Next Focus Plan: Navigation Menu
 Execution units:
 1. Define navigation contract tests (links, targets, semantics).

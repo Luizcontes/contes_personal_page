@@ -10,11 +10,20 @@ import '../styles/global.css';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		<script is:inline>
+			const storedTheme = localStorage.getItem('theme-preference');
+			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const resolvedTheme = storedTheme === 'light' || storedTheme === 'dark'
+				? storedTheme
+				: prefersDark
+					? 'dark'
+					: 'light';
+			document.documentElement.dataset.theme = resolvedTheme;
+		</script>
 	</head>
 	<body>
 		<header class="site-header" data-nav-open="false">
 			<div class="site-header-inner">
-				<a class="site-brand" href="/">Luiz Contes</a>
 				<button
 					type="button"
 					class="nav-toggle"
@@ -37,6 +46,26 @@ import '../styles/global.css';
 						<li><a href="/#contact">Contact</a></li>
 					</ul>
 				</nav>
+				<button
+					type="button"
+					class="theme-toggle"
+					aria-pressed="false"
+					aria-label="Toggle color theme"
+				>
+					<span class="sr-only">Toggle color theme</span>
+					<span class="theme-toggle-icon-wrap" aria-hidden="true">
+						<span class="theme-icon theme-icon-sun">
+							<svg viewBox="0 0 24 24" role="img" focusable="false">
+								<path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm6.36 2.64a1 1 0 0 1 1.41 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7ZM21 11a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1Zm-2.64 6.36.7.7a1 1 0 0 1-1.41 1.41l-.7-.7a1 1 0 1 1 1.41-1.41ZM13 19v1a1 1 0 1 1-2 0v-1a1 1 0 1 1 2 0Zm-6.36-1.64a1 1 0 0 1 0 1.41l-.7.7a1 1 0 1 1-1.41-1.41l.7-.7a1 1 0 0 1 1.41 0ZM5 11a1 1 0 1 1 0 2H4a1 1 0 1 1 0-2h1Zm1.64-4.36-.7-.7a1 1 0 0 1 1.41-1.41l.7.7a1 1 0 0 1-1.41 1.41ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/>
+							</svg>
+						</span>
+						<span class="theme-icon theme-icon-moon">
+							<svg viewBox="0 0 24 24" role="img" focusable="false">
+								<path d="M12.3 3.2a1 1 0 0 1 .8 1.5 7.5 7.5 0 0 0 8 11.1 1 1 0 0 1 1.1 1.4A10 10 0 1 1 11.9 2.1a1 1 0 0 1 1.4 1.1Z"/>
+							</svg>
+						</span>
+					</span>
+				</button>
 			</div>
 		</header>
 		<main class="home-shell">
@@ -69,8 +98,82 @@ import '../styles/global.css';
 			const siteHeader = document.querySelector('.site-header');
 			const navToggle = document.querySelector('.nav-toggle');
 			const primaryNav = document.querySelector('#primary-nav');
+			const themeToggle = document.querySelector('.theme-toggle');
 
-			if (siteHeader && navToggle && primaryNav) {
+			const normalizePath = (pathname: string) => {
+				const trimmedPath = pathname.replace(/\/+$/, '');
+				return trimmedPath === '' ? '/' : trimmedPath;
+			};
+
+			const navLinks =
+				primaryNav instanceof HTMLElement
+					? Array.from(primaryNav.querySelectorAll('a[href]')).filter(
+							(link) => link instanceof HTMLAnchorElement
+						)
+					: [];
+
+			const syncActiveNavLink = () => {
+				if (!navLinks.length) {
+					return;
+				}
+
+				const currentPath = normalizePath(window.location.pathname);
+				const currentHash = window.location.hash;
+
+				let activeLink: HTMLAnchorElement | null = null;
+
+				if (currentPath === '/' && currentHash) {
+					activeLink =
+						navLinks.find((link) => {
+							const parsedLink = new URL(link.href, window.location.origin);
+							return (
+								normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === currentHash
+							);
+						}) ?? null;
+				}
+
+				if (!activeLink) {
+					activeLink =
+						navLinks.find((link) => {
+							const parsedLink = new URL(link.href, window.location.origin);
+							return (
+								normalizePath(parsedLink.pathname) === currentPath && parsedLink.hash === ''
+							);
+						}) ?? null;
+				}
+
+				navLinks.forEach((link) => {
+					link.removeAttribute('aria-current');
+				});
+
+				if (activeLink) {
+					const currentType = activeLink.hash ? 'location' : 'page';
+					activeLink.setAttribute('aria-current', currentType);
+				}
+			};
+
+			syncActiveNavLink();
+			window.addEventListener('hashchange', syncActiveNavLink);
+
+			if (themeToggle) {
+				const initialTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+				themeToggle.setAttribute('aria-pressed', String(initialTheme === 'dark'));
+
+				themeToggle.addEventListener('click', () => {
+					const currentTheme =
+						document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+					const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+					document.documentElement.dataset.theme = nextTheme;
+					localStorage.setItem('theme-preference', nextTheme);
+					themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+				});
+			}
+
+			if (
+				siteHeader instanceof HTMLElement &&
+				navToggle instanceof HTMLButtonElement &&
+				primaryNav instanceof HTMLElement
+			) {
 				navToggle.addEventListener('click', () => {
 					const isOpen = siteHeader.dataset.navOpen === 'true';
 					const nextOpen = !isOpen;
@@ -81,6 +184,18 @@ import '../styles/global.css';
 				primaryNav.addEventListener('click', (event) => {
 					const target = event.target;
 					if (target instanceof HTMLAnchorElement) {
+						const parsedLink = new URL(target.href, window.location.origin);
+						const isHomeLink =
+							normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === '';
+						const isOnHomePage = normalizePath(window.location.pathname) === '/';
+
+						if (isHomeLink && isOnHomePage) {
+							event.preventDefault();
+							history.replaceState(null, '', '/');
+							window.scrollTo({ top: 0, behavior: 'smooth' });
+							syncActiveNavLink();
+						}
+
 						siteHeader.dataset.navOpen = 'false';
 						navToggle.setAttribute('aria-expanded', 'false');
 					}

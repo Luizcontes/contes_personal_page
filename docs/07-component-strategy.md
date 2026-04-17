@@ -29,6 +29,7 @@ This delays form JavaScript until the section enters viewport.
 
 ## Core Components
 - Navigation
+- ThemeToggle
 - Footer
 - Hero
 - WhoIAmSection
@@ -66,6 +67,20 @@ This delays form JavaScript until the section enters viewport.
 - Desktop nav is visible without interaction.
 - Focus indicator is visible on all interactive elements.
 - Build passes and nav tests pass.
+
+## Theme Toggle Build Plan
+1. Add a ThemeToggle control in the header area near navigation controls.
+2. Resolve initial theme before paint using stored preference or system preference.
+3. Persist user choice in localStorage.
+4. Reflect state with accessible semantics (`aria-pressed` and label text).
+5. Keep implementation framework-free and minimal JS.
+
+### Theme Toggle Acceptance Criteria
+- Toggle is reachable by keyboard and clearly labeled.
+- Toggle updates active theme between light and dark.
+- Preference persists across reloads.
+- Initial render uses resolved preference without visible theme flash.
+- Existing navigation behavior remains intact.
 
 ## Section Mapping by Route
 - / : Hero, Who I Am, Projects teaser, Recent posts, Contact.

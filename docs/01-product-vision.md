@@ -32,9 +32,13 @@ The Home page should present content in this order:
 
 ## Navigation Intent
 Top navigation should prioritize discoverability and conversion:
-- Home, Who I Am, Projects, Blog, About, Contact
+- Home, Who I Am, Projects, Blog, Contact
 - Who I Am and Contact navigate to Home anchors
 - Projects navigates to the dedicated /projects route
+
+## Theme Preference
+The site should support an accessible light/dark theme toggle so readers can choose their preferred reading mode.
+Theme preference should persist between visits and fall back to system preference when no user choice exists.
 
 ## Primary Goal
 Convert interested readers into direct contacts through a focused contact section.

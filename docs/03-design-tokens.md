@@ -15,8 +15,32 @@ Tailwind CSS v4 CSS-first theme tokens in global stylesheet.
 - --color-text: #e2e8f0
 - --color-text-muted: #64748b
 
+## Theme Model
+- Theme state is controlled with `html[data-theme="dark"]` and `html[data-theme="light"]`.
+- Role token names stay stable across themes; values change per theme.
+- Default theme should be resolved before paint to avoid flash of incorrect theme.
+
+## Dark Theme Color Mapping
+- --color-bg: #0a0f1e
+- --color-surface: #131929
+- --color-border: #1e2d4a
+- --color-accent-cyan: #22d3ee
+- --color-accent-purple: #a78bfa
+- --color-text: #e2e8f0
+- --color-text-muted: #64748b
+
+## Light Theme Color Mapping
+- --color-bg: #f8fafc
+- --color-surface: #ffffff
+- --color-border: #cbd5e1
+- --color-accent-cyan: #0e7490
+- --color-accent-purple: #7c3aed
+- --color-text: #0f172a
+- --color-text-muted: #475569
+
 ## Typography Tokens
 - --font-sans: Inter, sans-serif
+- --font-size-nav: 1.0625rem
 
 ## Rules
 - Keep high contrast between text and backgrounds.
