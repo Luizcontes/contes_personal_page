@@ -1,10 +1,14 @@
 # Deployment and Operations
 
 Status: Draft
-Last updated: 2026-04-16
+Last updated: 2026-04-17
 
 ## Deployment Target
 GitHub Pages via GitHub Actions workflow.
+
+## Routing Base Path
+- Astro base path is configured for root: /.
+- Do not set a repository subpath base in Astro config unless deployment target changes.
 
 ## Pipeline Outline
 1. Checkout repository
