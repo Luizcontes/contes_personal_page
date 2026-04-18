@@ -33,6 +33,9 @@ export const ui = {
 		'section.projects': 'Projects',
 		'section.recentPosts': 'Recent Posts',
 		'section.contact': 'Contact',
+		'contact.cta.email': 'Send Email',
+		'contact.mailto.subject': 'Contact from your personal website',
+		'contact.mailto.body': 'Hi Luiz,\n\nI found your website and would like to talk about...\n\nBest regards,\n',
 	},
 	'pt-br': {
 		'nav.menu': 'Menu',
@@ -60,6 +63,9 @@ export const ui = {
 		'section.projects': 'Projetos',
 		'section.recentPosts': 'Posts Recentes',
 		'section.contact': 'Contato',
+		'contact.cta.email': 'Enviar Email',
+		'contact.mailto.subject': 'Contato pelo seu site pessoal',
+		'contact.mailto.body': 'Oi Luiz,\n\nEncontrei seu site e gostaria de conversar sobre...\n\nAtenciosamente,\n',
 	},
 	es: {
 		'nav.menu': 'Menú',
@@ -87,5 +93,8 @@ export const ui = {
 		'section.projects': 'Proyectos',
 		'section.recentPosts': 'Publicaciones Recientes',
 		'section.contact': 'Contacto',
+		'contact.cta.email': 'Enviar Correo',
+		'contact.mailto.subject': 'Contacto desde tu sitio personal',
+		'contact.mailto.body': 'Hola Luiz,\n\nEncontré tu sitio y me gustaría hablar sobre...\n\nSaludos,\n',
 	},
 } as const;

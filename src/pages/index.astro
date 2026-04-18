@@ -8,6 +8,7 @@ import optionFlagPtBr from '../assets/icons/flags/br_4x3.svg?raw';
 import optionFlagEs from '../assets/icons/flags/es_4x3.svg?raw';
 import themeSun from '../assets/icons/theme/sun.svg?raw';
 import themeMoon from '../assets/icons/theme/moon.svg?raw';
+import ContactEmailCta from '../components/contact-email-cta.astro';
 ---
 
 <html lang="en">
@@ -143,9 +144,7 @@ import themeMoon from '../assets/icons/theme/moon.svg?raw';
 			<section id="blog" class="home-section">
 				<h2 data-i18n="section.recentPosts">Recent Posts</h2>
 			</section>
-			<section id="contact" class="home-section">
-				<h2 data-i18n="section.contact">Contact</h2>
-			</section>
+			<ContactEmailCta />
 		</main>
 		<script>
 			import { initHomePage } from '../scripts/home-page';

@@ -1,4 +1,5 @@
 import { ui, defaultLang } from '../i18n/ui';
+import { getContactMailtoHref } from '../i18n/utils';
 
 const dictionary = ui as Record<string, Record<string, string>>;
 const fallbackLocale = defaultLang;
@@ -71,6 +72,7 @@ export function initHomePage(): void {
 	const themeToggle = document.querySelector('.theme-toggle');
 	const langPicker = document.querySelector('.lang-picker');
 	const langOptions = document.querySelectorAll('.lang-picker-list [role="option"]');
+	const contactEmailLink = document.querySelector('[data-contact-email-link]');
 
 	const navLinks =
 		primaryNav instanceof HTMLElement
@@ -142,6 +144,12 @@ export function initHomePage(): void {
 		setActiveNavLink('/');
 	};
 
+	const updateContactMailtoHref = (locale: string) => {
+		if (contactEmailLink instanceof HTMLAnchorElement) {
+			contactEmailLink.href = getContactMailtoHref(locale);
+		}
+	};
+
 	syncActiveNavLink();
 	window.addEventListener('hashchange', syncActiveNavLink);
 
@@ -205,6 +213,7 @@ export function initHomePage(): void {
 
 	const initialLocale = getResolvedLocale(document.documentElement.lang || fallbackLocale);
 	applyTranslations(initialLocale, langPicker, langOptions);
+	updateContactMailtoHref(initialLocale);
 	document.documentElement.dataset.i18nReady = 'true';
 
 	if (langPicker instanceof HTMLButtonElement) {
@@ -223,6 +232,7 @@ export function initHomePage(): void {
 					const selectedLocale = option.dataset.lang ?? 'en';
 					localStorage.setItem('locale-preference', selectedLocale);
 					applyTranslations(selectedLocale, langPicker, langOptions);
+					updateContactMailtoHref(selectedLocale);
 					closeLangPanel();
 					langPicker.blur();
 				});

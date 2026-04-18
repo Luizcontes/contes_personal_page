@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 const homePage = readFileSync(resolve('src/pages/index.astro'), 'utf-8');
+const contactEmailCta = readFileSync(resolve('src/components/contact-email-cta.astro'), 'utf-8');
 const uiSource = readFileSync(resolve('src/i18n/ui.ts'), 'utf-8');
 const utilsSource = readFileSync(resolve('src/i18n/utils.ts'), 'utf-8');
 const homePageScript = readFileSync(resolve('src/scripts/home-page.ts'), 'utf-8');
@@ -23,6 +24,8 @@ describe('i18n ui dictionary contract', () => {
 		expect(uiSource).toContain('hero.support');
 		expect(uiSource).toContain('section.contact');
 		expect(uiSource).toContain('lang.option.pt-br');
+		expect(uiSource).toContain('contact.mailto.subject');
+		expect(uiSource).toContain('contact.mailto.body');
 	});
 });
 
@@ -30,6 +33,11 @@ describe('i18n utils contract', () => {
 	it('exports resolveLang and useTranslations from src/i18n/utils.ts', () => {
 		expect(utilsSource).toContain('export function resolveLang');
 		expect(utilsSource).toContain('export function useTranslations');
+	});
+
+	it('exports a helper to build localized contact mailto href', () => {
+		expect(utilsSource).toContain('export function getContactMailtoHref');
+		expect(utilsSource).toContain('encodeURIComponent');
 	});
 });
 
@@ -46,6 +54,17 @@ describe('language picker runtime contract', () => {
 		expect(homePage).toContain('data-i18n="nav.home"');
 		expect(homePage).toContain('data-i18n="hero.eyebrow"');
 		expect(homePage).toContain('data-i18n-aria-label="theme.label"');
+	});
+
+	it('renders a contact email link hook with a non-JS mailto fallback', () => {
+		expect(homePage).toContain("import ContactEmailCta from '../components/contact-email-cta.astro'");
+		expect(homePage).toContain('<ContactEmailCta />');
+		expect(contactEmailCta).toContain('id="contact"');
+		expect(contactEmailCta).toContain('data-i18n="section.contact"');
+		expect(contactEmailCta).toContain('data-contact-email-link');
+		expect(contactEmailCta).toContain('contactFallbackMailtoHref');
+		expect(contactEmailCta).toContain('mailto:');
+		expect(contactEmailCta).toContain('getContactMailtoHref(locale)');
 	});
 
 	it('applies in-page translations without navigating to another route', () => {
@@ -70,6 +89,11 @@ describe('language picker runtime contract', () => {
 		expect(homePageScript).toContain("['blog', '/#blog']");
 		expect(homePageScript).toContain("['contact', '/#contact']");
 		expect(homePageScript).toContain('const setActiveNavLink = (targetHref: string) =>');
+	});
+
+	it('updates contact mailto href when locale is initialized and changed', () => {
+		expect(homePageScript).toContain('updateContactMailtoHref(initialLocale');
+		expect(homePageScript).toContain('updateContactMailtoHref(selectedLocale');
 	});
 
 	it('lang picker is positioned before the theme toggle in markup', () => {
