@@ -23,10 +23,10 @@ describe('navigation contract', () => {
 		expect(homePage).toContain('href="/#who-i-am"');
 		expect(homePage).toContain('>Who I Am<');
 
-		expect(homePage).toContain('href="/projects"');
+		expect(homePage).toContain('href="/#projects"');
 		expect(homePage).toContain('>Projects<');
 
-		expect(homePage).toContain('href="/blog"');
+		expect(homePage).toContain('href="/#blog"');
 		expect(homePage).toContain('>Blog<');
 
 		expect(homePage).toContain('href="/#contact"');

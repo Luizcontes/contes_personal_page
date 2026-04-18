@@ -21,7 +21,7 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 		const heroIndex = homePage.indexOf('id="hero"');
 		const whoIAmIndex = homePage.indexOf('id="who-i-am"');
 		const projectsIndex = homePage.indexOf('id="projects"');
-		const recentPostsIndex = homePage.indexOf('id="recent-posts"');
+		const recentPostsIndex = homePage.indexOf('id="blog"');
 		const contactIndex = homePage.indexOf('id="contact"');
 
 		expect(heroIndex).toBeGreaterThan(-1);
