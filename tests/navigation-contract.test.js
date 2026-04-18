@@ -60,4 +60,14 @@ describe('navigation contract', () => {
 		expect(homeScript).toContain('if (nextOpen) {');
 		expect(homeScript).toContain('closeLangPanel();');
 	});
+
+	it('tracks active nav section while scrolling with IntersectionObserver', () => {
+		expect(homeScript).toContain('new IntersectionObserver(');
+		expect(homeScript).toContain("['hero', '/']");
+		expect(homeScript).toContain("['who-i-am', '/#who-i-am']");
+		expect(homeScript).toContain("['projects', '/#projects']");
+		expect(homeScript).toContain("['blog', '/#blog']");
+		expect(homeScript).toContain("['contact', '/#contact']");
+		expect(homeScript).toContain('observer.observe(section);');
+	});
 });

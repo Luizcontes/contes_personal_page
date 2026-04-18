@@ -62,6 +62,16 @@ describe('language picker runtime contract', () => {
 		expect(homePageScript).toContain('closeNavPanel();');
 	});
 
+	it('maps sections to nav targets for scroll-synced highlighting', () => {
+		expect(homePageScript).toContain('const sectionNavMap = new Map([');
+		expect(homePageScript).toContain("['hero', '/']");
+		expect(homePageScript).toContain("['who-i-am', '/#who-i-am']");
+		expect(homePageScript).toContain("['projects', '/#projects']");
+		expect(homePageScript).toContain("['blog', '/#blog']");
+		expect(homePageScript).toContain("['contact', '/#contact']");
+		expect(homePageScript).toContain('const setActiveNavLink = (targetHref: string) =>');
+	});
+
 	it('lang picker is positioned before the theme toggle in markup', () => {
 		const langPickerIndex = homePage.indexOf('lang-picker');
 		const themeToggleIndex = homePage.indexOf('theme-toggle');

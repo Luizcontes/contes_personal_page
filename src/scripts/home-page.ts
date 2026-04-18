@@ -78,6 +78,13 @@ export function initHomePage(): void {
 					(link) => link instanceof HTMLAnchorElement
 				)
 			: [];
+	const sectionNavMap = new Map([
+		['hero', '/'],
+		['who-i-am', '/#who-i-am'],
+		['projects', '/#projects'],
+		['blog', '/#blog'],
+		['contact', '/#contact'],
+	]);
 
 	const closeLangPanel = () => {
 		if (langPicker instanceof HTMLButtonElement) {
@@ -92,6 +99,33 @@ export function initHomePage(): void {
 		}
 	};
 
+	const setActiveNavLink = (targetHref: string) => {
+		if (!navLinks.length) {
+			return;
+		}
+
+		const resolvedTarget = new URL(targetHref, window.location.origin);
+		const targetPath = normalizePath(resolvedTarget.pathname);
+		const targetHash = resolvedTarget.hash;
+
+		const activeLink =
+			navLinks.find((link) => {
+				const parsedLink = new URL(link.href, window.location.origin);
+				return (
+					normalizePath(parsedLink.pathname) === targetPath && parsedLink.hash === targetHash
+				);
+			}) ?? null;
+
+		navLinks.forEach((link) => {
+			link.removeAttribute('aria-current');
+		});
+
+		if (activeLink) {
+			const currentType = targetHash ? 'location' : 'page';
+			activeLink.setAttribute('aria-current', currentType);
+		}
+	};
+
 	const syncActiveNavLink = () => {
 		if (!navLinks.length) {
 			return;
@@ -100,36 +134,60 @@ export function initHomePage(): void {
 		const currentPath = normalizePath(window.location.pathname);
 		const currentHash = window.location.hash;
 
-		let activeLink: HTMLAnchorElement | null = null;
-
 		if (currentPath === '/' && currentHash) {
-			activeLink =
-				navLinks.find((link) => {
-					const parsedLink = new URL(link.href, window.location.origin);
-					return normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === currentHash;
-				}) ?? null;
+			setActiveNavLink(`/${currentHash}`);
+			return;
 		}
 
-		if (!activeLink) {
-			activeLink =
-				navLinks.find((link) => {
-					const parsedLink = new URL(link.href, window.location.origin);
-					return normalizePath(parsedLink.pathname) === currentPath && parsedLink.hash === '';
-				}) ?? null;
-		}
-
-		navLinks.forEach((link) => {
-			link.removeAttribute('aria-current');
-		});
-
-		if (activeLink) {
-			const currentType = activeLink.hash ? 'location' : 'page';
-			activeLink.setAttribute('aria-current', currentType);
-		}
+		setActiveNavLink('/');
 	};
 
 	syncActiveNavLink();
 	window.addEventListener('hashchange', syncActiveNavLink);
+
+	if (navLinks.length && typeof IntersectionObserver !== 'undefined') {
+		const trackedSections = Array.from(sectionNavMap.keys())
+			.map((sectionId) => document.querySelector(`#${sectionId}`))
+			.filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+		let activeSectionId = '';
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const visibleEntries = entries
+					.filter((entry) => entry.isIntersecting)
+					.sort((left, right) => {
+						if (right.intersectionRatio !== left.intersectionRatio) {
+							return right.intersectionRatio - left.intersectionRatio;
+						}
+						return Math.abs(left.boundingClientRect.top) - Math.abs(right.boundingClientRect.top);
+					});
+
+				const nextSection = visibleEntries[0]?.target;
+				if (!(nextSection instanceof HTMLElement) || !nextSection.id) {
+					return;
+				}
+
+				if (nextSection.id === activeSectionId) {
+					return;
+				}
+
+				activeSectionId = nextSection.id;
+				const targetHref = sectionNavMap.get(activeSectionId);
+				if (targetHref) {
+					setActiveNavLink(targetHref);
+				}
+			},
+			{
+				rootMargin: '-64px 0px -45% 0px',
+				threshold: [0.25, 0.5, 0.75],
+			}
+		);
+
+		trackedSections.forEach((section) => {
+			observer.observe(section);
+		});
+	}
 
 	if (themeToggle instanceof HTMLButtonElement) {
 		const initialTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
