@@ -56,6 +56,12 @@ describe('language picker runtime contract', () => {
 		expect(homePageScript).not.toContain('window.location.href =');
 	});
 
+	it('closes nav panel before opening language panel', () => {
+		expect(homePageScript).toContain('const closeNavPanel = () =>');
+		expect(homePageScript).toContain('if (!isOpen) {');
+		expect(homePageScript).toContain('closeNavPanel();');
+	});
+
 	it('lang picker is positioned before the theme toggle in markup', () => {
 		const langPickerIndex = homePage.indexOf('lang-picker');
 		const themeToggleIndex = homePage.indexOf('theme-toggle');

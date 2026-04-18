@@ -54,4 +54,10 @@ describe('navigation contract', () => {
 		expect(homeScript).toContain('navToggle.setAttribute(\'aria-expanded\', String(nextOpen))');
 		expect(homeScript).toContain('siteHeader.dataset.navOpen = String(nextOpen)');
 	});
+
+	it('closes language panel before opening mobile navigation panel', () => {
+		expect(homeScript).toContain('const closeLangPanel = () =>');
+		expect(homeScript).toContain('if (nextOpen) {');
+		expect(homeScript).toContain('closeLangPanel();');
+	});
 });

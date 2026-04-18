@@ -79,6 +79,19 @@ export function initHomePage(): void {
 				)
 			: [];
 
+	const closeLangPanel = () => {
+		if (langPicker instanceof HTMLButtonElement) {
+			langPicker.setAttribute('aria-expanded', 'false');
+		}
+	};
+
+	const closeNavPanel = () => {
+		if (siteHeader instanceof HTMLElement && navToggle instanceof HTMLButtonElement) {
+			siteHeader.dataset.navOpen = 'false';
+			navToggle.setAttribute('aria-expanded', 'false');
+		}
+	};
+
 	const syncActiveNavLink = () => {
 		if (!navLinks.length) {
 			return;
@@ -139,6 +152,9 @@ export function initHomePage(): void {
 	if (langPicker instanceof HTMLButtonElement) {
 		langPicker.addEventListener('click', () => {
 			const isOpen = langPicker.getAttribute('aria-expanded') === 'true';
+			if (!isOpen) {
+				closeNavPanel();
+			}
 			langPicker.setAttribute('aria-expanded', String(!isOpen));
 		});
 
@@ -149,7 +165,7 @@ export function initHomePage(): void {
 					const selectedLocale = option.dataset.lang ?? 'en';
 					localStorage.setItem('locale-preference', selectedLocale);
 					applyTranslations(selectedLocale, langPicker, langOptions);
-					langPicker.setAttribute('aria-expanded', 'false');
+					closeLangPanel();
 					langPicker.blur();
 				});
 			}
@@ -158,13 +174,14 @@ export function initHomePage(): void {
 		document.addEventListener('click', (event) => {
 			const targetNode = event.target;
 			if (targetNode instanceof Node && !langPicker.contains(targetNode)) {
-				langPicker.setAttribute('aria-expanded', 'false');
+				closeLangPanel();
 			}
 		});
 
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				langPicker.setAttribute('aria-expanded', 'false');
+				closeLangPanel();
+				closeNavPanel();
 				langPicker.blur();
 			}
 		});
@@ -178,6 +195,9 @@ export function initHomePage(): void {
 		navToggle.addEventListener('click', () => {
 			const isOpen = siteHeader.dataset.navOpen === 'true';
 			const nextOpen = !isOpen;
+			if (nextOpen) {
+				closeLangPanel();
+			}
 			siteHeader.dataset.navOpen = String(nextOpen);
 			navToggle.setAttribute('aria-expanded', String(nextOpen));
 			navToggle.blur();
@@ -208,15 +228,13 @@ export function initHomePage(): void {
 					}
 				}
 
-				siteHeader.dataset.navOpen = 'false';
-				navToggle.setAttribute('aria-expanded', 'false');
+				closeNavPanel();
 			}
 		});
 
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				siteHeader.dataset.navOpen = 'false';
-				navToggle.setAttribute('aria-expanded', 'false');
+				closeNavPanel();
 			}
 		});
 	}
