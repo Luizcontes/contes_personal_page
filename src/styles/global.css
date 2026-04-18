@@ -184,7 +184,8 @@ a {
 	display: none;
 	position: absolute;
 	top: calc(100% + var(--space-2));
-	right: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	background-color: var(--color-surface);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-md);
@@ -213,6 +214,10 @@ a {
 .lang-picker-list li:hover,
 .lang-picker-list li[aria-selected="true"] {
 	background-color: color-mix(in srgb, var(--color-accent-cyan) 12%, transparent);
+}
+
+.lang-picker-list li[aria-selected="true"] {
+	display: none;
 }
 
 .lang-option-flag {
