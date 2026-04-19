@@ -10,9 +10,12 @@ interface Props {
 const { locale = defaultLang } = Astro.props;
 ---
 
-<footer class="site-footer">
-	<div class="footer-content">
-		<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
-		<SendEmailButton locale={locale} />
-	</div>
+<footer class="site-footer" data-sticky="false">
+	<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
+	<SendEmailButton locale={locale} />
 </footer>
+
+<script>
+	import { initFooterRuntime } from './footerRuntime';
+	initFooterRuntime();
+</script>
