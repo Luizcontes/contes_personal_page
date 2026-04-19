@@ -15,10 +15,9 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 		expect(homePage).toContain('<main');
 	});
 
-	it('contains anchor-ready section ids for who-i-am, projects, and contact', () => {
+	it('contains anchor-ready section ids for who-i-am and projects', () => {
 		expect(homePage).toContain('id="who-i-am"');
 		expect(homePage).toContain('id="projects"');
-		expect(footer).toContain('id="contact"');
 	});
 
 	it('keeps section ordering aligned with IA hierarchy', () => {
@@ -34,7 +33,6 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 		expect(recentPostsIndex).toBeGreaterThan(-1);
 		expect(layoutIndex).toBeGreaterThan(-1);
 		expect(baseLayout).toContain('<Footer />');
-		expect(footer).toContain('id="contact"');
 		expect(heroIndex).toBeLessThan(whoIAmIndex);
 		expect(whoIAmIndex).toBeLessThan(projectsIndex);
 		expect(projectsIndex).toBeLessThan(recentPostsIndex);

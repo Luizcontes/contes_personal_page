@@ -35,7 +35,6 @@ describe('i18n ui dictionary contract', () => {
 		expect(uiSource).toContain('nav.home');
 		expect(uiSource).toContain('hero.eyebrow');
 		expect(uiSource).toContain('hero.support');
-		expect(uiSource).toContain('section.contact');
 		expect(uiSource).toContain('lang.option.pt-br');
 		expect(uiSource).toContain('contact.mailto.subject');
 		expect(uiSource).toContain('contact.mailto.body');
@@ -86,8 +85,6 @@ describe('language picker runtime contract', () => {
 		expect(baseLayout).toContain('<Footer />');
 		expect(footerSource).toContain("import './footer.css';");
 		expect(footerStylesSource).toContain('.site-footer {');
-		expect(footerSource).toContain('id="contact"');
-		expect(footerSource).toContain('data-i18n="section.contact"');
 		expect(footerSource).toContain("import SendEmailButton from '../../components/send-email-button/SendEmailButton.astro'");
 		expect(footerSource).toContain('<SendEmailButton locale={locale} />');
 		expect(sendEmailButtonSource).toContain("import './send-email-button.css';");

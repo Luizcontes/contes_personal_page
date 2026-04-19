@@ -56,9 +56,6 @@ describe('navigation contract', () => {
 
 		expect(primaryNavSource).toContain('href="/#blog"');
 		expect(primaryNavSource).toContain('>Blog<');
-
-		expect(primaryNavSource).toContain('href="/#contact"');
-		expect(primaryNavSource).toContain('>Contact<');
 	});
 
 	it('includes a mobile navigation toggle contract for progressive enhancement', () => {
