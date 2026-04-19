@@ -62,12 +62,14 @@ const applyTranslations = (locale: string, langPicker: Element | null, langOptio
 };
 
 export function initHomePage(): void {
-	const contactEmailLink = document.querySelector('[data-contact-email-link]');
+	const contactEmailLinks = document.querySelectorAll('[data-contact-email-link]');
 
 	const updateContactMailtoHref = (locale: string) => {
-		if (contactEmailLink instanceof HTMLAnchorElement) {
-			contactEmailLink.href = getContactMailtoHref(locale);
-		}
+		contactEmailLinks.forEach((link) => {
+			if (link instanceof HTMLAnchorElement) {
+				link.href = getContactMailtoHref(locale);
+			}
+		});
 	};
 
 	initHeaderRuntime({
