@@ -1,0 +1,16 @@
+---
+import './header.css';
+import PrimaryNav from '../../components/menu/PrimaryNav.astro';
+import LanguagePicker from '../../components/language-picker/LanguagePicker.astro';
+import ThemeToggle from '../../components/theme/ThemeToggle.astro';
+---
+
+<header class="site-header" data-nav-open="false">
+	<div class="site-header-inner">
+		<PrimaryNav />
+		<div class="header-controls">
+			<LanguagePicker />
+			<ThemeToggle />
+		</div>
+	</div>
+</header>

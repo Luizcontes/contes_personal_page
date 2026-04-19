@@ -5,10 +5,12 @@ import { describe, expect, it } from 'vitest';
 const rootDir = process.cwd();
 const homePagePath = resolve(rootDir, 'src/pages/index.astro');
 const homePage = readFileSync(homePagePath, 'utf8');
+const baseLayoutPath = resolve(rootDir, 'src/layouts/BaseLayout.astro');
+const baseLayout = readFileSync(baseLayoutPath, 'utf8');
 
 describe('home page token adoption', () => {
 	it('imports the global stylesheet for token-driven styling', () => {
-		expect(homePage).toContain("import '../styles/global.css';");
+		expect(baseLayout).toContain("import '../styles/global.css';");
 	});
 
 	it('does not hardcode approved theme colors in the page source', () => {

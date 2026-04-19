@@ -1,0 +1,42 @@
+---
+import './language-picker.css';
+import flagEn from '../../assets/icons/flags/gb_1x1.svg?raw';
+import flagPtBr from '../../assets/icons/flags/br_1x1.svg?raw';
+import flagEs from '../../assets/icons/flags/es_1x1.svg?raw';
+import optionFlagEn from '../../assets/icons/flags/gb_4x3.svg?raw';
+import optionFlagPtBr from '../../assets/icons/flags/br_4x3.svg?raw';
+import optionFlagEs from '../../assets/icons/flags/es_4x3.svg?raw';
+---
+
+<button
+	type="button"
+	class="lang-picker"
+	aria-label="Select language"
+	aria-haspopup="listbox"
+	aria-expanded="false"
+	data-i18n-aria-label="lang.pickerLabel"
+	data-lang="en"
+>
+	<span class="lang-picker-icon-wrap" aria-hidden="true">
+		<span class="lang-flag lang-flag-en">
+			<Fragment set:html={flagEn} />
+		</span>
+		<span class="lang-flag lang-flag-pt-br">
+			<Fragment set:html={flagPtBr} />
+		</span>
+		<span class="lang-flag lang-flag-es">
+			<Fragment set:html={flagEs} />
+		</span>
+	</span>
+	<ul class="lang-picker-list" role="listbox" aria-label="Select language" data-i18n-aria-label="lang.pickerLabel">
+		<li role="option" data-lang="en" aria-selected="true" data-i18n-aria-label="lang.option.en">
+			<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEn} /></span>
+		</li>
+		<li role="option" data-lang="pt-br" aria-selected="false" data-i18n-aria-label="lang.option.pt-br">
+			<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagPtBr} /></span>
+		</li>
+		<li role="option" data-lang="es" aria-selected="false" data-i18n-aria-label="lang.option.es">
+			<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEs} /></span>
+		</li>
+	</ul>
+</button>

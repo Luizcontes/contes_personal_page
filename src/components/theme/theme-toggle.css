@@ -1,0 +1,69 @@
+.theme-toggle {
+	border: 1px solid var(--color-border);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	border-radius: var(--radius-pill);
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	transition:
+		box-shadow var(--duration-base) var(--ease-standard),
+		border-color var(--duration-base) var(--ease-standard),
+		background-color var(--duration-base) var(--ease-standard);
+	position: relative;
+	overflow: hidden;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+	box-shadow: var(--shadow-glow-cyan);
+}
+
+.theme-toggle-icon-wrap {
+	position: relative;
+	width: 1.25rem;
+	height: 1.25rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.theme-icon {
+	position: absolute;
+	inset: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition:
+		opacity var(--duration-base) var(--ease-standard),
+		transform var(--duration-base) var(--ease-standard);
+}
+
+.theme-icon svg {
+	width: 100%;
+	height: 100%;
+	fill: currentColor;
+}
+
+.theme-icon-sun {
+	color: var(--color-accent-cyan);
+}
+
+.theme-icon-moon {
+	color: var(--color-accent-purple);
+	opacity: 0;
+	transform: rotate(45deg) scale(0.8);
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+	opacity: 0;
+	transform: rotate(-45deg) scale(0.8);
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+	opacity: 1;
+	transform: rotate(0deg) scale(1);
+}

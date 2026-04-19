@@ -1,0 +1,18 @@
+---
+import './footer.css';
+import { defaultLang } from '../../i18n/ui';
+import SendEmailButton from '../../components/send-email-button/SendEmailButton.astro';
+
+interface Props {
+	locale?: string;
+}
+
+const { locale = defaultLang } = Astro.props;
+---
+
+<footer class="site-footer">
+	<section id="contact" class="home-section">
+		<h2 data-i18n="section.contact">Contact</h2>
+		<SendEmailButton locale={locale} />
+	</section>
+</footer>

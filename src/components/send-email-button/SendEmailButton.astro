@@ -1,0 +1,23 @@
+---
+import './send-email-button.css';
+import { getSendEmailButtonState } from './sendEmailButton';
+
+interface Props {
+	locale?: string;
+	className?: string;
+}
+
+const { locale, className } = Astro.props;
+const { className: resolvedClassName, contactFallbackMailtoHref, contactMailtoHref } =
+	getSendEmailButtonState(locale, className);
+---
+
+<a
+	class={resolvedClassName}
+	href={contactMailtoHref}
+	data-contact-email-link
+	data-contact-fallback-mailto={contactFallbackMailtoHref}
+	data-i18n="contact.cta.email"
+>
+	Send Email
+</a>

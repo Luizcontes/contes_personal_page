@@ -1,0 +1,23 @@
+---
+import './theme-toggle.css';
+import themeSun from '../../assets/icons/theme/sun.svg?raw';
+import themeMoon from '../../assets/icons/theme/moon.svg?raw';
+---
+
+<button
+	type="button"
+	class="theme-toggle"
+	aria-pressed="false"
+	aria-label="Toggle color theme"
+	data-i18n-aria-label="theme.label"
+>
+	<span class="sr-only" data-i18n="theme.label">Toggle color theme</span>
+	<span class="theme-toggle-icon-wrap" aria-hidden="true">
+		<span class="theme-icon theme-icon-sun">
+			<Fragment set:html={themeSun} />
+		</span>
+		<span class="theme-icon theme-icon-moon">
+			<Fragment set:html={themeMoon} />
+		</span>
+	</span>
+</button>

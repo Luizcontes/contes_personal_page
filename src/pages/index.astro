@@ -1,128 +1,9 @@
 ---
-import '../styles/global.css';
-import flagEn from '../assets/icons/flags/gb_1x1.svg?raw';
-import flagPtBr from '../assets/icons/flags/br_1x1.svg?raw';
-import flagEs from '../assets/icons/flags/es_1x1.svg?raw';
-import optionFlagEn from '../assets/icons/flags/gb_4x3.svg?raw';
-import optionFlagPtBr from '../assets/icons/flags/br_4x3.svg?raw';
-import optionFlagEs from '../assets/icons/flags/es_4x3.svg?raw';
-import themeSun from '../assets/icons/theme/sun.svg?raw';
-import themeMoon from '../assets/icons/theme/moon.svg?raw';
-import ContactEmailCta from '../components/contact-email-cta.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
 
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-		<script is:inline>
-			document.documentElement.dataset.i18nReady = 'false';
-
-			const storedTheme = localStorage.getItem('theme-preference');
-			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const resolvedTheme = storedTheme === 'light' || storedTheme === 'dark'
-				? storedTheme
-				: prefersDark
-					? 'dark'
-					: 'light';
-			document.documentElement.dataset.theme = resolvedTheme;
-
-			const supportedLocales = ['en', 'pt-br', 'es'];
-			const storedLocale = localStorage.getItem('locale-preference');
-			const browserLang = navigator.language?.toLowerCase() ?? '';
-			const browserLocale = supportedLocales.find(
-				(l) => browserLang === l || browserLang.startsWith(l.split('-')[0])
-			);
-			const resolvedLocale =
-				supportedLocales.includes(storedLocale ?? '')
-					? storedLocale
-					: browserLocale ?? 'en';
-			document.documentElement.lang = resolvedLocale;
-		</script>
-	</head>
-	<body>
-		<header class="site-header" data-nav-open="false">
-			<div class="site-header-inner">
-				<button
-					type="button"
-					class="nav-toggle"
-					aria-expanded="false"
-					aria-controls="primary-nav"
-				>
-					<span class="sr-only" data-i18n="nav.menu">Menu</span>
-					<span class="nav-toggle-icon" aria-hidden="true">
-						<span class="nav-toggle-bar"></span>
-						<span class="nav-toggle-bar"></span>
-						<span class="nav-toggle-bar"></span>
-					</span>
-				</button>
-				<nav id="primary-nav" aria-label="Primary" class="primary-nav" data-i18n-aria-label="nav.primaryAria">
-					<ul class="primary-nav-list">
-						<li><a href="/" data-i18n="nav.home">Home</a></li>
-						<li><a href="/#who-i-am" data-i18n="nav.whoIAm">Who I Am</a></li>
-						<li><a href="/#projects" data-i18n="nav.projects">Projects</a></li>
-						<li><a href="/#blog" data-i18n="nav.blog">Blog</a></li>
-						<li><a href="/#contact" data-i18n="nav.contact">Contact</a></li>
-					</ul>
-				</nav>
-				<div class="header-controls">
-					<button
-						type="button"
-						class="lang-picker"
-						aria-label="Select language"
-						aria-haspopup="listbox"
-						aria-expanded="false"
-						data-i18n-aria-label="lang.pickerLabel"
-						data-lang="en"
-					>
-						<span class="lang-picker-icon-wrap" aria-hidden="true">
-							<span class="lang-flag lang-flag-en">
-								<Fragment set:html={flagEn} />
-							</span>
-							<span class="lang-flag lang-flag-pt-br">
-								<Fragment set:html={flagPtBr} />
-							</span>
-							<span class="lang-flag lang-flag-es">
-								<Fragment set:html={flagEs} />
-							</span>
-						</span>
-						<ul class="lang-picker-list" role="listbox" aria-label="Select language" data-i18n-aria-label="lang.pickerLabel">
-							<li role="option" data-lang="en" aria-selected="true" data-i18n-aria-label="lang.option.en">
-								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEn} /></span>
-							</li>
-							<li role="option" data-lang="pt-br" aria-selected="false" data-i18n-aria-label="lang.option.pt-br">
-								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagPtBr} /></span>
-							</li>
-							<li role="option" data-lang="es" aria-selected="false" data-i18n-aria-label="lang.option.es">
-								<span class="lang-option-flag" aria-hidden="true"><Fragment set:html={optionFlagEs} /></span>
-							</li>
-						</ul>
-					</button>
-					<button
-						type="button"
-						class="theme-toggle"
-						aria-pressed="false"
-						aria-label="Toggle color theme"
-						data-i18n-aria-label="theme.label"
-					>
-					<span class="sr-only" data-i18n="theme.label">Toggle color theme</span>
-					<span class="theme-toggle-icon-wrap" aria-hidden="true">
-						<span class="theme-icon theme-icon-sun">
-							<Fragment set:html={themeSun} />
-						</span>
-						<span class="theme-icon theme-icon-moon">
-							<Fragment set:html={themeMoon} />
-						</span>
-					</span>
-					</button>
-				</div>
-			</div>
-		</header>
+<BaseLayout title="Luiz Contes">
 		<main class="home-shell">
 			<section id="hero" class="home-section hero-section">
 				<p class="hero-eyebrow" data-i18n="hero.eyebrow">Software Engineer and Builder</p>
@@ -144,11 +25,9 @@ import ContactEmailCta from '../components/contact-email-cta.astro';
 			<section id="blog" class="home-section">
 				<h2 data-i18n="section.recentPosts">Recent Posts</h2>
 			</section>
-			<ContactEmailCta />
 		</main>
 		<script>
 			import { initHomePage } from '../scripts/home-page';
 			initHomePage();
 		</script>
-	</body>
-</html>
+</BaseLayout>

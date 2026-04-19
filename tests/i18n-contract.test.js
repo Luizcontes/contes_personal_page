@@ -3,10 +3,23 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 const homePage = readFileSync(resolve('src/pages/index.astro'), 'utf-8');
-const contactEmailCta = readFileSync(resolve('src/components/contact-email-cta.astro'), 'utf-8');
+const baseLayout = readFileSync(resolve('src/layouts/BaseLayout.astro'), 'utf-8');
+const headerSource = readFileSync(resolve('src/layouts/header/Header.astro'), 'utf-8');
+const primaryNavSource = readFileSync(resolve('src/components/menu/PrimaryNav.astro'), 'utf-8');
+const primaryNavRuntimeSource = readFileSync(resolve('src/components/menu/primaryNavRuntime.ts'), 'utf-8');
+const languagePickerSource = readFileSync(resolve('src/components/language-picker/LanguagePicker.astro'), 'utf-8');
+const languagePickerStylesSource = readFileSync(resolve('src/components/language-picker/language-picker.css'), 'utf-8');
+const languagePickerRuntimeSource = readFileSync(resolve('src/components/language-picker/languagePickerRuntime.ts'), 'utf-8');
+const themeToggleSource = readFileSync(resolve('src/components/theme/ThemeToggle.astro'), 'utf-8');
+const footerSource = readFileSync(resolve('src/layouts/footer/Footer.astro'), 'utf-8');
+const footerStylesSource = readFileSync(resolve('src/layouts/footer/footer.css'), 'utf-8');
+const sendEmailButtonSource = readFileSync(resolve('src/components/send-email-button/SendEmailButton.astro'), 'utf-8');
+const sendEmailButtonStylesSource = readFileSync(resolve('src/components/send-email-button/send-email-button.css'), 'utf-8');
+const sendEmailButtonScriptSource = readFileSync(resolve('src/components/send-email-button/sendEmailButton.ts'), 'utf-8');
 const uiSource = readFileSync(resolve('src/i18n/ui.ts'), 'utf-8');
 const utilsSource = readFileSync(resolve('src/i18n/utils.ts'), 'utf-8');
 const homePageScript = readFileSync(resolve('src/scripts/home-page.ts'), 'utf-8');
+const headerRuntimeSource = readFileSync(resolve('src/layouts/header/headerRuntime.ts'), 'utf-8');
 
 describe('i18n ui dictionary contract', () => {
 	it('exports languages, defaultLang, and ui from src/i18n/ui.ts', () => {
@@ -43,64 +56,87 @@ describe('i18n utils contract', () => {
 
 describe('i18n bootstrap contract', () => {
 	it('includes a pre-paint locale bootstrap script that checks localStorage and navigator.language', () => {
-		expect(homePage).toContain("localStorage.getItem('locale-preference')");
-		expect(homePage).toContain('navigator.language');
-		expect(homePage).toContain('document.documentElement.lang');
+		expect(baseLayout).toContain("localStorage.getItem('locale-preference')");
+		expect(baseLayout).toContain('navigator.language');
+		expect(baseLayout).toContain('document.documentElement.lang');
 	});
 });
 
 describe('language picker runtime contract', () => {
 	it('renders translation hooks in markup for text and aria labels', () => {
-		expect(homePage).toContain('data-i18n="nav.home"');
+		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(baseLayout).toContain("import Header from './header/Header.astro'");
+		expect(baseLayout).toContain('<Header />');
+		expect(headerSource).toContain("import PrimaryNav from '../../components/menu/PrimaryNav.astro'");
+		expect(headerSource).toContain("import LanguagePicker from '../../components/language-picker/LanguagePicker.astro'");
+		expect(languagePickerSource).toContain("import './language-picker.css';");
+		expect(languagePickerStylesSource).toContain('.lang-picker {');
+		expect(languagePickerStylesSource).toContain('.lang-picker-list {');
+		expect(languagePickerSource).toContain('data-i18n-aria-label="lang.pickerLabel"');
+		expect(primaryNavSource).toContain('data-i18n="nav.home"');
 		expect(homePage).toContain('data-i18n="hero.eyebrow"');
-		expect(homePage).toContain('data-i18n-aria-label="theme.label"');
+		expect(headerSource).toContain("import ThemeToggle from '../../components/theme/ThemeToggle.astro'");
+		expect(headerSource).toContain('<ThemeToggle />');
+		expect(themeToggleSource).toContain('data-i18n-aria-label="theme.label"');
 	});
 
 	it('renders a contact email link hook with a non-JS mailto fallback', () => {
-		expect(homePage).toContain("import ContactEmailCta from '../components/contact-email-cta.astro'");
-		expect(homePage).toContain('<ContactEmailCta />');
-		expect(contactEmailCta).toContain('id="contact"');
-		expect(contactEmailCta).toContain('data-i18n="section.contact"');
-		expect(contactEmailCta).toContain('data-contact-email-link');
-		expect(contactEmailCta).toContain('contactFallbackMailtoHref');
-		expect(contactEmailCta).toContain('mailto:');
-		expect(contactEmailCta).toContain('getContactMailtoHref(locale)');
+		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(baseLayout).toContain("import Footer from './footer/Footer.astro'");
+		expect(baseLayout).toContain('<Footer />');
+		expect(footerSource).toContain("import './footer.css';");
+		expect(footerStylesSource).toContain('.site-footer {');
+		expect(footerSource).toContain('id="contact"');
+		expect(footerSource).toContain('data-i18n="section.contact"');
+		expect(footerSource).toContain("import SendEmailButton from '../../components/send-email-button/SendEmailButton.astro'");
+		expect(footerSource).toContain('<SendEmailButton locale={locale} />');
+		expect(sendEmailButtonSource).toContain("import './send-email-button.css';");
+		expect(sendEmailButtonSource).toContain("import { getSendEmailButtonState } from './sendEmailButton'");
+		expect(sendEmailButtonStylesSource).toContain('.send-email-button {');
+		expect(sendEmailButtonSource).toContain('data-contact-email-link');
+		expect(sendEmailButtonSource).toContain('contactFallbackMailtoHref');
+		expect(sendEmailButtonScriptSource).toContain('export function getSendEmailButtonState');
+		expect(sendEmailButtonScriptSource).toContain("'send-email-button'");
+		expect(sendEmailButtonScriptSource).toContain('mailto:');
+		expect(sendEmailButtonScriptSource).toContain('getContactMailtoHref(resolvedLocale)');
 	});
 
 	it('applies in-page translations without navigating to another route', () => {
 		expect(homePage).toContain("import { initHomePage } from '../scripts/home-page'");
 		expect(homePage).toContain('initHomePage()');
 		expect(homePageScript).toContain('const applyTranslations = (locale: string');
-		expect(homePageScript).toContain('applyTranslations(selectedLocale');
+		expect(homePageScript).toContain('initHeaderRuntime({');
+		expect(languagePickerRuntimeSource).toContain('applyTranslations(selectedLocale');
 		expect(homePageScript).not.toContain('window.location.href =');
 	});
 
 	it('closes nav panel before opening language panel', () => {
-		expect(homePageScript).toContain('const closeNavPanel = () =>');
-		expect(homePageScript).toContain('if (!isOpen) {');
-		expect(homePageScript).toContain('closeNavPanel();');
+		expect(languagePickerRuntimeSource).toContain('if (!isOpen) {');
+		expect(languagePickerRuntimeSource).toContain('closeNavPanel();');
+		expect(languagePickerSource).toContain('class="lang-picker"');
 	});
 
 	it('maps sections to nav targets for scroll-synced highlighting', () => {
-		expect(homePageScript).toContain('const sectionNavMap = new Map([');
-		expect(homePageScript).toContain("['hero', '/']");
-		expect(homePageScript).toContain("['who-i-am', '/#who-i-am']");
-		expect(homePageScript).toContain("['projects', '/#projects']");
-		expect(homePageScript).toContain("['blog', '/#blog']");
-		expect(homePageScript).toContain("['contact', '/#contact']");
-		expect(homePageScript).toContain('const setActiveNavLink = (targetHref: string) =>');
+		expect(primaryNavRuntimeSource).toContain('const sectionNavMap = new Map([');
+		expect(primaryNavRuntimeSource).toContain("['hero', '/']");
+		expect(primaryNavRuntimeSource).toContain("['who-i-am', '/#who-i-am']");
+		expect(primaryNavRuntimeSource).toContain("['projects', '/#projects']");
+		expect(primaryNavRuntimeSource).toContain("['blog', '/#blog']");
+		expect(primaryNavRuntimeSource).toContain("['contact', '/#contact']");
+		expect(primaryNavRuntimeSource).toContain('const setActiveNavLink = (targetHref: string) =>');
 	});
 
 	it('updates contact mailto href when locale is initialized and changed', () => {
-		expect(homePageScript).toContain('updateContactMailtoHref(initialLocale');
-		expect(homePageScript).toContain('updateContactMailtoHref(selectedLocale');
+		expect(headerRuntimeSource).toContain('updateContactMailtoHref(initialLocale');
+		expect(languagePickerRuntimeSource).toContain('updateContactMailtoHref(selectedLocale');
 	});
 
 	it('lang picker is positioned before the theme toggle in markup', () => {
-		const langPickerIndex = homePage.indexOf('lang-picker');
-		const themeToggleIndex = homePage.indexOf('theme-toggle');
-		expect(langPickerIndex).toBeGreaterThan(-1);
-		expect(themeToggleIndex).toBeGreaterThan(-1);
-		expect(langPickerIndex).toBeLessThan(themeToggleIndex);
+		const languagePickerComponentIndex = headerSource.indexOf('<LanguagePicker />');
+		const themeToggleComponentIndex = headerSource.indexOf('<ThemeToggle />');
+		expect(languagePickerComponentIndex).toBeGreaterThan(-1);
+		expect(themeToggleComponentIndex).toBeGreaterThan(-1);
+		expect(languagePickerComponentIndex).toBeLessThan(themeToggleComponentIndex);
+		expect(languagePickerSource).toContain('class="lang-picker"');
 	});
 });

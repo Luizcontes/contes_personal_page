@@ -1,0 +1,11 @@
+.site-footer {
+	width: min(100% - var(--space-8), 72rem);
+	margin: 0 auto;
+	padding-bottom: var(--space-12);
+}
+
+@media (min-width: 48rem) {
+	.site-footer {
+		padding-bottom: var(--space-16);
+	}
+}

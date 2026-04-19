@@ -3,10 +3,10 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const rootDir = process.cwd();
-const homePagePath = resolve(rootDir, 'src/pages/index.astro');
+const baseLayoutPath = resolve(rootDir, 'src/layouts/BaseLayout.astro');
 const globalStylesPath = resolve(rootDir, 'src/styles/global.css');
 
-const homePage = readFileSync(homePagePath, 'utf8');
+const baseLayout = readFileSync(baseLayoutPath, 'utf8');
 const globalStyles = readFileSync(globalStylesPath, 'utf8');
 
 describe('theme contract', () => {
@@ -18,8 +18,8 @@ describe('theme contract', () => {
 	});
 
 	it('includes a pre-paint theme bootstrap in the document head', () => {
-		expect(homePage).toContain('const storedTheme = localStorage.getItem(\'theme-preference\')');
-		expect(homePage).toContain('window.matchMedia(\'(prefers-color-scheme: dark)\')');
-		expect(homePage).toContain('document.documentElement.dataset.theme = resolvedTheme');
+		expect(baseLayout).toContain('const storedTheme = localStorage.getItem(\'theme-preference\')');
+		expect(baseLayout).toContain('window.matchMedia(\'(prefers-color-scheme: dark)\')');
+		expect(baseLayout).toContain('document.documentElement.dataset.theme = resolvedTheme');
 	});
 });

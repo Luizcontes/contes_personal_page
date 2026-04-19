@@ -1,0 +1,114 @@
+.lang-picker {
+	border: 1px solid var(--color-border);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	border-radius: var(--radius-pill);
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	font: inherit;
+	font-size: var(--font-size-nav);
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		box-shadow var(--duration-base) var(--ease-standard),
+		border-color var(--duration-base) var(--ease-standard),
+		background-color var(--duration-base) var(--ease-standard);
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lang-picker:hover,
+.lang-picker:focus-visible {
+	box-shadow: var(--shadow-glow-cyan);
+}
+
+.lang-picker-icon-wrap {
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: inherit;
+	overflow: hidden;
+}
+
+.lang-flag {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	inset: 0;
+	align-items: center;
+	justify-content: center;
+}
+
+.lang-flag svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.lang-picker[data-lang="en"] .lang-flag-en,
+.lang-picker[data-lang="pt-br"] .lang-flag-pt-br,
+.lang-picker[data-lang="es"] .lang-flag-es {
+	display: inline-flex;
+}
+
+.lang-picker-list {
+	display: none;
+	position: absolute;
+	top: calc(100% + var(--space-2));
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+	list-style: none;
+	padding: var(--space-2);
+	margin: 0;
+	min-width: 0;
+	z-index: 20;
+}
+
+.lang-picker[aria-expanded="true"] .lang-picker-list {
+	display: block;
+}
+
+.lang-picker-list li {
+	padding: var(--space-1);
+	cursor: pointer;
+	white-space: nowrap;
+	font-size: 0;
+	line-height: 0;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.lang-picker-list li:hover,
+.lang-picker-list li[aria-selected="true"] {
+	background-color: color-mix(in srgb, var(--color-accent-cyan) 12%, transparent);
+}
+
+.lang-picker-list li[aria-selected="true"] {
+	display: none;
+}
+
+.lang-option-flag {
+	display: inline-flex;
+	width: 2rem;
+	height: 1.5rem;
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+}
+
+.lang-option-flag svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
