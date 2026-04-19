@@ -11,5 +11,8 @@ const { locale = defaultLang } = Astro.props;
 ---
 
 <footer class="site-footer">
-	<SendEmailButton locale={locale} />
+	<div class="footer-content">
+		<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
+		<SendEmailButton locale={locale} />
+	</div>
 </footer>

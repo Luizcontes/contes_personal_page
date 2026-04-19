@@ -34,6 +34,7 @@ export const ui = {
 		'contact.cta.email': 'Contact Me',
 		'contact.mailto.subject': 'Contact from your personal website',
 		'contact.mailto.body': 'Hi Luiz,\n\nI found your website and would like to talk about...\n\nBest regards,\n',
+		'footer.tagline': 'Let\'s turn your idea into reality.',
 	},
 	'pt-br': {
 		'nav.menu': 'Menu',
@@ -62,6 +63,7 @@ export const ui = {
 		'contact.cta.email': 'Fale Comigo',
 		'contact.mailto.subject': 'Contato pelo seu site pessoal',
 		'contact.mailto.body': 'Oi Luiz,\n\nEncontrei seu site e gostaria de conversar sobre...\n\nAtenciosamente,\n',
+		'footer.tagline': 'Vamos transformar sua ideia em realidade.',
 	},
 	es: {
 		'nav.menu': 'Menú',
@@ -90,5 +92,6 @@ export const ui = {
 		'contact.cta.email': 'Contacta Conmigo',
 		'contact.mailto.subject': 'Contacto desde tu sitio personal',
 		'contact.mailto.body': 'Hola Luiz,\n\nEncontré tu sitio y me gustaría hablar sobre...\n\nSaludos,\n',
+		'footer.tagline': 'Hagamos realidad tu idea.',
 	},
 } as const;
