@@ -3,7 +3,7 @@
 	margin: 0 auto;
 	padding-bottom: var(--space-12);
 	display: flex;
-	justify-content: flex-start;
+	justify-content: flex-end;
 }
 
 @media (min-width: 48rem) {
