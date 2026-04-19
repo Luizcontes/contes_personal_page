@@ -16,11 +16,9 @@ describe('home item 2 contract: hero section', () => {
 		expect(homePage).toContain('class="hero-support"');
 	});
 
-	it('contains primary and secondary hero CTAs with valid targets', () => {
-		expect(homePage).toContain('class="hero-cta hero-cta-primary"');
-		expect(homePage).toContain('href="#contact"');
-		expect(homePage).toContain('class="hero-cta hero-cta-secondary"');
-		expect(homePage).toContain('href="/projects"');
+	it('contains the hero CTA using class-based left alignment', () => {
+		expect(homePage).toContain('<SendEmailButton');
+		expect(homePage).toContain('className="send-email-button send-email-button--align-left hero-cta hero-cta-primary"');
 	});
 
 	it('uses hero-specific token-driven style hooks', () => {

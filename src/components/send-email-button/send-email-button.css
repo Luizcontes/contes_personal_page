@@ -16,3 +16,8 @@
 .send-email-button:focus-visible {
 	box-shadow: var(--shadow-glow-cyan);
 }
+
+.send-email-button--align-left {
+	margin-inline: 0 auto 0 0;
+	align-self: flex-start;
+}

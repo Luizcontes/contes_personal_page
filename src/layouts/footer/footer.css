@@ -27,7 +27,7 @@
 	text-align: center;
 }
 
-.send-email-button {
+.site-footer .send-email-button {
 	position: absolute;
 	right: var(--space-4);
 	top: 50%;

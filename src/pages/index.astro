@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SendEmailButton from '../components/send-email-button/SendEmailButton.astro';
 ---
 
 
@@ -12,8 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 					I build practical software, share what I learn, and focus on long-term thinking across tech and life.
 				</p>
 				<div class="hero-actions">
-					<a class="hero-cta hero-cta-primary" href="#contact" data-i18n="hero.cta.contact">Contact</a>
-					<a class="hero-cta hero-cta-secondary" href="/projects" data-i18n="hero.cta.projects">View Projects</a>
+					<SendEmailButton className="send-email-button send-email-button--align-left hero-cta hero-cta-primary" />
 				</div>
 			</section>
 			<section id="who-i-am" class="home-section">
