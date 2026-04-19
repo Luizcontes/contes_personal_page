@@ -4,7 +4,7 @@ Status: Draft
 Last updated: 2026-04-17
 
 ## Token Source
-Tailwind CSS v4 CSS-first theme tokens in global stylesheet.
+CSS custom properties (CSS variables) defined in `src/styles/global.css` for tokenized styling.
 
 ## Color Tokens
 - --color-bg: #0a0f1e

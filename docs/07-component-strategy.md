@@ -40,6 +40,32 @@ This delays form JavaScript until the section enters viewport.
 - Blog card
 - Contact form
 
+## Stylesheet Architecture
+Each component and layout owns its dedicated CSS file located in the same folder as the `.astro` component.
+
+### Stylesheet Pattern
+- **Component CSS:** Create a `component-name.css` file in the same directory as the `.astro` component.
+- **Import at top:** Import the stylesheet at the top of the `.astro` file with `import './component-name.css'`.
+- **Selector ownership:** All selectors for that component (base styles, states, responsive behaviors) live in the dedicated CSS file.
+- **Token usage:** All stylesheets can reference tokens from `src/styles/global.css` via CSS variables (e.g., `var(--color-bg)`, `var(--space-4)`).
+- **No naming conflicts:** Scoped class names within each component's CSS prevent style leakage and improve maintainability.
+
+### Global Stylesheet Responsibilities
+`src/styles/global.css` contains only:
+- Design token definitions (color, spacing, radius, shadow, motion, typography)
+- Theme-aware token overrides (`html[data-theme="dark"]` and `html[data-theme="light"]`)
+- Base element styles (html, body, links)
+- Shared utility classes (`.sr-only` for screen readers)
+- Shared section wrapper styles (`.home-shell`, `.home-section`)
+
+Component-specific styles are never defined in the global stylesheet.
+
+### Examples
+- `src/components/menu/primary-nav.css` owns `.nav-toggle`, `.nav-toggle-icon`, `.primary-nav`, `.primary-nav-list`
+- `src/components/theme/theme-toggle.css` owns `.theme-toggle`, `.theme-icon`, `.theme-icon-sun`, `.theme-icon-moon`
+- `src/layouts/header/header.css` owns `.site-header`, `.site-header-inner`, `.header-controls`
+- `src/layouts/footer/footer.css` owns `.site-footer`
+
 ## Navigation and Routing Components
 - Header navigation should include Home, Who I Am, Projects, Blog, Contact.
 - Who I Am and Contact should route to home anchors (#who-i-am, #contact).

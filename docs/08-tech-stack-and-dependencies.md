@@ -10,7 +10,7 @@ Last updated: 2026-04-17
 - Markdown and MDX for blog authoring and optional embedded components
 
 ## Styling
-- Tailwind CSS v4 for utility styling and tokenized theme control
+- Custom CSS with CSS variables for tokenized styling and theme control
 
 ## UI Utilities
 - lucide-astro for lightweight icons

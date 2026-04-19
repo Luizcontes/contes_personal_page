@@ -44,8 +44,9 @@ Exit criteria:
 Objective: implement visual foundation and shared shell.
 
 Steps:
-1. Create global stylesheet with design tokens and base typography.
-2. Add layout shell for metadata, header, main content, and footer.
+1. Create global stylesheet with design tokens, base typography, and shared utilities.
+2. Establish stylesheet architecture: each component and layout owns a dedicated CSS file in its folder, imported at the top of the `.astro` component.
+3. Add layout shell for metadata, header, main content, and footer.
 3. Build navigation component with final IA behavior:
 	- Home, Who I Am, Projects, Blog, Contact
 4. Implement anchor linking behavior for Who I Am and Contact.
