@@ -25,12 +25,10 @@ export const ui = {
 		'hero.eyebrow': 'Software Engineer and Builder',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'I build practical software, share what I learn, and focus on long-term thinking across tech and life.',
+			'I build practical software, share what I learn, and focus on long-term thinking across tech and life — driven by a genuine commitment to engineering that creates real, lasting value. With a track record across diverse domains, I thrive at the intersection of technical depth and clear communication, turning complex problems into solutions that are elegant, maintainable, and built to last.',
 		'hero.cta.contact': 'Contact',
 		'hero.cta.projects': 'View Projects',
-		'section.whoIAm': 'Who I Am',
-		'section.whoIAm.copy':
-			'I\'m a software engineer driven by a genuine passion for crafting practical, maintainable solutions that create tangible value. My commitment extends beyond writing elegant code—it\'s about understanding the context that matters: the people using the software, the business objectives, and the long-term impact of what we build. With expertise across modern technology stacks and a problem-solving mindset, I approach every project with both technical rigor and strategic thinking. I believe that exceptional engineering emerges when we balance innovation with pragmatism, and I\'m dedicated to continuously learning and sharing those insights with the engineering community.',
+		'hero.cta.whoIAm': 'Who I Am',
 		'section.projects': 'Projects',
 		'section.recentPosts': 'Recent Posts',
 		'contact.cta.email': 'Contact Me',
@@ -56,12 +54,10 @@ export const ui = {
 		'hero.eyebrow': 'Engenheiro de Software e Criador',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'Construo software prático, compartilho o que aprendo e foco em pensamento de longo prazo em tecnologia e vida.',
+			'Construo software prático, compartilho o que aprendo e foco em pensamento de longo prazo em tecnologia e vida — movido por um compromisso genuíno com engenharia que gera valor real e duradouro. Com uma trajetória em domínios diversos, atuo na interseção entre profundidade técnica e comunicação clara, transformando problemas complexos em soluções elegantes, sustentáveis e construídas para durar.',
 		'hero.cta.contact': 'Contato',
 		'hero.cta.projects': 'Ver Projetos',
-		'section.whoIAm': 'Quem Sou',
-		'section.whoIAm.copy':
-			'Sou um engenheiro de software movido por uma genuína paixão em criar soluções práticas e sustentáveis que geram valor real. Meu compromisso vai além de escrever código elegante—é sobre entender o contexto que importa: as pessoas usando o software, os objetivos de negócio e o impacto a longo prazo do que construímos. Com expertise em stacks de tecnologia modernos e uma mentalidade de resolução de problemas, abordo cada projeto com rigor técnico e pensamento estratégico. Acredito que a engenharia excepcional emerge quando equilibramos inovação com pragmatismo, e estou dedicado a aprender continuamente e compartilhar esses conhecimentos com a comunidade de engenharia.',
+		'hero.cta.whoIAm': 'Quem Sou',
 		'section.projects': 'Projetos',
 		'section.recentPosts': 'Posts Recentes',
 		'contact.cta.email': 'Fale Comigo',
@@ -87,12 +83,10 @@ export const ui = {
 		'hero.eyebrow': 'Ingeniero de Software y Creador',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'Construyo software práctico, comparto lo que aprendo y me enfoco en el pensamiento a largo plazo en tecnología y vida.',
+			'Construyo software práctico, comparto lo que aprendo y me enfoco en el pensamiento a largo plazo en tecnología y vida — impulsado por un compromiso genuino con la ingeniería que genera valor real y duradero. Con trayectoria en dominios diversos, me desenvuelvo en la intersección entre profundidad técnica y comunicación clara, convirtiendo problemas complejos en soluciones elegantes, sostenibles y construidas para perdurar.',
 		'hero.cta.contact': 'Contacto',
 		'hero.cta.projects': 'Ver Proyectos',
-		'section.whoIAm': 'Quién Soy',
-		'section.whoIAm.copy':
-			'Soy un ingeniero de software impulsado por una genuina pasión por crear soluciones prácticas y sostenibles que generan valor real. Mi compromiso va más allá de escribir código elegante—se trata de entender el contexto que importa: las personas que utilizan el software, los objetivos comerciales y el impacto a largo plazo de lo que construimos. Con experiencia en stacks tecnológicos modernos y una mentalidad de resolución de problemas, abordo cada proyecto con rigor técnico y pensamiento estratégico. Creo que la ingeniería excepcional surge cuando equilibramos la innovación con el pragmatismo, y estoy dedicado a aprender continuamente y compartir esas perspectivas con la comunidad de ingeniería.',
+		'hero.cta.whoIAm': 'Quién Soy',
 		'section.projects': 'Proyectos',
 		'section.recentPosts': 'Publicaciones Recientes',
 		'contact.cta.email': 'Contacta Conmigo',

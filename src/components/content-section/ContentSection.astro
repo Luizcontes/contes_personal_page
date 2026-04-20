@@ -1,0 +1,19 @@
+---
+import './content-section.css';
+
+interface Props {
+	titleKey: string;
+	titleDefault: string;
+	copyKey?: string;
+	copyDefault?: string;
+}
+
+const { titleKey, titleDefault, copyKey, copyDefault } = Astro.props;
+---
+
+<div class="section-container">
+	<h2 data-i18n={titleKey}>{titleDefault}</h2>
+	{copyKey && copyDefault && (
+		<p class="section-body" data-i18n={copyKey}>{copyDefault}</p>
+	)}
+</div>

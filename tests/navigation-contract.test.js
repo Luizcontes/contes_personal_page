@@ -26,7 +26,7 @@ const languagePickerRuntime = readFileSync(languagePickerRuntimePath, 'utf8');
 
 describe('navigation contract', () => {
 	it('renders semantic header and primary navigation landmarks', () => {
-		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(homePage).toContain('import BaseLayout from "../layouts/BaseLayout.astro"');
 		expect(baseLayout).toContain("import Header from './header/Header.astro'");
 		expect(baseLayout).toContain('<Header />');
 		expect(headerSource).toContain('<header');
@@ -47,9 +47,6 @@ describe('navigation contract', () => {
 	it('includes all required navigation links with correct targets', () => {
 		expect(primaryNavSource).toContain('href="/"');
 		expect(primaryNavSource).toContain('>Home<');
-
-		expect(primaryNavSource).toContain('href="/#who-i-am"');
-		expect(primaryNavSource).toContain('>Who I Am<');
 
 		expect(primaryNavSource).toContain('href="/#projects"');
 		expect(primaryNavSource).toContain('>Projects<');
@@ -93,7 +90,6 @@ describe('navigation contract', () => {
 	it('tracks active nav section while scrolling with IntersectionObserver', () => {
 		expect(primaryNavRuntime).toContain('new IntersectionObserver(');
 		expect(primaryNavRuntime).toContain("['hero', '/']");
-		expect(primaryNavRuntime).toContain("['who-i-am', '/#who-i-am']");
 		expect(primaryNavRuntime).toContain("['projects', '/#projects']");
 		expect(primaryNavRuntime).toContain("['blog', '/#blog']");
 		expect(primaryNavRuntime).toContain("['contact', '/#contact']");

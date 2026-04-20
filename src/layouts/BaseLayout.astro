@@ -47,5 +47,9 @@ const { title = 'Astro' } = Astro.props;
 		<Header />
 		<slot />
 		<Footer />
+		<script>
+			import { initHomePage } from '../scripts/home-page';
+			initHomePage();
+		</script>
 	</body>
 </html>

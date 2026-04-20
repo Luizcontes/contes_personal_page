@@ -1,6 +1,6 @@
 export function initFooterRuntime() {
 	const footer = document.querySelector('[data-sticky]') as HTMLElement;
-	const secondSection = document.querySelector('#who-i-am') as HTMLElement;
+	const secondSection = document.querySelector('#projects') as HTMLElement;
 
 	if (!footer || !secondSection) return;
 

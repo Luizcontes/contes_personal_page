@@ -63,7 +63,7 @@ describe('i18n bootstrap contract', () => {
 
 describe('language picker runtime contract', () => {
 	it('renders translation hooks in markup for text and aria labels', () => {
-		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(homePage).toContain('import BaseLayout from "../layouts/BaseLayout.astro"');
 		expect(baseLayout).toContain("import Header from './header/Header.astro'");
 		expect(baseLayout).toContain('<Header />');
 		expect(headerSource).toContain("import PrimaryNav from '../../components/menu/PrimaryNav.astro'");
@@ -80,7 +80,7 @@ describe('language picker runtime contract', () => {
 	});
 
 	it('renders a contact email link hook with a non-JS mailto fallback', () => {
-		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(homePage).toContain('import BaseLayout from "../layouts/BaseLayout.astro"');
 		expect(baseLayout).toContain("import Footer from './footer/Footer.astro'");
 		expect(baseLayout).toContain('<Footer />');
 		expect(footerSource).toContain("import './footer.css';");
@@ -99,8 +99,8 @@ describe('language picker runtime contract', () => {
 	});
 
 	it('applies in-page translations without navigating to another route', () => {
-		expect(homePage).toContain("import { initHomePage } from '../scripts/home-page'");
-		expect(homePage).toContain('initHomePage()');
+		expect(baseLayout).toContain("import { initHomePage } from '../scripts/home-page'");
+		expect(baseLayout).toContain('initHomePage()');
 		expect(homePageScript).toContain('const applyTranslations = (locale: string');
 		expect(homePageScript).toContain('initHeaderRuntime({');
 		expect(languagePickerRuntimeSource).toContain('applyTranslations(selectedLocale');
@@ -116,7 +116,6 @@ describe('language picker runtime contract', () => {
 	it('maps sections to nav targets for scroll-synced highlighting', () => {
 		expect(primaryNavRuntimeSource).toContain('const sectionNavMap = new Map([');
 		expect(primaryNavRuntimeSource).toContain("['hero', '/']");
-		expect(primaryNavRuntimeSource).toContain("['who-i-am', '/#who-i-am']");
 		expect(primaryNavRuntimeSource).toContain("['projects', '/#projects']");
 		expect(primaryNavRuntimeSource).toContain("['blog', '/#blog']");
 		expect(primaryNavRuntimeSource).toContain("['contact', '/#contact']");

@@ -22,7 +22,7 @@ const headerRuntime = readFileSync(headerRuntimePath, 'utf8');
 
 describe('theme toggle contract', () => {
 	it('renders a theme toggle control with accessibility semantics', () => {
-		expect(homePage).toContain("import BaseLayout from '../layouts/BaseLayout.astro'");
+		expect(homePage).toContain('import BaseLayout from "../layouts/BaseLayout.astro"');
 		expect(baseLayout).toContain("import Header from './header/Header.astro'");
 		expect(baseLayout).toContain('<Header />');
 		expect(headerSource).toContain("import ThemeToggle from '../../components/theme/ThemeToggle.astro'");

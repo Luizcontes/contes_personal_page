@@ -22,7 +22,6 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 
 	const sectionNavMap = new Map([
 		['hero', '/'],
-		['who-i-am', '/#who-i-am'],
 		['projects', '/#projects'],
 		['blog', '/#blog'],
 		['contact', '/#contact'],
@@ -68,7 +67,21 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 			return;
 		}
 
-		setActiveNavLink('/');
+		// On non-root pages (e.g. /who-i-am), match the exact path.
+		// Only fall back to '/' when actually on the home page.
+		const exactMatch = navLinks.find((link) => {
+			const parsed = new URL(link.href, window.location.origin);
+			return normalizePath(parsed.pathname) === currentPath && !parsed.hash;
+		});
+
+		if (exactMatch) {
+			setActiveNavLink(currentPath);
+		} else if (currentPath === '/') {
+			setActiveNavLink('/');
+		} else {
+			// On a page with no matching nav link — remove all highlights.
+			navLinks.forEach((link) => link.removeAttribute('aria-current'));
+		}
 	};
 
 	syncActiveNavLink();
@@ -80,10 +93,21 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 			.filter((section): section is HTMLElement => section instanceof HTMLElement);
 
 		let activeSectionId = '';
+		const sectionEntryState = new Map<HTMLElement, IntersectionObserverEntry>();
 
 		const observer = new IntersectionObserver(
 			(entries) => {
-				const visibleEntries = entries
+				// Update the latest known state for each section that fired
+				for (const entry of entries) {
+					if (entry.target instanceof HTMLElement) {
+						sectionEntryState.set(entry.target, entry);
+					}
+				}
+
+				// Pick the winner from ALL known states, not just the entries that fired this tick.
+				// This prevents a stale-comparison bug where two adjacent sections cross their
+				// thresholds at different scroll positions and the one that fires alone wins incorrectly.
+				const visibleEntries = Array.from(sectionEntryState.values())
 					.filter((entry) => entry.isIntersecting)
 					.sort((left, right) => {
 						if (right.intersectionRatio !== left.intersectionRatio) {
@@ -109,7 +133,9 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 			},
 			{
 				rootMargin: '-64px 0px -45% 0px',
-				threshold: [0.25, 0.5, 0.75],
+				// 0.1 populates the state map early; 0.75 is unreachable for ~86svh sections
+				// in a ~55vh observation zone so it is replaced with 0.1.
+				threshold: [0.1, 0.25, 0.5],
 			}
 		);
 
