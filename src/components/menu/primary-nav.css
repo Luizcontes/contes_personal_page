@@ -3,7 +3,9 @@
 	background-color: transparent;
 	color: var(--color-text);
 	border-radius: var(--radius-pill);
-	padding: var(--space-2) var(--space-4);
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
 	font: inherit;
 	cursor: pointer;
 	display: inline-flex;
@@ -15,15 +17,15 @@
 
 .nav-toggle-icon {
 	position: relative;
-	width: 18px;
-	height: 14px;
+	width: 20px;
+	height: 16px;
 	display: inline-block;
 }
 
 .nav-toggle-bar {
 	position: absolute;
 	left: 0;
-	width: 18px;
+	width: 20px;
 	height: 2px;
 	border-radius: var(--radius-pill);
 	background-color: var(--color-text);
@@ -39,11 +41,11 @@
 }
 
 .nav-toggle-bar:nth-child(2) {
-	top: 6px;
+	top: 7px;
 }
 
 .nav-toggle-bar:nth-child(3) {
-	top: 12px;
+	top: 14px;
 }
 
 .nav-toggle:hover .nav-toggle-bar,
@@ -52,7 +54,7 @@
 }
 
 .site-header[data-nav-open="true"] .nav-toggle-bar:nth-child(1) {
-	transform: translateY(6px) rotate(45deg);
+	transform: translateY(7px) rotate(45deg);
 }
 
 .site-header[data-nav-open="true"] .nav-toggle-bar:nth-child(2) {
@@ -61,7 +63,7 @@
 }
 
 .site-header[data-nav-open="true"] .nav-toggle-bar:nth-child(3) {
-	transform: translateY(-6px) rotate(-45deg);
+	transform: translateY(-7px) rotate(-45deg);
 }
 
 .primary-nav {

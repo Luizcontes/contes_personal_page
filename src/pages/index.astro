@@ -7,13 +7,24 @@ import SendEmailButton from '../components/send-email-button/SendEmailButton.ast
 <BaseLayout title="Luiz Contes">
 		<main class="home-shell">
 			<section id="hero" class="home-section hero-section">
-				<p class="hero-eyebrow" data-i18n="hero.eyebrow">Software Engineer and Builder</p>
-				<h1 data-i18n="hero.title">Luiz Contes</h1>
-				<p class="hero-support" data-i18n="hero.support">
-					I build practical software, share what I learn, and focus on long-term thinking across tech and life.
-				</p>
-				<div class="hero-actions">
-					<SendEmailButton className="send-email-button send-email-button--align-left hero-cta hero-cta-primary" />
+				<div class="hero-layout">
+					<div class="hero-copy">
+						<div class="hero-top">
+							<h1 class="hero-title" data-i18n="hero.title">Luiz Contes</h1>
+							<p class="hero-eyebrow" data-i18n="hero.eyebrow">Software Engineer and Builder</p>
+						</div>
+						<div class="hero-body">
+							<p class="hero-support" data-i18n="hero.support">
+								I build practical software, share what I learn, and focus on long-term thinking across tech and life.
+							</p>
+						</div>
+						<div class="hero-actions">
+							<SendEmailButton className="send-email-button send-email-button--align-left hero-cta hero-cta-primary" />
+						</div>
+					</div>
+					<div class="hero-media">
+						<img class="hero-image" src="/images/me.png" alt="Portrait of Luiz Contes" loading="lazy" decoding="async" />
+					</div>
 				</div>
 			</section>
 			<section id="who-i-am" class="home-section">

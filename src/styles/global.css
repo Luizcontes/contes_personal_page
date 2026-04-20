@@ -95,12 +95,12 @@ a {
 
 .home-section {
 	/* SECTION_HEIGHT_MINUS_NAVBAR: update this line if navbar height changes */
-	min-height: calc(100svh - var(--navbar-height));
+	min-height: calc(90svh - var(--navbar-height));
 	scroll-margin-top: calc(var(--navbar-height) + var(--space-2));
 	padding: var(--space-6);
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
-	background-color: var(--color-surface);
+	/* border: 1px solid var(--color-border); */
+	/* border-radius: var(--radius-md); */
+	/* background-color: var(--color-surface); */
 }
 
 .hero-section {
@@ -109,12 +109,44 @@ a {
 	box-shadow: var(--shadow-sm);
 }
 
+.hero-layout {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	gap: var(--space-6);
+	align-items: stretch;
+}
+
+.hero-copy {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	gap: var(--space-4);
+	min-height: 100%;
+}
+
+.hero-top {
+	display: grid;
+	gap: var(--space-1);
+	align-content: start;
+}
+
+.hero-title {
+	margin: 0;
+	line-height: 1.05;
+}
+
 .hero-eyebrow {
 	margin: 0;
 	color: var(--color-accent-purple);
 	font-size: 0.875rem;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
+}
+
+.hero-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
 }
 
 .hero-support {
@@ -127,7 +159,6 @@ a {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--space-3);
-	margin-top: var(--space-2);
 }
 
 .hero-cta {
@@ -161,10 +192,36 @@ a {
 	box-shadow: var(--shadow-glow-purple);
 }
 
+.hero-media {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	order: -1;
+}
+
+.hero-image {
+	width: min(60%, 22rem);
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	/* border-radius: var(--radius-lg); */
+	/* border: 1px solid var(--color-border); */
+	/* box-shadow: var(--shadow-md); */
+}
+
 @media (min-width: 48rem) {
 	.home-shell {
 		padding-top: var(--space-2);
-		padding-bottom: var(--space-16);
-		gap: var(--space-16);
+		padding-bottom: var(--space-8);
+		gap: var(--space-8);
+	}
+
+	.hero-layout {
+		grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 0.9fr);
+		grid-template-rows: auto;
+	}
+
+	.hero-media {
+		justify-content: flex-end;
+		order: 0;
 	}
 }
