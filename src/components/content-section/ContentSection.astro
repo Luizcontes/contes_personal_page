@@ -6,14 +6,22 @@ interface Props {
 	titleDefault: string;
 	copyKey?: string;
 	copyDefault?: string;
+	ctaHref?: string;
+	ctaKey?: string;
+	ctaDefault?: string;
 }
 
-const { titleKey, titleDefault, copyKey, copyDefault } = Astro.props;
+const { titleKey, titleDefault, copyKey, copyDefault, ctaHref, ctaKey, ctaDefault } = Astro.props;
 ---
 
 <div class="section-container">
 	<h2 data-i18n={titleKey}>{titleDefault}</h2>
 	{copyKey && copyDefault && (
 		<p class="section-body" data-i18n={copyKey}>{copyDefault}</p>
+	)}
+	{ctaHref && ctaKey && ctaDefault && (
+		<div class="section-actions">
+			<a href={ctaHref} class="section-cta" data-i18n={ctaKey}>{ctaDefault}</a>
+		</div>
 	)}
 </div>

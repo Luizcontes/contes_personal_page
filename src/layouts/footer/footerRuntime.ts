@@ -1,13 +1,19 @@
 export function initFooterRuntime() {
 	const footer = document.querySelector('[data-sticky]') as HTMLElement;
-	const secondSection = document.querySelector('#projects') as HTMLElement;
+	if (!footer) return;
 
-	if (!footer || !secondSection) return;
+	const triggerSection = document.querySelector('#projects') as HTMLElement | null;
+
+	// On pages without the trigger section (non-home pages), make footer always sticky.
+	if (!triggerSection) {
+		footer.setAttribute('data-sticky', 'true');
+		return;
+	}
 
 	const syncStickyState = () => {
 		// Match the same visual trigger line implied by nav observer rootMargin bottom (-45%).
 		const triggerLine = window.innerHeight * 0.1;
-		const sectionTop = secondSection.getBoundingClientRect().top;
+		const sectionTop = triggerSection.getBoundingClientRect().top;
 		const shouldBeSticky = sectionTop <= triggerLine;
 		footer.setAttribute('data-sticky', shouldBeSticky ? 'true' : 'false');
 	};

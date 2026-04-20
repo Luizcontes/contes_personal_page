@@ -1,8 +1,8 @@
 .section-container {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--space-8);
-	align-items: start;
-	height: 100%;
+	flex: 1;
 }
 
 .section-container h2 {
@@ -16,4 +16,28 @@
 	max-width: 65ch;
 	font-size: 1.0625rem;
 	text-align: justify;
+}
+
+.section-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: auto;
+}
+
+.section-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-2) var(--space-4);
+	border-radius: var(--radius-pill);
+	border: 1px solid var(--color-accent-purple);
+	color: var(--color-accent-purple);
+	text-decoration: none;
+	font-weight: 600;
+	transition: box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.section-cta:hover {
+	box-shadow: var(--shadow-glow-purple);
 }

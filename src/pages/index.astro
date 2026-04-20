@@ -20,9 +20,10 @@ import ContentSection from "../components/content-section/ContentSection.astro";
 							I build practical software, share what I learn, and focus on
 							long-term thinking across tech and life — driven by a genuine
 							commitment to engineering that creates real, lasting value. With a
-							track record across diverse domains, I thrive at the intersection of
-							technical depth and clear communication, turning complex problems into
-							solutions that are elegant, maintainable, and built to last.
+							track record across diverse domains, I thrive at the intersection
+							of technical depth and clear communication, turning complex
+							problems into solutions that are elegant, maintainable, and built
+							to last.
 						</p>
 					</div>
 					<div class="hero-actions">
@@ -48,13 +49,22 @@ import ContentSection from "../components/content-section/ContentSection.astro";
 			</div>
 		</section>
 		<section id="projects" class="home-section">
-			<ContentSection titleKey="section.projects" titleDefault="Projects" />
+			<ContentSection
+				titleKey="section.projects"
+				titleDefault="Projects"
+				ctaHref="/projects"
+				ctaKey="section.cta.projects"
+				ctaDefault="View Projects"
+			/>
 		</section>
 		<section id="blog" class="home-section">
 			<ContentSection
 				titleKey="section.recentPosts"
 				titleDefault="Recent Posts"
+				ctaHref="/blog"
+				ctaKey="section.cta.blog"
+				ctaDefault="Read Blog"
 			/>
 		</section>
 	</main>
-
+</BaseLayout>
