@@ -29,6 +29,8 @@ export const ui = {
 		'hero.cta.contact': 'Contact',
 		'hero.cta.projects': 'View Projects',
 		'section.whoIAm': 'Who I Am',
+		'section.whoIAm.copy':
+			'I\'m a software engineer driven by a genuine passion for crafting practical, maintainable solutions that create tangible value. My commitment extends beyond writing elegant code—it\'s about understanding the context that matters: the people using the software, the business objectives, and the long-term impact of what we build. With expertise across modern technology stacks and a problem-solving mindset, I approach every project with both technical rigor and strategic thinking. I believe that exceptional engineering emerges when we balance innovation with pragmatism, and I\'m dedicated to continuously learning and sharing those insights with the engineering community.',
 		'section.projects': 'Projects',
 		'section.recentPosts': 'Recent Posts',
 		'contact.cta.email': 'Contact Me',
@@ -58,6 +60,8 @@ export const ui = {
 		'hero.cta.contact': 'Contato',
 		'hero.cta.projects': 'Ver Projetos',
 		'section.whoIAm': 'Quem Sou',
+		'section.whoIAm.copy':
+			'Sou um engenheiro de software movido por uma genuína paixão em criar soluções práticas e sustentáveis que geram valor real. Meu compromisso vai além de escrever código elegante—é sobre entender o contexto que importa: as pessoas usando o software, os objetivos de negócio e o impacto a longo prazo do que construímos. Com expertise em stacks de tecnologia modernos e uma mentalidade de resolução de problemas, abordo cada projeto com rigor técnico e pensamento estratégico. Acredito que a engenharia excepcional emerge quando equilibramos inovação com pragmatismo, e estou dedicado a aprender continuamente e compartilhar esses conhecimentos com a comunidade de engenharia.',
 		'section.projects': 'Projetos',
 		'section.recentPosts': 'Posts Recentes',
 		'contact.cta.email': 'Fale Comigo',
