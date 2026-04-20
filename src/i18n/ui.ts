@@ -91,6 +91,8 @@ export const ui = {
 		'hero.cta.contact': 'Contacto',
 		'hero.cta.projects': 'Ver Proyectos',
 		'section.whoIAm': 'Quién Soy',
+		'section.whoIAm.copy':
+			'Soy un ingeniero de software impulsado por una genuina pasión por crear soluciones prácticas y sostenibles que generan valor real. Mi compromiso va más allá de escribir código elegante—se trata de entender el contexto que importa: las personas que utilizan el software, los objetivos comerciales y el impacto a largo plazo de lo que construimos. Con experiencia en stacks tecnológicos modernos y una mentalidad de resolución de problemas, abordo cada proyecto con rigor técnico y pensamiento estratégico. Creo que la ingeniería excepcional surge cuando equilibramos la innovación con el pragmatismo, y estoy dedicado a aprender continuamente y compartir esas perspectivas con la comunidad de ingeniería.',
 		'section.projects': 'Proyectos',
 		'section.recentPosts': 'Publicaciones Recientes',
 		'contact.cta.email': 'Contacta Conmigo',
