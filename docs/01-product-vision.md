@@ -70,3 +70,12 @@ Mobile-first development is a core principle of this project. All layouts, compo
 - Visitors navigate from Home to Projects and Blog without friction
 - Blog posts are discoverable and easy to skim
 - Contact submissions or direct email outreach increase over time
+
+## Design Inspiration
+Sites referenced for visual direction, layout patterns, and interaction ideas during further iteration:
+
+- **Brittany Chiang** — https://brittanychiang.com/
+  Clean portfolio with strong typographic hierarchy, fixed side navigation on desktop, subtle scroll-driven highlighting, and excellent use of muted backgrounds with accent colors. Reference for project card layout, section spacing, and overall dark-theme polish.
+
+- **Kristina Champion** — https://kristinachampion.com/
+  Senior product designer portfolio with confident hero copy, bold full-width layout, and clear case-study-driven project cards. Reference for hero messaging tone, content hierarchy, and how to present work with outcomes rather than just descriptions.
