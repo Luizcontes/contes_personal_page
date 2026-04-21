@@ -1,5 +1,6 @@
 :root {
 	--font-sans: Inter, sans-serif;
+	--font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
 	--font-size-nav: 1.0625rem;
 	--navbar-height: 4rem;
 	--space-1: 0.25rem;
@@ -152,6 +153,7 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
+	gap: var(--space-4);
 }
 
 .hero-support {
@@ -159,6 +161,26 @@ a {
 	color: var(--color-text-muted);
 	max-width: 70ch;
 	text-align: justify;
+	font-family: var(--font-mono);
+	font-size: 0.9375rem;
+	line-height: 1.8;
+}
+
+@keyframes typewriter-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+.typewriter-cursor::after {
+	content: '│';
+	margin-left: 2px;
+	color: var(--color-accent-cyan);
+	animation: typewriter-blink 0.75s step-end infinite;
+}
+
+.typewriter-hidden {
+	visibility: hidden;
 }
 
 .hero-actions {

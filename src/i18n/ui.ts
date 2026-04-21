@@ -25,7 +25,9 @@ export const ui = {
 		'hero.eyebrow': 'Software Engineer and Builder',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'I build practical software, share what I learn, and focus on long-term thinking across tech and life — driven by a genuine commitment to engineering that creates real, lasting value. With a track record across diverse domains, I thrive at the intersection of technical depth and clear communication, turning complex problems into solutions that are elegant, maintainable, and built to last.',
+			'I build practical software, share what I learn, and focus on long-term thinking across tech and life.',
+		'hero.support.2':
+			'I thrive at the intersection of technical depth and clear communication — turning complexity into solutions that are elegant and built to last.',
 		'hero.cta.contact': 'Contact',
 		'hero.cta.projects': 'View Projects',
 		'hero.cta.whoIAm': 'Who I Am',
@@ -56,7 +58,9 @@ export const ui = {
 		'hero.eyebrow': 'Engenheiro de Software e Criador',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'Construo software prático, compartilho o que aprendo e foco em pensamento de longo prazo em tecnologia e vida — movido por um compromisso genuíno com engenharia que gera valor real e duradouro. Com uma trajetória em domínios diversos, atuo na interseção entre profundidade técnica e comunicação clara, transformando problemas complexos em soluções elegantes, sustentáveis e construídas para durar.',
+			'Construo software prático, compartilho o que aprendo e foco em pensamento de longo prazo em tecnologia e vida.',
+		'hero.support.2':
+			'Atuo na interseção entre profundidade técnica e comunicação clara — transformando complexidade em soluções elegantes e construídas para durar.',
 		'hero.cta.contact': 'Contato',
 		'hero.cta.projects': 'Ver Projetos',
 		'hero.cta.whoIAm': 'Quem Sou',
@@ -87,7 +91,9 @@ export const ui = {
 		'hero.eyebrow': 'Ingeniero de Software y Creador',
 		'hero.title': 'Luiz Contes',
 		'hero.support':
-			'Construyo software práctico, comparto lo que aprendo y me enfoco en el pensamiento a largo plazo en tecnología y vida — impulsado por un compromiso genuino con la ingeniería que genera valor real y duradero. Con trayectoria en dominios diversos, me desenvuelvo en la intersección entre profundidad técnica y comunicación clara, convirtiendo problemas complejos en soluciones elegantes, sostenibles y construidas para perdurar.',
+			'Construyo software práctico, comparto lo que aprendo y me enfoco en el pensamiento a largo plazo en tecnología y vida.',
+		'hero.support.2':
+			'Me desenvuelvo en la intersección entre profundidad técnica y comunicación clara — convirtiendo la complejidad en soluciones elegantes y construidas para perdurar.',
 		'hero.cta.contact': 'Contacto',
 		'hero.cta.projects': 'Ver Proyectos',
 		'hero.cta.whoIAm': 'Quién Soy',

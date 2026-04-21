@@ -1,6 +1,7 @@
 import { ui, defaultLang } from '../i18n/ui';
 import { getContactMailtoHref } from '../i18n/utils';
 import { initHeaderRuntime } from '../layouts/header/headerRuntime';
+import { typewriterSequence } from './typewriter';
 
 const dictionary = ui as Record<string, Record<string, string>>;
 const fallbackLocale = defaultLang;
@@ -72,8 +73,26 @@ export function initHomePage(): void {
 		});
 	};
 
+	let cancelTypewriter: (() => void) | null = null;
+
+	const applyTranslationsWithTypewriter = (
+		locale: string,
+		langPicker: Element | null,
+		langOptions: NodeListOf<Element>
+	): void => {
+		cancelTypewriter?.();
+		cancelTypewriter = null;
+		applyTranslations(locale, langPicker, langOptions);
+		const heroSupports = Array.from(
+			document.querySelectorAll('.hero-support')
+		) as HTMLElement[];
+		if (heroSupports.length > 0) {
+			cancelTypewriter = typewriterSequence(heroSupports);
+		}
+	};
+
 	initHeaderRuntime({
-		applyTranslations,
+		applyTranslations: applyTranslationsWithTypewriter,
 		getResolvedLocale,
 		fallbackLocale,
 		updateContactMailtoHref,
