@@ -8,8 +8,10 @@ Use Astro Content Collections with typed schemas to manage structured content fo
 - Blog posts (drives /blog and /blog/[slug])
 - Projects (drives /projects and Home teaser)
 
+Blog posts support both `.md` and `.mdx` files. Use `.mdx` when a post needs embedded components (e.g. `<Image>`, YouTube iframes, custom callouts). Plain `.md` is preferred for text-only posts.
+
 ## Collection Structure
-- src/content/blog
+- src/content/blog (supports .md and .mdx)
 - src/content/projects
 - src/content.config.ts
 

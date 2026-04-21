@@ -7,7 +7,9 @@ Last updated: 2026-04-21
 - Astro 6.x for routing, rendering, and static builds
 
 ## Content
-- Markdown for blog authoring and project entries (MDX not yet used)
+- Markdown (`.md`) and MDX (`.mdx`) for blog authoring
+- MDX enables importing and rendering Astro/React components inside blog posts (e.g. `<Image>`, YouTube embeds, custom callouts)
+- Integration: `@astrojs/mdx` registered in `astro.config.mjs`
 
 ## Styling
 - Custom CSS with CSS variables for tokenized styling and theme control
