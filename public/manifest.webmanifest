@@ -1,0 +1,17 @@
+{
+	"name": "Luiz Contes",
+	"short_name": "Contes",
+	"description": "Software Engineer and Builder — practical software, long-term thinking.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#0a0f1e",
+	"theme_color": "#010105",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		}
+	]
+}

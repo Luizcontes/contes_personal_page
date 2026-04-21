@@ -15,8 +15,14 @@ const { title = 'Astro' } = Astro.props;
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<link rel="manifest" href="/manifest.webmanifest" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#010105" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#eef0f2" media="(prefers-color-scheme: light)" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
 		<title>{title}</title>
 		<script is:inline>
 			document.documentElement.dataset.i18nReady = 'false';
