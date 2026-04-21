@@ -88,6 +88,11 @@
 
 .site-header[data-nav-open="true"] .primary-nav-list {
 	align-items: center;
+	gap: var(--space-16);
+}
+
+.site-header[data-nav-open="true"] .primary-nav-list a {
+	font-size: var(--font-size-nav-mobile);
 }
 
 .primary-nav-list {
