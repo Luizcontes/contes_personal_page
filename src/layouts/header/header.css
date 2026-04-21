@@ -7,6 +7,12 @@
 	border-bottom: 1px solid var(--color-border);
 }
 
+/* backdrop-filter creates a containing block for position:fixed descendants.
+   Remove it when the nav is open so the fullscreen overlay covers the viewport. */
+.site-header[data-nav-open="true"] {
+	backdrop-filter: none;
+}
+
 .site-header-inner {
 	width: min(100% - var(--space-8), 72rem);
 	margin: 0 auto;

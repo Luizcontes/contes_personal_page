@@ -94,6 +94,11 @@ describe('navigation contract', () => {
 		expect(primaryNavStylesSource).toContain('z-index: 100');
 	});
 
+	it('removes backdrop-filter when nav is open so the fixed overlay covers the full viewport', () => {
+		expect(headerStylesSource).toContain('[data-nav-open="true"]');
+		expect(headerStylesSource).toContain('backdrop-filter: none');
+	});
+
 	it('closes language panel before opening mobile navigation panel', () => {
 		expect(languagePickerRuntime).toContain('const closeLangPanel = () =>');
 		expect(primaryNavRuntime).toContain('if (nextOpen) {');
