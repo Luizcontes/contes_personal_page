@@ -150,6 +150,19 @@ Last updated: 2026-04-17
 - Implementation impact: Nav labels, button copy, section headings.
 - Validation plan: PLACEHOLDER - CTA wording review.
 
+11. PWA App Icons (192×192 and 512×512 PNG)
+- Status: Open
+- Owner: Unassigned
+- Target decision date: PLACEHOLDER - YYYY-MM-DD
+- Current assumption: Using existing `favicon.svg` as fallback icon for PWA manifest.
+- Options under evaluation:
+	- Use SVG-only (works for standalone mode; Android install banner will not trigger)
+	- Create 192×192 and 512×512 PNG exports from existing logo/avatar
+- Final decision: PLACEHOLDER - Not selected
+- Why this decision matters: Without PNG icons at those sizes, the browser-native "Add to Home Screen" install prompt on Android will not appear. Standalone mode (hiding browser chrome) still works when the user manually adds the site, but discoverability is reduced.
+- Implementation impact: `public/` folder (add icon files), `public/manifest.webmanifest` (icon array entries), `BaseLayout.astro` (`apple-touch-icon` link).
+- Validation plan: Lighthouse PWA audit passes; install prompt appears on Android Chrome.
+
 ## Readiness Checklist
 - [ ] All blocking decisions have final values (no PLACEHOLDER entries).
 - [ ] Owners and target dates are assigned for remaining non-blocking decisions.
