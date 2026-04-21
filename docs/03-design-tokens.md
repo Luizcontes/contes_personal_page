@@ -7,6 +7,7 @@ Last updated: 2026-04-17
 CSS custom properties (CSS variables) defined in `src/styles/global.css` for tokenized styling.
 
 ## Color Tokens
+- --color-bg0: deepest background layer (darker than --color-bg; used for theme-color meta and body background edge cases)
 - --color-bg: #0a0f1e
 - --color-surface: #131929
 - --color-border: #1e2d4a
@@ -21,6 +22,7 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - Default theme should be resolved before paint to avoid flash of incorrect theme.
 
 ## Dark Theme Color Mapping
+- --color-bg0: #010105
 - --color-bg: #0a0f1e
 - --color-surface: #131929
 - --color-border: #1e2d4a
@@ -30,6 +32,7 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - --color-text-muted: #64748b
 
 ## Light Theme Color Mapping
+- --color-bg0: #eef0f2
 - --color-bg: #f8fafc
 - --color-surface: #ffffff
 - --color-border: #cbd5e1
@@ -40,6 +43,7 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 
 ## Typography Tokens
 - --font-sans: Inter, sans-serif
+- --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace
 - --font-size-nav: 1.0625rem
 
 ## Rules
@@ -68,12 +72,16 @@ Language switcher and theme toggle are visually paired header utility controls a
 - --space-12: 3rem
 - --space-16: 4rem
 
+## Layout Tokens
+- --navbar-height: 4rem (used for scroll-margin-top and min-height calculations)
+
 ## Radius Tokens
 - --radius-sm: 0.375rem
 - --radius-md: 0.75rem
 - --radius-lg: 1.25rem
 - --radius-xl: 1.75rem
 - --radius-pill: 9999px
+- --radius-circle: 50%
 
 ## Elevation Tokens
 - --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2)
@@ -87,5 +95,12 @@ Language switcher and theme toggle are visually paired header utility controls a
 - --duration-fast: 120ms
 - --duration-base: 200ms
 - --duration-slow: 320ms
+
+## i18n Visibility Rule
+While the locale bootstrap script resolves and applies translations before the page is shown, a CSS guard prevents FOUC during locale resolution:
+```css
+html[data-i18n-ready="false"] body { visibility: hidden; }
+```
+The `data-i18n-ready` attribute is set to `"false"` in the base layout head script and removed once translations are applied at runtime.
 
 All documented token groups are approved for development use.

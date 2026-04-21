@@ -5,19 +5,21 @@ Last updated: 2026-04-17
 
 ## Route Map
 - / (Home)
-- /about (About)
+- /who-i-am (Who I Am)
 - /projects (Projects)
 - /blog (Blog index)
 - /blog/[slug] (Blog detail)
 
 ## Home Section Anchors
-- #who-i-am
+- #hero
 - #projects
-- #contact
+- #blog
+
+Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact action is a mailto: link in the hero and footer, not a home anchor.
 
 ## Page Roles
 - Home: establish positioning and route visitors to Who I Am, Projects, Blog, and Contact
-- About: background, skills, and trajectory
+- Who I Am: background, skills, and trajectory
 - Projects: showcase selected projects with context, technical decisions, and outcomes
 - Blog index: discover all published writing by tag
 - Blog detail: full post reading experience with strong metadata
@@ -35,17 +37,16 @@ Last updated: 2026-04-17
 1. Page shell chunk
 	- Main wrapper and section order
 	- Shared container rhythm (spacing tokens)
-	- Anchor targets prepared: #who-i-am, #projects, #contact
+	- Anchor targets prepared: #hero, #projects, #blog
 2. Hero chunk
 	- Positioning label
 	- Primary headline
 	- Supporting statement
 	- Primary and secondary CTA targets
-3. Who I Am chunk
+3. Who I Am chunk (dedicated /who-i-am page)
 	- Section heading
 	- Intro paragraph
 	- Supporting bullet points
-	- Anchor support (#who-i-am)
 4. Projects teaser chunk
 	- Section heading and intro
 	- Curated subset/cards for Home
@@ -57,12 +58,12 @@ Last updated: 2026-04-17
 	- Link handoff to /blog
 6. Contact CTA chunk
 	- Conversion-focused copy
-	- Contact action placeholder or form entry point
-	- Anchor support (#contact)
+	- Mailto: contact link (no form — contact is handled via mailto:)
 7. Navigation integration chunk
-	- Home, Who I Am, Projects, Blog, Contact
-	- Who I Am and Contact mapped to home anchors
+	- Home, Projects, Blog (Who I Am and Contact planned)
 	- Projects mapped to /projects
+	- Blog mapped to /blog
+	- Who I Am CTA in hero maps to /who-i-am
 8. Footer integration chunk
 	- Quick links
 	- Social placeholders
@@ -88,16 +89,25 @@ For each chunk:
 5. Pause for approval before next chunk
 
 ## Navigation Model
-Top navigation: Home, Who I Am, Projects, Blog, Contact.
-Navigation behavior: Who I Am and Contact point to section anchors on Home; Projects points to /projects.
-In-page jump links on Home can use #who-i-am, #projects, and #contact.
-Footer: social links, quick links (Home, Projects, Blog, Contact), and copyright.
+Top navigation (current): Home, Projects, Blog.
+Top navigation (planned): add Who I Am (→ /who-i-am) and Contact (→ mailto: link) once those surfaces are complete.
+Navigation behavior: Projects points to /projects.
+Footer: tagline, mailto contact button (Send Email), quick links and copyright planned.
+
+Note: Who I Am and Contact are NOT currently in the primary nav. Hero CTAs link to /who-i-am and the mailto: contact link directly.
 
 ## Locale Model
 Supported locales: `en` (English, default), `pt-br` (Brazilian Portuguese), `es` (Spanish).
-Default locale is unprefixed: `/`, `/projects`, `/blog`.
-Secondary locales are prefixed: `/pt-br/`, `/pt-br/projects`, `/pt-br/blog` and `/es/`, `/es/projects`, `/es/blog`.
-All internal links must be locale-aware and generated using `astro:i18n` helpers.
+Locale resolution is handled entirely client-side at runtime:
+- On first visit, browser language is detected via `navigator.language` and matched to a supported locale, falling back to `en`.
+- Locale preference is stored in `localStorage` under the key `locale-preference` and takes precedence on subsequent visits.
+- The `html[lang]` attribute is updated at runtime by the page bootstrap script in `BaseLayout.astro`.
+- UI strings are translated via `data-i18n` attributes updated by `src/scripts/home-page.ts`.
+- No Astro built-in i18n routing, no locale-prefixed URL paths, no `astro:i18n` helpers are used.
+
+Translation helpers live in `src/i18n/`:
+- `src/i18n/ui.ts`: translation dictionaries and `defaultLang`
+- `src/i18n/utils.ts`: `resolveLang`, `useTranslations`, `getContactMailtoHref`
 Anchor targets (#who-i-am, #projects, #contact) are preserved within each locale.
 On first visit, the preferred locale is resolved from `navigator.language` falling back to `en`.
 Locale preference is stored in `localStorage` and used on subsequent visits before routing resolves.

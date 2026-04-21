@@ -48,10 +48,10 @@ Steps:
 2. Establish stylesheet architecture: each component and layout owns a dedicated CSS file in its folder, imported at the top of the `.astro` component.
 3. Add layout shell for metadata, header, main content, and footer.
 3. Build navigation component with final IA behavior:
-	- Home, Who I Am, Projects, Blog, Contact
-4. Implement anchor linking behavior for Who I Am and Contact.
-5. Add footer quick links and social placeholders.
-6. Verify responsive behavior for header and nav states.
+	- Home, Projects, Blog (current)
+	- Who I Am (/who-i-am) and Contact (mailto:) — planned additions
+4. Add footer tagline and mailto contact button.
+5. Verify responsive behavior for header and nav states.
 
 ### Next Focus Plan: Theme Toggle
 Execution units:
@@ -71,31 +71,21 @@ Approval checkpoints:
 6. Final tests/build verification approved.
 
 ### Next Focus Plan: Internationalization and Language Control
-Execution units:
-1. Define i18n contract tests (locale routing, language switcher semantics, persistence hooks, browser detection fallback).
-2. Configure Astro built-in i18n routing in `astro.config.mjs`:
-	- `defaultLocale: 'en'`, `locales: ['en', 'pt-br', 'es']`
-	- `prefixDefaultLocale: false` (English at root, Portuguese at /pt-br/, Spanish at /es/)
-3. Create locale-aware page structure:
-	- English pages remain at `src/pages/` root
-	- Brazilian Portuguese pages at `src/pages/pt-br/`
-	- Spanish pages at `src/pages/es/`
-4. Add `src/i18n/ui.ts` with translation dictionaries for UI strings.
-5. Add `src/i18n/utils.ts` with `getLangFromUrl`, `useTranslations`, and `useTranslatedPath` helpers.
-6. Add pre-paint locale bootstrap script resolving `localStorage` → `navigator.language` → `en`.
-7. Add LanguagePicker control in header immediately left of ThemeToggle.
-8. Persist locale preference in `localStorage` and sync on switch.
-9. Validate locale-aware internal links using `astro:i18n` helpers.
-10. Validate anchor behavior (#who-i-am, #contact) is preserved per locale.
+Status: DONE (client-side implementation)
 
-Approval checkpoints:
-1. Contract and failing tests approved.
-2. Astro i18n config and folder structure approved.
-3. Translation dictionary structure approved.
-4. Bootstrap script and browser detection fallback approved.
-5. LanguagePicker UI and look-and-feel parity with ThemeToggle approved.
-6. Locale persistence and switch navigation approved.
-7. Final tests/build verification approved.
+Approach: client-side only — no Astro built-in i18n routing, no locale-prefixed URL paths.
+
+What was implemented:
+1. i18n contract tests defined and passing.
+2. No Astro i18n config — locale resolution is entirely runtime/client-side.
+3. No locale page folders — all pages are at `src/pages/` root; a single set of pages serves all locales.
+4. `src/i18n/ui.ts` with translation dictionaries for `en`, `pt-br`, `es` and `defaultLang = 'en'`.
+5. `src/i18n/utils.ts` with `resolveLang`, `useTranslations`, and `getContactMailtoHref` helpers.
+6. Pre-paint locale bootstrap script in `BaseLayout.astro` head: resolves `localStorage` → `navigator.language` → `'en'`; sets `html[lang]` and `html[data-i18n-ready]`.
+7. LanguagePicker control in header immediately left of ThemeToggle — flag icons, accessible listbox pattern.
+8. Locale preference persisted in `localStorage` under `locale-preference`.
+9. On locale switch, `html[lang]`, `localStorage`, and all `data-i18n` elements updated in-place — no page navigation.
+10. Anchor behavior (#projects, #blog) unaffected by locale switch.
 
 ### Next Focus Plan: Navigation Menu
 Execution units:
@@ -105,7 +95,7 @@ Execution units:
 4. Add mobile collapsible behavior and keyboard support.
 5. Add desktop horizontal behavior at md+.
 6. Add active/focus states using design tokens.
-7. Validate anchor behavior for /#who-i-am and /#contact from all routes.
+7. Validate anchor behavior for /#projects and /#blog from all routes.
 
 Approval checkpoints:
 1. Contract and failing tests approved.
@@ -153,30 +143,31 @@ Steps:
 	- Implement minimum code to pass
 	- Run tests and build
 	- Pause for approval before the next chunk
-3. Add section anchors for Home (`#who-i-am`, `#projects`, `#contact`).
+3. Add section anchors for Home (`#hero`, `#projects`, `#blog`).
 4. Build `/projects` page with full project grid/list.
 5. Create reusable project card component used on Home and `/projects`.
-6. Build `/about` page with biography, trajectory, and skills.
-7. Validate internal linking between Home, Projects, Blog, and About.
+6. Build `/who-i-am` page with biography, trajectory, and skills.
+7. Validate internal linking between Home, Projects, Blog, and Who I Am.
 
 Exit criteria:
 - Home and Projects are aligned with IA and Product Vision.
 - Navigation paths between key sections are frictionless.
 
 ## Phase 5: Contact and Conversion
-Objective: enable contact flow without degrading performance.
+Objective: complete contact conversion path.
 
 Steps:
-1. Implement contact form section and final CTA copy.
-2. Integrate selected backend (Formspree/custom).
-3. Add client-side validation and success/error states.
-4. Keep hydration minimal (`client:visible` only if required).
+1. Add a prominent contact CTA section on Home.
+2. Contact action is a `mailto:` link (already implemented in hero and footer via `SendEmailButton`).
+3. Ensure the mailto link uses the locale-aware subject and body from `src/i18n/ui.ts`.
+4. Confirm the contact flow is accessible and functional across all supported locales.
 5. Test conversion path:
-	- Home -> Contact section -> successful submission
+	- Home -> Contact CTA -> mailto: client opens
 
 Exit criteria:
-- Contact flow works end-to-end.
-- No avoidable JS impact above the fold.
+- Contact CTA is visible on Home.
+- mailto: link opens with pre-filled subject and body.
+- No form backend required.
 
 ## Phase 6: Deploy
 Objective: publish reliably and validate production quality.
@@ -186,7 +177,7 @@ Steps:
 2. Confirm GitHub Pages source is GitHub Actions.
 3. Deploy from `main` and verify published routes:
 	- /
-	- /about
+	- /who-i-am
 	- /projects
 	- /blog
 4. Validate metadata and canonical settings in production.

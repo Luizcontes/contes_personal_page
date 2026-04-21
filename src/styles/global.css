@@ -179,8 +179,12 @@ a {
 	animation: typewriter-blink 0.75s step-end infinite;
 }
 
-.typewriter-hidden {
-	visibility: hidden;
+.typewriter-char {
+	color: var(--color-bg);
+}
+
+.typewriter-char--visible {
+	color: inherit;
 }
 
 .hero-actions {

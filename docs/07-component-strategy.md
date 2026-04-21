@@ -11,9 +11,10 @@ Projects must be usable both as a home teaser section and as a standalone /proje
 ## Hero Section
 Build with static HTML and CSS for immediate rendering and strong first impression.
 
-## Who I Am Section
-Implement as a static section on Home for fast load and immediate personal context.
-This section should support anchor navigation via #who-i-am.
+## Who I Am Page
+Implemented as a dedicated `/who-i-am` route with a placeholder section.
+The hero CTA on Home links directly to `/who-i-am`.
+This is NOT a home page anchor section — it is a standalone page.
 
 ## Projects Layer
 Use a reusable project card component for consistency across Home and /projects.
@@ -23,22 +24,26 @@ Each project card should include title, short summary, stack, and primary link.
 ## Content Layer
 Use getCollection to surface latest 3 posts on home page for credibility and recency.
 
-## Contact Form Island
-Use Astro island hydration with client:visible.
-This delays form JavaScript until the section enters viewport.
+## Contact
+Contact is handled via a `mailto:` link, not a contact form.
+`SendEmailButton` renders an `<a>` tag with a locale-aware `mailto:` href including pre-filled subject and body.
+The button appears in the hero actions area and in the footer.
+No form backend, no client-side hydration, and no form validation are needed.
 
 ## Core Components
-- Navigation
+- Navigation (PrimaryNav)
 - LanguagePicker
 - ThemeToggle
 - Footer
-- Hero
-- WhoIAmSection
-- ProjectCard
-- ProjectsSection (Home teaser)
-- ProjectsGridPage (/projects)
-- Blog card
-- Contact form
+- Header
+- ContentSection (generic section wrapper with heading, optional body copy, and CTA link)
+- SendEmailButton (mailto: link styled as a button)
+- Hero (inline in index.astro)
+- WhoIAmSection (planned — /who-i-am page)
+- ProjectCard (planned)
+- ProjectsSection — Home teaser (planned)
+- ProjectsGridPage — /projects (planned)
+- Blog card (planned)
 
 ## Stylesheet Architecture
 Each component and layout owns its dedicated CSS file located in the same folder as the `.astro` component.
@@ -67,10 +72,9 @@ Component-specific styles are never defined in the global stylesheet.
 - `src/layouts/footer/footer.css` owns `.site-footer`
 
 ## Navigation and Routing Components
-- Header navigation should include Home, Who I Am, Projects, Blog, Contact.
-- Who I Am and Contact should route to home anchors (#who-i-am, #contact).
-- Projects should route to /projects.
-- On Home, optional in-page jump links can use #projects for fast access to the teaser section.
+- Current nav links: Home (/), Projects (/#projects), Blog (/#blog).
+- Planned additions: Who I Am (/who-i-am) and Contact (mailto: link).
+- On Home, in-page jump links use #projects and #blog for fast access to those sections.
 
 ## Navigation Build Plan
 1. Create a dedicated Navigation component with a data-driven item list.
@@ -83,7 +87,11 @@ Component-specific styles are never defined in the global stylesheet.
 	- three-strip menu button icon for mobile toggle
 	- expanded horizontal layout on md+ screens
 4. Add route/anchor behavior:
-	- /, /projects, /blog, /#who-i-am, /#contact
+	- / (Home)
+	- /#projects
+	- /#blog
+	- /who-i-am (planned)
+	- mailto: contact link (planned)
 5. Add active-link and focus-visible states using design tokens.
 6. Keep JS minimal and avoid hydration unless interaction cannot be done accessibly with static HTML/CSS.
 
@@ -113,14 +121,14 @@ Component-specific styles are never defined in the global stylesheet.
 1. Add a LanguagePicker control in the header immediately to the left of the ThemeToggle.
 2. Resolve initial locale before paint: check `localStorage` first, then `navigator.language`, then fall back to `en`.
 3. Persist user locale choice in `localStorage`.
-4. On locale switch, navigate to the equivalent route in the selected locale using `astro:i18n` helpers; fall back to locale home if no equivalent route exists.
+4. On locale switch, update `localStorage`, `html[lang]`, and re-apply `data-i18n` translations client-side.
 5. Reflect current locale state with accessible semantics (`aria-label`, current locale indicator).
 6. Match ThemeToggle look and feel exactly: same size, shape, spacing, hover/focus/active states, and motion tokens.
 7. Keep implementation framework-free and minimal JS.
 
 ### Language Picker Acceptance Criteria
 - Control is reachable by keyboard and clearly labeled with current locale.
-- Switching locale navigates to the equivalent page in the selected locale.
+- Switching locale updates `localStorage`, `html[lang]`, and visible UI strings without page navigation.
 - Locale preference persists across reloads via `localStorage`.
 - On first visit, locale is resolved from browser language (`navigator.language`) falling back to `en`.
 - Control visually matches the ThemeToggle in size, shape, and interaction states.
@@ -128,24 +136,22 @@ Component-specific styles are never defined in the global stylesheet.
 - Existing navigation and theme behavior remain intact.
 
 ## Section Mapping by Route
-- / : Hero, Who I Am, Projects teaser, Recent posts, Contact.
-- /projects : Full projects grid and optional category/filter controls.
-- /blog : Blog listing.
+- / : Hero, Projects shell, Blog shell (Who I Am, Recent Posts, Contact CTA planned).
+- /who-i-am : Personal background and trajectory (placeholder page).
+- /projects : Full projects grid and optional category/filter controls (placeholder page).
+- /blog : Blog listing (placeholder page).
 - /blog/[slug] : Blog detail.
-- /about : Personal background and trajectory.
 
 ## Home Incremental Delivery Order
 To keep implementation small, testable, and approval-gated, Home should be delivered in this order:
-1. Page shell and anchor skeleton
-2. Hero
-3. Who I Am
-4. Projects teaser shell
-5. Recent posts shell
-6. Contact CTA shell
-7. Navigation integration
-8. Footer integration
-
-Current first target: Page shell and anchor skeleton.
+1. Page shell and anchor skeleton (done: #hero, #projects, #blog)
+2. Hero (done: headline, eyebrow, support paragraphs, mailto CTA, Who I Am CTA, hero image)
+3. Projects teaser shell (done: ContentSection placeholder)
+4. Recent posts shell (done: ContentSection placeholder)
+5. Who I Am section (planned)
+6. Contact CTA section (planned)
+7. Navigation integration (in progress: Home, Projects, Blog in nav)
+8. Footer integration (in progress: tagline + SendEmailButton)
 
 ## Performance Guidelines
 - Keep non-critical interactivity deferred

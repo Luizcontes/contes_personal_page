@@ -17,7 +17,7 @@ Each project entry should highlight context, decisions, outcomes, and links to s
 ## Information Architecture Alignment
 The product vision is delivered through these core routes:
 - / (Home)
-- /about
+- /who-i-am
 - /projects
 - /blog
 - /blog/[slug]
@@ -32,8 +32,9 @@ The Home page should present content in this order:
 
 ## Navigation Intent
 Top navigation should prioritize discoverability and conversion:
-- Home, Who I Am, Projects, Blog, Contact
-- Who I Am and Contact navigate to Home anchors
+- Current nav: Home, Projects, Blog
+- Planned additions: Who I Am (→ /who-i-am), Contact (→ mailto: link)
+- Who I Am navigates to the dedicated /who-i-am route
 - Projects navigates to the dedicated /projects route
 
 ## Theme Preference

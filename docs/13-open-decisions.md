@@ -11,18 +11,11 @@ Last updated: 2026-04-17
 ## Blocking Decisions (Must Resolve Before Full Implementation)
 
 1. Contact Form Backend
-- Status: PLACEHOLDER - Open
-- Owner: PLACEHOLDER - Unassigned
-- Target decision date: PLACEHOLDER - YYYY-MM-DD
-- Current assumption: PLACEHOLDER - Not decided
-- Options under evaluation:
-	- Formspree
-	- Custom API endpoint
-	- Other provider
-- Final decision: PLACEHOLDER - Not selected
-- Why this decision matters: Needed before implementing contact form behavior.
-- Implementation impact: Contact component, validation flow, environment variables, deployment config.
-- Validation plan: PLACEHOLDER - How success/failure is measured.
+- Status: RESOLVED
+- Final decision: No form backend. Contact is handled via a `mailto:` link with locale-aware pre-filled subject and body.
+- Implementation: `SendEmailButton` component renders an `<a>` tag with `mailto:` href. Link appears in the hero actions and footer.
+- Why this was chosen: Zero infrastructure cost, no third-party dependency, locale-aware via `src/i18n/utils.ts#getContactMailtoHref`.
+- Validation: mailto link opens system email client with correct subject and body in all three locales.
 
 2. Domain and Canonical URL
 - Status: PLACEHOLDER - Open
@@ -52,17 +45,10 @@ Last updated: 2026-04-17
 - Validation plan: PLACEHOLDER - Performance and privacy acceptance criteria.
 
 4. Projects Data Source and Schema Ownership
-- Status: PLACEHOLDER - Open
-- Owner: PLACEHOLDER - Unassigned
-- Target decision date: PLACEHOLDER - YYYY-MM-DD
-- Current assumption: Astro content collection in repository.
-- Options under evaluation:
-	- Keep project entries in `src/content/projects`
-	- Move projects to external CMS/API
-- Final decision: PLACEHOLDER - Not selected
-- Why this decision matters: Defines how `/projects` is populated and maintained.
-- Implementation impact: Content model, page rendering, editorial workflow.
-- Validation plan: PLACEHOLDER - Data update workflow test.
+- Status: RESOLVED
+- Final decision: Astro content collection in repository (`src/content/projects`).
+- Implementation: `src/content.config.ts` defines the `projects` collection with typed schema via Zod.
+- Validation: Schema type-check passes on build.
 
 5. Home Projects Teaser Policy
 - Status: PLACEHOLDER - Open
@@ -79,18 +65,10 @@ Last updated: 2026-04-17
 - Validation plan: PLACEHOLDER - UX and clarity review.
 
 6. Contact Route Strategy
-- Status: PLACEHOLDER - Open
-- Owner: PLACEHOLDER - Unassigned
-- Target decision date: PLACEHOLDER - YYYY-MM-DD
-- Current assumption: Contact section on Home with anchor link.
-- Options under evaluation:
-	- Home section only (`/#contact`)
-	- Dedicated `/contact` page + Home CTA
-	- Hybrid model (section + page)
-- Final decision: PLACEHOLDER - Not selected
-- Why this decision matters: Affects navigation, conversion tracking, and SEO page structure.
-- Implementation impact: Routing, nav behavior, metadata, form placement.
-- Validation plan: PLACEHOLDER - Contact completion path test.
+- Status: RESOLVED
+- Final decision: No dedicated `/contact` route. Contact is a mailto: link in the hero actions and in the footer via `SendEmailButton`.
+- Implementation: `SendEmailButton` component is used in `index.astro` (hero) and `Footer.astro`.
+- Validation: mailto link is reachable from hero and footer on all routes.
 
 ## Non-Blocking Decisions (Can Resolve Iteratively)
 

@@ -8,7 +8,7 @@ Design mobile-first, then progressively enhance for larger screens.
 Target baseline is a 6-inch mobile screen. Complexity is layered at each breakpoint above it.
 
 ## Breakpoints
-Using Tailwind v4 mobile-first breakpoints:
+Using custom CSS with standard mobile-first breakpoints (no Tailwind — all styles are plain CSS with CSS variables):
 
 | Name | Min-width | Primary use |
 |------|-----------|-------------|
