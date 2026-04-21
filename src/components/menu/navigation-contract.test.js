@@ -81,6 +81,19 @@ describe('navigation contract', () => {
 		expect(homeScript).toContain('initHeaderRuntime({');
 	});
 
+	it('expands mobile nav as a fullscreen overlay covering the entire viewport', () => {
+		expect(primaryNavStylesSource).toContain('position: fixed');
+		expect(primaryNavStylesSource).toContain('inset: 0');
+		expect(primaryNavStylesSource).toContain('align-items: center');
+		expect(primaryNavStylesSource).toContain('justify-content: center');
+	});
+
+	it('keeps the nav toggle cross button above the fullscreen overlay', () => {
+		expect(primaryNavStylesSource).toContain('[data-nav-open="true"] .nav-toggle');
+		expect(primaryNavStylesSource).toContain('position: relative');
+		expect(primaryNavStylesSource).toContain('z-index: 100');
+	});
+
 	it('closes language panel before opening mobile navigation panel', () => {
 		expect(languagePickerRuntime).toContain('const closeLangPanel = () =>');
 		expect(primaryNavRuntime).toContain('if (nextOpen) {');
