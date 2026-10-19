@@ -1,0 +1,220 @@
+---
+title: "How to Automate Oracle Cloud Infrastructure with Terraform: Lesson 1"
+description: "A practical introduction to Infrastructure as Code on OCI, from configuring the provider to deploying a simple web server with Terraform."
+date: 2026-10-19
+tags:
+  - Cloud
+  - Terraform
+  - DevOps
+cover: "https://i.ytimg.com/vi/8Bn4gruXcT0/hqdefault.jpg"
+ogImage: "https://i.ytimg.com/vi/8Bn4gruXcT0/hqdefault.jpg"
+---
+
+import YouTubeEmbed from '../../components/youtube-embed/YouTubeEmbed.astro';
+
+Cloud infrastructure becomes difficult to maintain when it is created manually. A few clicks in a console may be enough to launch a test instance, but that process is difficult to review, reproduce, or share with another engineer.
+
+Infrastructure as Code changes the workflow. Instead of treating infrastructure as a collection of settings hidden in a web interface, you describe the desired state in version-controlled configuration files. Terraform then compares that description with the current environment and proposes the changes needed to make them match.
+
+FoggyKitchen's first lesson on automating Oracle Cloud Infrastructure (OCI) with Terraform starts with a deliberately small target: deploy a single web server. The infrastructure is simple enough to understand, but complete enough to introduce the core OCI networking and compute concepts that larger environments build on.
+
+## The Goal: One Reachable Web Server
+
+The lesson's target architecture contains the essential pieces needed to make a compute instance reachable:
+
+- An OCI provider configuration
+- A Virtual Cloud Network (VCN)
+- A public subnet
+- Network security rules for SSH and HTTP
+- A compute instance
+- Outputs that expose useful information, such as the instance's public IP address
+
+This is not intended to be a complete production architecture. It is a focused learning environment. Starting with one server makes it easier to see how networking, identity, compute, and Terraform state fit together before introducing load balancers, private subnets, multiple availability domains, or managed databases.
+
+## Terraform as the Control Layer
+
+Terraform configuration is written in HashiCorp Configuration Language (HCL). The configuration describes resources and their relationships, while the OCI provider translates those resource definitions into API calls.
+
+A small project commonly begins with files such as:
+
+```text
+main.tf
+variables.tf
+outputs.tf
+```
+
+The exact file layout is a project choice. Terraform loads all `.tf` files in a directory, so splitting configuration by purpose is mainly about keeping the code understandable:
+
+- `main.tf` usually contains the provider and primary resources.
+- `variables.tf` defines values that should vary between environments.
+- `outputs.tf` publishes values that are useful after deployment.
+
+The important distinction is between configuration and state. The `.tf` files are the desired definition. Terraform state records what it believes exists in OCI and allows it to calculate safe changes on later runs. State should be protected and managed deliberately, especially once more than one person is working on the project.
+
+## Configure the OCI Provider Safely
+
+Terraform needs credentials and tenancy information to call the OCI API. The provider configuration should identify the OCI tenancy, user, fingerprint, region, and private key without placing secrets directly in a public repository.
+
+A simplified provider block looks like this:
+
+```hcl
+terraform {
+  required_providers {
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 6.0"
+    }
+  }
+}
+
+provider "oci" {
+  tenancy_ocid     = var.tenancy_ocid
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
+  private_key_path = var.private_key_path
+  region           = var.region
+}
+```
+
+The values should come from variables, environment variables, a protected credentials file, or another approved secret-management mechanism. Do not commit private keys, API secrets, or populated variable files to source control.
+
+Terraform can also run from Oracle Cloud Shell, which can be useful when local installation or credential configuration is not yet convenient. Whichever environment is used, the goal is the same: make authentication explicit, repeatable, and safe.
+
+## Build the Network Before the Instance
+
+The VCN is the logical network boundary for the resources in this example. A subnet divides that network into a smaller address range and determines how resources connect to route tables, gateways, and security rules.
+
+At a conceptual level, the network configuration needs to answer three questions:
+
+1. What private address range belongs to the VCN?
+2. Which subnet will contain the compute instance?
+3. How will traffic reach the public internet?
+
+A public web server generally needs an internet gateway, a route table with a default route, and a public subnet. The subnet's route and security configuration are separate concerns: a route makes a destination reachable, while a security rule determines whether traffic is allowed.
+
+For a first lesson, it is useful to keep these resources visible rather than hiding them behind a large module. Seeing the dependency chain makes later abstractions easier to understand:
+
+```text
+VCN
+ ├── Internet gateway
+ ├── Route table
+ └── Public subnet
+      └── Compute instance
+```
+
+## Allow Only the Traffic You Need
+
+Security lists or network security groups control which traffic can enter or leave the relevant resources. The lesson introduces rules for two common purposes:
+
+- **SSH**, so an administrator can connect to the instance.
+- **HTTP**, so a browser can reach the web server.
+
+Opening a port is not the same as securing a service. SSH should normally be restricted to a trusted source range rather than exposed to the entire internet, and a real deployment should consider HTTPS, patching, least privilege, monitoring, and key rotation.
+
+The safe habit is to begin with the smallest set of rules required to prove the deployment works. Avoid adding broad ingress rules merely because they make troubleshooting easier. If a rule is temporarily widened during testing, narrow it again before treating the environment as complete.
+
+## Provision the Compute Instance
+
+Once the network exists, Terraform can create the compute instance and attach it to the public subnet. The instance definition typically specifies:
+
+- The availability domain
+- The compartment
+- The image
+- The shape
+- The subnet
+- An SSH public key
+- Optional user-data or cloud-init configuration
+
+The image and shape are region-dependent, so they should not be treated as universal constants. Variables or data sources can make the configuration easier to reuse across regions and environments.
+
+Cloud-init is particularly useful for a web-server exercise. It can install a web server and write a small landing page during the first boot, allowing the deployment to be verified through a browser without manually configuring the operating system after connecting.
+
+## Follow the Terraform Workflow
+
+The command sequence is part of the lesson because Terraform is most useful when infrastructure changes follow a predictable review process.
+
+### 1. Initialize
+
+```bash
+terraform init
+```
+
+Initialization downloads the OCI provider and prepares the working directory. It must be run when the project is first created and whenever provider or module requirements change.
+
+### 2. Format and Validate
+
+```bash
+terraform fmt
+terraform validate
+```
+
+Formatting keeps the HCL consistent. Validation checks the configuration's structure and types, but it does not prove that credentials work or that the requested resources are available in the selected tenancy.
+
+### 3. Review the Plan
+
+```bash
+terraform plan
+```
+
+The plan is one of Terraform's most valuable safety features. It shows the resources Terraform intends to create, change, or destroy. Read it before applying, especially when a configuration has been changed after resources already exist.
+
+### 4. Apply the Configuration
+
+```bash
+terraform apply
+```
+
+Applying executes the approved changes against OCI. Terraform records the resulting resource identifiers in its state so future plans can reason about the existing infrastructure instead of creating duplicate resources.
+
+### 5. Inspect the Outputs
+
+```bash
+terraform output
+```
+
+Outputs make important values visible without requiring someone to search through the state file. A public IP output can be used to connect over SSH or test the web server in a browser.
+
+## The Role of State and Idempotency
+
+Terraform is designed around declarative configuration. You describe the desired result, and Terraform determines the operations needed to reach it. Running the same configuration again should produce no changes when the real infrastructure already matches the definition.
+
+That behavior depends on accurate state and stable configuration. State should not be casually deleted to resolve an error, and it should not be shared through an unsafe location. For a team environment, use a remote backend with appropriate locking and access controls.
+
+The same principle also explains why manually changing a resource in the OCI console can be confusing. Terraform may detect the difference as drift on the next plan. That is useful when the change was intentional, but it is dangerous when the team does not know which system is authoritative.
+
+## From One Server to a Real Architecture
+
+The single-server exercise is valuable because it establishes the vocabulary and workflow needed for more advanced designs. Natural next steps include:
+
+- Multiple web servers across availability domains
+- A load balancer in front of private instances
+- Separate public and private subnets
+- Managed databases and storage
+- Reusable Terraform modules
+- Remote state and team workflows
+- Automated plan and apply stages in a CI/CD pipeline
+
+Each addition increases the state space and the operational consequences of a mistake. The discipline introduced in Lesson 1 — explicit dependencies, reviewed plans, restricted network access, and protected credentials — becomes more important as the architecture grows.
+
+## What This First Lesson Teaches
+
+The most important lesson is not a particular HCL resource block. It is the change in mindset from manually configuring a server to describing an environment that can be reviewed, reproduced, and evolved.
+
+Terraform gives infrastructure changes a workflow similar to software changes:
+
+- Configuration can be versioned.
+- Plans can be reviewed before execution.
+- Validation can run automatically.
+- Outputs can document the deployed result.
+- The same definition can be used to recreate an environment.
+
+OCI contributes the networking and compute primitives, while Terraform provides the repeatable control layer. Together, they form a practical foundation for learning cloud automation without starting with an unnecessarily complex architecture.
+
+This article is for educational purposes. Cloud resources may incur charges, and Terraform commands can create or destroy infrastructure. Review plans carefully, protect credentials and state, and follow the current OCI and Terraform documentation before applying changes to a real tenancy.
+
+---
+
+<YouTubeEmbed
+	id="8Bn4gruXcT0"
+	title="FoggyKitchen - How to automate Oracle Cloud Infrastructure with Terraform - LESSON1"
+/>

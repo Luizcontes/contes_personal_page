@@ -46,7 +46,7 @@ const { post, formattedDate } = Astro.props;
 <style>
 	.post {
 		width: 100%;
-		max-width: 72ch;
+		max-width: none;
 		min-width: 0;
 		margin: 0 auto;
 		padding: var(--space-8) 0;
@@ -147,6 +147,7 @@ const { post, formattedDate } = Astro.props;
 	.prose :global(p) {
 		margin: 0 0 var(--space-4);
 		line-height: 1.75;
+		text-align: justify;
 	}
 
 	.prose :global(ul),
@@ -158,6 +159,7 @@ const { post, formattedDate } = Astro.props;
 
 	.prose :global(li) {
 		margin-bottom: var(--space-2);
+		text-align: justify;
 	}
 
 	.prose :global(pre) {
