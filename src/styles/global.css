@@ -68,6 +68,27 @@ body {
 	color: var(--color-text);
 }
 
+body[data-layout="post"] {
+	display: flex;
+	flex-direction: column;
+	overflow-x: clip;
+}
+
+body[data-layout="post"] > .post-page-shell {
+	width: min(100% - var(--space-8), 72rem);
+	flex: 1 1 auto;
+	min-height: 0;
+	min-width: 0;
+	grid-template-rows: minmax(0, 1fr);
+}
+
+body[data-layout="post"] .blog-post-section {
+	width: 100%;
+	min-height: 0;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
 * {
 	box-sizing: border-box;
 }

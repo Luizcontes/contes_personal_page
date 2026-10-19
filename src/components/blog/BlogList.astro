@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="home-section blog-list-section">
+	<h1 class="blog-heading">Blog</h1>
+	<ul class="blog-list">
+		{posts.map((post) => <BlogCard post={post} />)}
+	</ul>
+</section>
+
+<style>
+	.blog-heading {
+		margin: 0 0 var(--space-8);
+	}
+
+	.blog-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: var(--space-8);
+	}
+
+	@media (min-width: 768px) {
+		.blog-list {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>
