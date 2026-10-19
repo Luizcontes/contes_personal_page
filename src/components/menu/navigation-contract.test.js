@@ -51,6 +51,12 @@ describe('navigation contract', () => {
 		expect(primaryNavSource).toContain('href="/#projects"');
 		expect(primaryNavSource).toContain('>Projects<');
 
+		expect(primaryNavSource).toContain('href="/#stack"');
+		expect(primaryNavSource).toContain('>Stack<');
+
+		expect(primaryNavSource).toContain('href="/#experience"');
+		expect(primaryNavSource).toContain('>Experience<');
+
 		expect(primaryNavSource).toContain('href="/#blog"');
 		expect(primaryNavSource).toContain('>Blog<');
 	});
@@ -77,6 +83,7 @@ describe('navigation contract', () => {
 		expect(primaryNavRuntime).toContain('siteHeader.dataset.navOpen = String(nextOpen)');
 		expect(primaryNavRuntime).toContain('primaryNav.addEventListener(\'click\', (event) => {');
 		expect(primaryNavRuntime).toContain('closeNavPanel();');
+		expect(primaryNavRuntime).toContain('target.blur();');
 		expect(headerRuntime).toContain('initPrimaryNavRuntime({');
 		expect(homeScript).toContain('initHeaderRuntime({');
 	});
@@ -86,6 +93,11 @@ describe('navigation contract', () => {
 		expect(primaryNavStylesSource).toContain('inset: 0');
 		expect(primaryNavStylesSource).toContain('align-items: center');
 		expect(primaryNavStylesSource).toContain('justify-content: center');
+	});
+
+	it('prevents persistent touch hover styling from looking like a second active link', () => {
+		expect(primaryNavStylesSource).toContain('@media (hover: none) and (pointer: coarse)');
+		expect(primaryNavStylesSource).toContain('.primary-nav-list a[aria-current]:hover');
 	});
 
 	it('keeps the nav toggle cross button above the fullscreen overlay', () => {
@@ -109,8 +121,11 @@ describe('navigation contract', () => {
 		expect(primaryNavRuntime).toContain('new IntersectionObserver(');
 		expect(primaryNavRuntime).toContain("['hero', '/']");
 		expect(primaryNavRuntime).toContain("['projects', '/#projects']");
+		expect(primaryNavRuntime).toContain("['stack', '/#stack']");
+		expect(primaryNavRuntime).toContain("['experience', '/#experience']");
 		expect(primaryNavRuntime).toContain("['blog', '/#blog']");
 		expect(primaryNavRuntime).toContain("['contact', '/#contact']");
 		expect(primaryNavRuntime).toContain('observer.observe(section);');
+		expect(primaryNavRuntime).toContain('focusedLink.blur();');
 	});
 });

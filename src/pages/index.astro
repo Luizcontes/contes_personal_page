@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SendEmailButton from "../components/send-email-button/SendEmailButton.astro";
 import ContentSection from "../components/content-section/ContentSection.astro";
+import StackSection from "../components/stack/StackSection.astro";
+import ExperienceSection from "../components/experience/ExperienceSection.astro";
 ---
 
 <BaseLayout title="Luiz Contes">
@@ -56,6 +58,12 @@ import ContentSection from "../components/content-section/ContentSection.astro";
 				ctaKey="section.cta.projects"
 				ctaDefault="View Projects"
 			/>
+		</section>
+		<section id="stack" class="home-section">
+			<StackSection />
+		</section>
+		<section id="experience" class="home-section">
+			<ExperienceSection />
 		</section>
 		<section id="blog" class="home-section">
 			<ContentSection

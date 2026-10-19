@@ -17,21 +17,31 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 
 	it('contains anchor-ready section ids for projects', () => {
 		expect(homePage).toContain('id="projects"');
+		expect(homePage).toContain('id="stack"');
+		expect(homePage).toContain('id="experience"');
 	});
 
 	it('keeps section ordering aligned with IA hierarchy', () => {
 		const heroIndex = homePage.indexOf('id="hero"');
 		const projectsIndex = homePage.indexOf('id="projects"');
 		const recentPostsIndex = homePage.indexOf('id="blog"');
+		const stackIndex = homePage.indexOf('id="stack"');
+		const experienceIndex = homePage.indexOf('id="experience"');
 		const layoutIndex = homePage.indexOf('<BaseLayout');
 
 		expect(heroIndex).toBeGreaterThan(-1);
 		expect(projectsIndex).toBeGreaterThan(-1);
 		expect(recentPostsIndex).toBeGreaterThan(-1);
+		expect(stackIndex).toBeGreaterThan(-1);
+		expect(experienceIndex).toBeGreaterThan(-1);
 		expect(layoutIndex).toBeGreaterThan(-1);
 		expect(baseLayout).toContain('<Footer />');
 		expect(heroIndex).toBeLessThan(projectsIndex);
 		expect(projectsIndex).toBeLessThan(recentPostsIndex);
+		expect(projectsIndex).toBeLessThan(stackIndex);
+		expect(stackIndex).toBeLessThan(recentPostsIndex);
+		expect(stackIndex).toBeLessThan(experienceIndex);
+		expect(experienceIndex).toBeLessThan(recentPostsIndex);
 	});
 
 	it('uses token-driven shell class hooks for spacing rhythm', () => {

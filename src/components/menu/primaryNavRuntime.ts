@@ -12,6 +12,7 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 	const siteHeader = document.querySelector('.site-header');
 	const navToggle = document.querySelector('.nav-toggle');
 	const primaryNav = document.querySelector('#primary-nav');
+	const isTouchNavigation = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 	const navLinks =
 		primaryNav instanceof HTMLElement
@@ -23,6 +24,8 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 	const sectionNavMap = new Map([
 		['hero', '/'],
 		['projects', '/#projects'],
+		['stack', '/#stack'],
+		['experience', '/#experience'],
 		['blog', '/#blog'],
 		['contact', '/#contact'],
 	]);
@@ -93,48 +96,47 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 			.filter((section): section is HTMLElement => section instanceof HTMLElement);
 
 		let activeSectionId = '';
-		const sectionEntryState = new Map<HTMLElement, IntersectionObserverEntry>();
+
+		const syncActiveSection = () => {
+			const readingLine = Math.max(64, window.innerHeight * 0.35);
+			const sectionAtReadingLine =
+				trackedSections
+					.map((section) => ({ section, rect: section.getBoundingClientRect() }))
+					.filter(({ rect }) => rect.top <= readingLine && rect.bottom > readingLine)
+					.sort((left, right) => right.rect.top - left.rect.top)[0]?.section ??
+				trackedSections
+					.map((section) => ({ section, rect: section.getBoundingClientRect() }))
+					.filter(({ rect }) => rect.bottom > 64)
+					.sort((left, right) => Math.abs(left.rect.top - readingLine) - Math.abs(right.rect.top - readingLine))[0]
+					?.section;
+
+			if (!(sectionAtReadingLine instanceof HTMLElement) || !sectionAtReadingLine.id) {
+				return;
+			}
+
+			if (sectionAtReadingLine.id === activeSectionId) {
+				return;
+			}
+
+			activeSectionId = sectionAtReadingLine.id;
+			const focusedLink = document.activeElement;
+			if (
+				focusedLink instanceof HTMLAnchorElement &&
+				navLinks.includes(focusedLink)
+			) {
+				focusedLink.blur();
+			}
+
+			const targetHref = sectionNavMap.get(activeSectionId);
+			if (targetHref) {
+				setActiveNavLink(targetHref);
+			}
+		};
 
 		const observer = new IntersectionObserver(
-			(entries) => {
-				// Update the latest known state for each section that fired
-				for (const entry of entries) {
-					if (entry.target instanceof HTMLElement) {
-						sectionEntryState.set(entry.target, entry);
-					}
-				}
-
-				// Pick the winner from ALL known states, not just the entries that fired this tick.
-				// This prevents a stale-comparison bug where two adjacent sections cross their
-				// thresholds at different scroll positions and the one that fires alone wins incorrectly.
-				const visibleEntries = Array.from(sectionEntryState.values())
-					.filter((entry) => entry.isIntersecting)
-					.sort((left, right) => {
-						if (right.intersectionRatio !== left.intersectionRatio) {
-							return right.intersectionRatio - left.intersectionRatio;
-						}
-						return Math.abs(left.boundingClientRect.top) - Math.abs(right.boundingClientRect.top);
-					});
-
-				const nextSection = visibleEntries[0]?.target;
-				if (!(nextSection instanceof HTMLElement) || !nextSection.id) {
-					return;
-				}
-
-				if (nextSection.id === activeSectionId) {
-					return;
-				}
-
-				activeSectionId = nextSection.id;
-				const targetHref = sectionNavMap.get(activeSectionId);
-				if (targetHref) {
-					setActiveNavLink(targetHref);
-				}
-			},
+			() => syncActiveSection(),
 			{
 				rootMargin: '-64px 0px -45% 0px',
-				// 0.1 populates the state map early; 0.75 is unreachable for ~86svh sections
-				// in a ~55vh observation zone so it is replaced with 0.1.
 				threshold: [0.1, 0.25, 0.5],
 			}
 		);
@@ -164,6 +166,9 @@ export function initPrimaryNavRuntime({ closeNavPanel, closeLangPanel }: Primary
 			const target = event.target;
 			if (target instanceof HTMLAnchorElement) {
 				closeNavPanel();
+				if (isTouchNavigation) {
+					target.blur();
+				}
 				const parsedLink = new URL(target.href, window.location.origin);
 				const isHomeLink = normalizePath(parsedLink.pathname) === '/' && parsedLink.hash === '';
 				const isOnHomePage = normalizePath(window.location.pathname) === '/';

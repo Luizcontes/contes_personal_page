@@ -120,6 +120,18 @@
 	color: var(--color-accent-cyan);
 }
 
+@media (hover: none) and (pointer: coarse) {
+	.primary-nav-list a:hover,
+	.primary-nav-list a:focus-visible {
+		color: var(--color-text);
+	}
+
+	.primary-nav-list a[aria-current]:hover,
+	.primary-nav-list a[aria-current]:focus-visible {
+		color: var(--color-accent-cyan);
+	}
+}
+
 @media (min-width: 48rem) {
 	.nav-toggle {
 		display: none;

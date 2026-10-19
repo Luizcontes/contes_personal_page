@@ -5,7 +5,7 @@ Last updated: 2026-04-17
 
 ## Architecture Intent
 Components should support the IA flow and conversion path:
-Hero -> Who I Am -> Projects -> Recent Posts -> Contact.
+Hero -> Who I Am -> Projects -> Stack -> Work Experience -> Recent Posts -> Contact.
 Projects must be usable both as a home teaser section and as a standalone /projects page.
 
 ## Hero Section
@@ -37,6 +37,8 @@ No form backend, no client-side hydration, and no form validation are needed.
 - Footer
 - Header
 - ContentSection (generic section wrapper with heading, optional body copy, and CTA link)
+- StackSection (static home section for tools, skills, and workflow)
+- ExperienceSection (static home timeline for work experience)
 - SendEmailButton (mailto: link styled as a button)
 - Hero (inline in index.astro)
 - WhoIAmSection (planned — /who-i-am page)
@@ -72,9 +74,9 @@ Component-specific styles are never defined in the global stylesheet.
 - `src/layouts/footer/footer.css` owns `.site-footer`
 
 ## Navigation and Routing Components
-- Current nav links: Home (/), Projects (/#projects), Blog (/#blog).
+- Current nav links: Home (/), Projects (/#projects), Stack (/#stack), Experience (/#experience), Blog (/#blog).
 - Planned additions: Who I Am (/who-i-am) and Contact (mailto: link).
-- On Home, in-page jump links use #projects and #blog for fast access to those sections.
+- On Home, in-page jump links use #projects, #stack, #experience, and #blog for fast access to those sections.
 
 ## Navigation Build Plan
 1. Create a dedicated Navigation component with a data-driven item list.
@@ -89,6 +91,8 @@ Component-specific styles are never defined in the global stylesheet.
 4. Add route/anchor behavior:
 	- / (Home)
 	- /#projects
+	- /#stack
+	- /#experience
 	- /#blog
 	- /who-i-am (planned)
 	- mailto: contact link (planned)
@@ -136,7 +140,7 @@ Component-specific styles are never defined in the global stylesheet.
 - Existing navigation and theme behavior remain intact.
 
 ## Section Mapping by Route
-- / : Hero, Projects shell, Blog shell (Who I Am, Recent Posts, Contact CTA planned).
+- / : Hero, Projects shell, Stack, Work Experience, Blog shell (Who I Am, Recent Posts, Contact CTA planned).
 - /who-i-am : Personal background and trajectory (placeholder page).
 - /projects : Full projects grid and optional category/filter controls (placeholder page).
 - /blog : Blog listing (placeholder page).
@@ -144,14 +148,16 @@ Component-specific styles are never defined in the global stylesheet.
 
 ## Home Incremental Delivery Order
 To keep implementation small, testable, and approval-gated, Home should be delivered in this order:
-1. Page shell and anchor skeleton (done: #hero, #projects, #blog)
+1. Page shell and anchor skeleton (done: #hero, #projects, #stack, #experience, #blog)
 2. Hero (done: headline, eyebrow, support paragraphs, mailto CTA, Who I Am CTA, hero image)
 3. Projects teaser shell (done: ContentSection placeholder)
-4. Recent posts shell (done: ContentSection placeholder)
-5. Who I Am section (planned)
-6. Contact CTA section (planned)
-7. Navigation integration (in progress: Home, Projects, Blog in nav)
-8. Footer integration (in progress: tagline + SendEmailButton)
+4. Stack section (done: static tools, skills, and workflow cards)
+5. Work Experience section (done: static placeholder timeline)
+6. Recent posts shell (done: ContentSection placeholder)
+7. Who I Am section (planned)
+8. Contact CTA section (planned)
+9. Navigation integration (in progress: Home, Projects, Stack, Experience, Blog in nav)
+10. Footer integration (in progress: tagline + SendEmailButton)
 
 ## Performance Guidelines
 - Keep non-critical interactivity deferred

@@ -13,6 +13,8 @@ export const ui = {
 		'nav.home': 'Home',
 		'nav.whoIAm': 'Who I Am',
 		'nav.projects': 'Projects',
+		'nav.stack': 'Stack',
+		'nav.experience': 'Experience',
 		'nav.blog': 'Blog',
 		'lang.pickerLabel': 'Select language',
 		'lang.option.en': 'English',
@@ -33,6 +35,31 @@ export const ui = {
 		'hero.cta.whoIAm': 'Who I Am',
 		'section.projects': 'Projects',
 		'section.cta.projects': 'View Projects',
+		'section.stack': 'Stack',
+		'section.stack.intro':
+			'Tools, skills, and workflow choices I use to turn complex ideas into reliable software.',
+		'stack.tools.title': 'Tools',
+		'stack.tools.body':
+			'TypeScript, Astro, Git, and modern cloud tooling for building fast, maintainable products.',
+		'stack.skills.title': 'Skills',
+		'stack.skills.body':
+			'Software architecture, frontend engineering, automation, testing, and clear technical communication.',
+		'stack.workflow.title': 'Workflow',
+		'stack.workflow.body':
+			'Small changes, explicit trade-offs, focused feedback loops, and documentation that keeps decisions discoverable.',
+		'section.experience': 'Work Experience',
+		'section.experience.intro':
+			'A timeline of the roles, projects, and lessons that have shaped how I build software.',
+		'experience.placeholder.period': 'Present',
+		'experience.placeholder.role': 'Software Engineer',
+		'experience.placeholder.company': 'Your Company',
+		'experience.placeholder.description':
+			'Work experience details will be added here, including responsibilities, technical decisions, and measurable outcomes.',
+		'experience.placeholder.previousPeriod': 'Previous role',
+		'experience.placeholder.previousRole': 'Previous Role',
+		'experience.placeholder.previousCompany': 'Previous Company',
+		'experience.placeholder.previousDescription':
+			'Add a concise summary of the work, technologies, and impact from this role.',
 		'section.recentPosts': 'Recent Posts',
 		'section.cta.blog': 'Read Blog',
 		'contact.cta.email': 'Contact Me',
@@ -46,6 +73,8 @@ export const ui = {
 		'nav.home': 'Início',
 		'nav.whoIAm': 'Quem Sou',
 		'nav.projects': 'Projetos',
+		'nav.stack': 'Stack',
+		'nav.experience': 'Experiência',
 		'nav.blog': 'Blog',
 		'lang.pickerLabel': 'Selecionar idioma',
 		'lang.option.en': 'Inglês',
@@ -66,6 +95,31 @@ export const ui = {
 		'hero.cta.whoIAm': 'Quem Sou',
 		'section.projects': 'Projetos',
 		'section.cta.projects': 'Ver Projetos',
+		'section.stack': 'Stack',
+		'section.stack.intro':
+			'Ferramentas, habilidades e escolhas de fluxo de trabalho que uso para transformar ideias complexas em software confiável.',
+		'stack.tools.title': 'Ferramentas',
+		'stack.tools.body':
+			'TypeScript, Astro, Git e ferramentas modernas de nuvem para criar produtos rápidos e fáceis de manter.',
+		'stack.skills.title': 'Habilidades',
+		'stack.skills.body':
+			'Arquitetura de software, engenharia frontend, automação, testes e comunicação técnica clara.',
+		'stack.workflow.title': 'Fluxo de trabalho',
+		'stack.workflow.body':
+			'Pequenas mudanças, decisões explícitas, ciclos de feedback focados e documentação que mantém as decisões descobríveis.',
+		'section.experience': 'Experiência Profissional',
+		'section.experience.intro':
+			'Uma linha do tempo dos papéis, projetos e aprendizados que moldaram minha forma de criar software.',
+		'experience.placeholder.period': 'Atual',
+		'experience.placeholder.role': 'Engenheiro de Software',
+		'experience.placeholder.company': 'Sua Empresa',
+		'experience.placeholder.description':
+			'Os detalhes da experiência profissional serão adicionados aqui, incluindo responsabilidades, decisões técnicas e resultados mensuráveis.',
+		'experience.placeholder.previousPeriod': 'Cargo anterior',
+		'experience.placeholder.previousRole': 'Cargo anterior',
+		'experience.placeholder.previousCompany': 'Empresa anterior',
+		'experience.placeholder.previousDescription':
+			'Adicione um resumo conciso do trabalho, das tecnologias e do impacto deste cargo.',
 		'section.recentPosts': 'Posts Recentes',
 		'section.cta.blog': 'Ler Blog',
 		'contact.cta.email': 'Fale Comigo',
@@ -79,6 +133,8 @@ export const ui = {
 		'nav.home': 'Inicio',
 		'nav.whoIAm': 'Quién Soy',
 		'nav.projects': 'Proyectos',
+		'nav.stack': 'Stack',
+		'nav.experience': 'Experiencia',
 		'nav.blog': 'Blog',
 		'lang.pickerLabel': 'Seleccionar idioma',
 		'lang.option.en': 'Inglés',
@@ -99,6 +155,31 @@ export const ui = {
 		'hero.cta.whoIAm': 'Quién Soy',
 		'section.projects': 'Proyectos',
 		'section.cta.projects': 'Ver Proyectos',
+		'section.stack': 'Stack',
+		'section.stack.intro':
+			'Herramientas, habilidades y decisiones de flujo de trabajo que uso para convertir ideas complejas en software confiable.',
+		'stack.tools.title': 'Herramientas',
+		'stack.tools.body':
+			'TypeScript, Astro, Git y herramientas modernas de nube para crear productos rápidos y fáciles de mantener.',
+		'stack.skills.title': 'Habilidades',
+		'stack.skills.body':
+			'Arquitectura de software, ingeniería frontend, automatización, pruebas y comunicación técnica clara.',
+		'stack.workflow.title': 'Flujo de trabajo',
+		'stack.workflow.body':
+			'Cambios pequeños, decisiones explícitas, ciclos de feedback enfocados y documentación que mantiene las decisiones accesibles.',
+		'section.experience': 'Experiencia Laboral',
+		'section.experience.intro':
+			'Una línea de tiempo de los roles, proyectos y aprendizajes que han dado forma a mi manera de crear software.',
+		'experience.placeholder.period': 'Actual',
+		'experience.placeholder.role': 'Ingeniero de Software',
+		'experience.placeholder.company': 'Tu Empresa',
+		'experience.placeholder.description':
+			'Los detalles de la experiencia laboral se añadirán aquí, incluidas responsabilidades, decisiones técnicas y resultados medibles.',
+		'experience.placeholder.previousPeriod': 'Rol anterior',
+		'experience.placeholder.previousRole': 'Rol anterior',
+		'experience.placeholder.previousCompany': 'Empresa anterior',
+		'experience.placeholder.previousDescription':
+			'Añade un resumen breve del trabajo, las tecnologías y el impacto de este rol.',
 		'section.recentPosts': 'Publicaciones Recientes',
 		'section.cta.blog': 'Leer Blog',
 		'contact.cta.email': 'Contacta Conmigo',

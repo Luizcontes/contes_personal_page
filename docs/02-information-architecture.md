@@ -13,12 +13,14 @@ Last updated: 2026-04-17
 ## Home Section Anchors
 - #hero
 - #projects
+- #stack
+- #experience
 - #blog
 
 Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact action is a mailto: link in the hero and footer, not a home anchor.
 
 ## Page Roles
-- Home: establish positioning and route visitors to Who I Am, Projects, Blog, and Contact
+- Home: establish positioning and route visitors to Who I Am, Projects, Stack, Experience, Blog, and Contact
 - Who I Am: background, skills, and trajectory
 - Projects: showcase selected projects with context, technical decisions, and outcomes
 - Blog index: discover all published writing by tag
@@ -28,8 +30,10 @@ Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact 
 1. Hero and positioning
 2. Who I Am
 3. Projects
-4. Recent posts as proof of expertise
-5. Contact call-to-action
+4. Stack: tools, skills, and workflow
+5. Work experience
+6. Recent posts as proof of expertise
+7. Contact call-to-action
 
 ## Home Implementation Granularity
 
@@ -37,7 +41,7 @@ Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact 
 1. Page shell chunk
 	- Main wrapper and section order
 	- Shared container rhythm (spacing tokens)
-	- Anchor targets prepared: #hero, #projects, #blog
+	- Anchor targets prepared: #hero, #projects, #stack, #experience, #blog
 2. Hero chunk
 	- Positioning label
 	- Primary headline
@@ -52,19 +56,26 @@ Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact 
 	- Curated subset/cards for Home
 	- Link handoff to /projects
 	- Anchor support (#projects)
-5. Recent posts chunk
+5. Stack chunk
+	- Tools, skills, and workflow overview
+	- Anchor support (#stack)
+6. Work experience chunk
+	- Chronological timeline of roles and outcomes
+	- Anchor support (#experience)
+7. Recent posts chunk
 	- Latest 3 posts
 	- Core metadata: title, description, date, tags
 	- Link handoff to /blog
-6. Contact CTA chunk
+8. Contact CTA chunk
 	- Conversion-focused copy
 	- Mailto: contact link (no form — contact is handled via mailto:)
-7. Navigation integration chunk
-	- Home, Projects, Blog (Who I Am and Contact planned)
+9. Navigation integration chunk
+	- Home, Projects, Stack, Experience, Blog (Who I Am and Contact planned)
 	- Projects mapped to /projects
-	- Blog mapped to /blog
+	- Stack mapped to /#stack
+	- Blog mapped to /#blog
 	- Who I Am CTA in hero maps to /who-i-am
-8. Footer integration chunk
+10. Footer integration chunk
 	- Quick links
 	- Social placeholders
 	- Copyright
@@ -89,7 +100,7 @@ For each chunk:
 5. Pause for approval before next chunk
 
 ## Navigation Model
-Top navigation (current): Home, Projects, Blog.
+Top navigation (current): Home, Projects, Stack, Experience, Blog.
 Top navigation (planned): add Who I Am (→ /who-i-am) and Contact (→ mailto: link) once those surfaces are complete.
 Navigation behavior: Projects points to /projects.
 Footer: tagline, mailto contact button (Send Email), quick links and copyright planned.
@@ -120,6 +131,7 @@ Locale preference is stored in `localStorage` and used on subsequent visits befo
 	- Home -> /
 	- Who I Am -> /#who-i-am
 	- Projects -> /projects
+	- Stack -> /#stack
 	- Blog -> /blog
 	- Contact -> /#contact
 3. Navigation is visible and usable on mobile and desktop.
