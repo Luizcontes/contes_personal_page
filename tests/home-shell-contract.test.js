@@ -36,12 +36,10 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 		expect(experienceIndex).toBeGreaterThan(-1);
 		expect(layoutIndex).toBeGreaterThan(-1);
 		expect(baseLayout).toContain('<Footer />');
-		expect(heroIndex).toBeLessThan(projectsIndex);
-		expect(projectsIndex).toBeLessThan(recentPostsIndex);
-		expect(projectsIndex).toBeLessThan(stackIndex);
-		expect(stackIndex).toBeLessThan(recentPostsIndex);
+		expect(heroIndex).toBeLessThan(stackIndex);
 		expect(stackIndex).toBeLessThan(experienceIndex);
-		expect(experienceIndex).toBeLessThan(recentPostsIndex);
+		expect(experienceIndex).toBeLessThan(projectsIndex);
+		expect(projectsIndex).toBeLessThan(recentPostsIndex);
 	});
 
 	it('uses token-driven shell class hooks for spacing rhythm', () => {
