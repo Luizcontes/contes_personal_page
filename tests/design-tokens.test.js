@@ -11,6 +11,8 @@ const requiredTokens = [
 	'--color-border',
 	'--color-accent-cyan',
 	'--color-accent-purple',
+	'--color-section-highlight',
+	'--color-section-highlight-edge',
 	'--color-text',
 	'--color-text-muted',
 	'--font-sans',

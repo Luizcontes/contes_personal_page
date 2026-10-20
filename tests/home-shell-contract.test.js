@@ -5,6 +5,8 @@ import { describe, expect, it } from 'vitest';
 const rootDir = process.cwd();
 const homePagePath = resolve(rootDir, 'src/pages/index.astro');
 const homePage = readFileSync(homePagePath, 'utf8');
+const globalStylesheetPath = resolve(rootDir, 'src/styles/global.css');
+const globalStylesheet = readFileSync(globalStylesheetPath, 'utf8');
 const baseLayoutPath = resolve(rootDir, 'src/layouts/BaseLayout.astro');
 const baseLayout = readFileSync(baseLayoutPath, 'utf8');
 const footerPath = resolve(rootDir, 'src/layouts/footer/Footer.astro');
@@ -45,5 +47,18 @@ describe('home item 1 contract: page shell and anchor skeleton', () => {
 	it('uses token-driven shell class hooks for spacing rhythm', () => {
 		expect(homePage).toContain('class="home-shell"');
 		expect(homePage).toContain('class="home-section"');
+	});
+
+	it('highlights the stack section as the featured home section', () => {
+		expect(homePage).toContain(
+			'<section id="stack" class="home-section home-section--highlighted">'
+		);
+	});
+
+	it('uses a full-viewport background layer without a section separator', () => {
+		expect(globalStylesheet).toContain('.home-section--highlighted::before');
+		expect(globalStylesheet).toContain('width: 100vw');
+		expect(globalStylesheet).toContain('transform: translateX(-50%)');
+		expect(globalStylesheet).not.toContain('border-bottom: 1px solid var(--color-section-highlight-edge)');
 	});
 });

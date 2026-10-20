@@ -34,6 +34,8 @@ html[data-theme="dark"] {
 	--color-bg: #0a0f1e;
 	--color-surface: #131929;
 	--color-border: #1e2d4a;
+	--color-section-highlight: #32488f;
+	--color-section-highlight-edge: #4165a8;
 	--color-accent-cyan: #22d3ee;
 	--color-accent-purple: #a78bfa;
 	--color-text: #e2e8f0;
@@ -49,6 +51,8 @@ html[data-theme="light"] {
 	--color-bg: #f8fafc;
 	--color-surface: #ffffff;
 	--color-border: #cbd5e1;
+	--color-section-highlight: #8a7dc4;
+	--color-section-highlight-edge: #91a3e3;
 	--color-accent-cyan: #0e7490;
 	--color-accent-purple: #7c3aed;
 	--color-text: #0f172a;
@@ -129,6 +133,27 @@ a {
 	/* border: 1px solid var(--color-border); */
 	/* border-radius: var(--radius-md); */
 	/* background-color: var(--color-surface); */
+}
+
+.home-section--highlighted {
+	position: relative;
+	z-index: 0;
+	isolation: isolate;
+}
+
+.home-section--highlighted::before {
+	position: absolute;
+	z-index: -1;
+	inset: 0 auto 0 50%;
+	width: 100vw;
+	content: '';
+	background:
+		linear-gradient(
+			to top,
+			var(--color-section-highlight) 0%,
+			var(--color-bg) 95%
+		);
+	transform: translateX(-50%);
 }
 
 .hero-section {

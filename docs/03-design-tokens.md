@@ -13,6 +13,8 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - --color-border: #1e2d4a
 - --color-accent-cyan: #22d3ee
 - --color-accent-purple: #a78bfa
+- --color-section-highlight: background layer for an emphasized page section
+- --color-section-highlight-edge: border color for an emphasized page section
 - --color-text: #e2e8f0
 - --color-text-muted: #64748b
 
@@ -26,6 +28,8 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - --color-bg: #0a0f1e
 - --color-surface: #131929
 - --color-border: #1e2d4a
+- --color-section-highlight: #1e2d60
+- --color-section-highlight-edge: #4165a8
 - --color-accent-cyan: #22d3ee
 - --color-accent-purple: #a78bfa
 - --color-text: #e2e8f0
@@ -36,6 +40,8 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - --color-bg: #f8fafc
 - --color-surface: #ffffff
 - --color-border: #cbd5e1
+- --color-section-highlight: #d7d2ee
+- --color-section-highlight-edge: #91a3e3
 - --color-accent-cyan: #0e7490
 - --color-accent-purple: #7c3aed
 - --color-text: #0f172a
@@ -50,6 +56,7 @@ CSS custom properties (CSS variables) defined in `src/styles/global.css` for tok
 - Keep high contrast between text and backgrounds.
 - Use cyan for primary interactions and purple for secondary highlights.
 - Limit accent overuse to preserve visual hierarchy.
+- Use section highlight tokens for restrained background bands that distinguish related content without overpowering the page.
 
 ## Header Utility Control Tokens
 Language switcher and theme toggle are visually paired header utility controls and must share identical token usage:
