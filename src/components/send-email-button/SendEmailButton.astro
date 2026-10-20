@@ -1,6 +1,7 @@
 ---
 import './send-email-button.css';
 import { getSendEmailButtonState } from './sendEmailButton';
+import mailIcon from '../../assets/icons/mail.svg?raw';
 
 interface Props {
 	locale?: string;
@@ -17,7 +18,9 @@ const { className: resolvedClassName, contactFallbackMailtoHref, contactMailtoHr
 	href={contactMailtoHref}
 	data-contact-email-link
 	data-contact-fallback-mailto={contactFallbackMailtoHref}
-	data-i18n="contact.cta.email"
 >
-	Contact Me
+	<span class="send-email-button-icon" aria-hidden="true">
+		<Fragment set:html={mailIcon} />
+	</span>
+	<span data-i18n="contact.cta.email">Contact Me</span>
 </a>

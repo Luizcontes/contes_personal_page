@@ -66,6 +66,10 @@ export const ui = {
 		'contact.mailto.subject': 'Contact from your personal website',
 		'contact.mailto.body': 'Hi Luiz,\n\nI found your website and would like to talk about...\n\nBest regards,\n',
 		'footer.tagline': 'Let\'s turn your idea into reality.',
+		'footer.linksLabel': 'Footer links',
+		'footer.githubLabel': 'Visit GitHub profile',
+		'footer.linkedinLabel': 'Visit LinkedIn profile',
+		'footer.emailLabel': 'Send an email',
 	},
 	'pt-br': {
 		'nav.menu': 'Menu',
@@ -126,6 +130,10 @@ export const ui = {
 		'contact.mailto.subject': 'Contato pelo seu site pessoal',
 		'contact.mailto.body': 'Oi Luiz,\n\nEncontrei seu site e gostaria de conversar sobre...\n\nAtenciosamente,\n',
 		'footer.tagline': 'Vamos transformar sua ideia em realidade.',
+		'footer.linksLabel': 'Links do rodapé',
+		'footer.githubLabel': 'Visitar perfil no GitHub',
+		'footer.linkedinLabel': 'Visitar perfil no LinkedIn',
+		'footer.emailLabel': 'Enviar um e-mail',
 	},
 	es: {
 		'nav.menu': 'Menú',
@@ -186,5 +194,9 @@ export const ui = {
 		'contact.mailto.subject': 'Contacto desde tu sitio personal',
 		'contact.mailto.body': 'Hola Luiz,\n\nEncontré tu sitio y me gustaría hablar sobre...\n\nSaludos,\n',
 		'footer.tagline': 'Hagamos realidad tu idea.',
+		'footer.linksLabel': 'Enlaces del pie de página',
+		'footer.githubLabel': 'Visitar perfil de GitHub',
+		'footer.linkedinLabel': 'Visitar perfil de LinkedIn',
+		'footer.emailLabel': 'Enviar un correo electrónico',
 	},
 } as const;

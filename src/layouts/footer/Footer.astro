@@ -2,17 +2,50 @@
 import './footer.css';
 import { defaultLang } from '../../i18n/ui';
 import SendEmailButton from '../../components/send-email-button/SendEmailButton.astro';
+import githubIcon from '../../assets/icons/github.svg?raw';
+import linkedinIcon from '../../assets/icons/linkedin.svg?raw';
 
 interface Props {
 	locale?: string;
 }
 
 const { locale = defaultLang } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="site-footer" data-sticky="false">
-	<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
-	<SendEmailButton locale={locale} />
+<footer class="site-footer" data-sticky="false" data-expanded="false">
+	<div class="footer-compact">
+		<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
+		<SendEmailButton locale={locale} />
+	</div>
+	<div class="footer-expanded" data-footer-expanded-content>
+		<nav class="footer-social" aria-label="Footer links" data-i18n-aria-label="footer.linksLabel">
+			<a
+				class="footer-social-link"
+				href="https://github.com/Luizcontes"
+				target="_blank"
+				rel="noreferrer"
+				data-i18n-aria-label="footer.githubLabel"
+			>
+				<Fragment set:html={githubIcon} />
+				<span class="sr-only">GitHub</span>
+			</a>
+			<a
+				class="footer-social-link"
+				href="https://www.linkedin.com/in/luizcontes"
+				target="_blank"
+				rel="noreferrer"
+				data-i18n-aria-label="footer.linkedinLabel"
+			>
+				<Fragment set:html={linkedinIcon} />
+				<span class="sr-only">LinkedIn</span>
+			</a>
+		</nav>
+		<p class="footer-copyright">© {currentYear} Luiz Contes</p>
+		<div class="footer-contact">
+			<SendEmailButton locale={locale} className="send-email-button footer-contact-button" />
+		</div>
+	</div>
 </footer>
 
 <script>
