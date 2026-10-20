@@ -18,28 +18,30 @@ const currentYear = new Date().getFullYear();
 		<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
 	</div>
 	<div class="footer-expanded" data-footer-expanded-content>
-		<nav class="footer-social" aria-label="Footer links" data-i18n-aria-label="footer.linksLabel">
-			<a
-				class="footer-social-link"
-				href="https://github.com/Luizcontes"
-				target="_blank"
-				rel="noreferrer"
-				data-i18n-aria-label="footer.githubLabel"
-			>
-				<Fragment set:html={githubIcon} />
-				<span class="sr-only">GitHub</span>
-			</a>
-			<a
-				class="footer-social-link"
-				href="https://www.linkedin.com/in/luizcontes"
-				target="_blank"
-				rel="noreferrer"
-				data-i18n-aria-label="footer.linkedinLabel"
-			>
-				<Fragment set:html={linkedinIcon} />
-				<span class="sr-only">LinkedIn</span>
-			</a>
-		</nav>
+		<div class="footer-action-row">
+			<nav class="footer-social" aria-label="Footer links" data-i18n-aria-label="footer.linksLabel">
+				<a
+					class="footer-social-link"
+					href="https://github.com/Luizcontes"
+					target="_blank"
+					rel="noreferrer"
+					data-i18n-aria-label="footer.githubLabel"
+				>
+					<Fragment set:html={githubIcon} />
+					<span class="sr-only">GitHub</span>
+				</a>
+				<a
+					class="footer-social-link"
+					href="https://www.linkedin.com/in/luizcontes"
+					target="_blank"
+					rel="noreferrer"
+					data-i18n-aria-label="footer.linkedinLabel"
+				>
+					<Fragment set:html={linkedinIcon} />
+					<span class="sr-only">LinkedIn</span>
+				</a>
+			</nav>
+		</div>
 		<p class="footer-copyright">© {currentYear} Luiz Contes</p>
 	</div>
 	<div class="footer-cta-slot">
