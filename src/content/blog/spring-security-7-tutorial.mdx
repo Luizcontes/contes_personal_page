@@ -1,0 +1,252 @@
+---
+title: "Spring Security 7: Understanding Authentication from the Filter Chain to Password Encoding"
+description: "A practical guide to the Spring Security 7 concepts covered by Amigoscode, including form login, sessions, Basic Authentication, CSRF, providers, custom users, and password encoding."
+date: 2026-10-20
+tags:
+  - Java
+  - Spring
+  - Security
+  - Backend
+cover: "https://i.ytimg.com/vi/IqW6NVxPaTc/hqdefault.jpg"
+ogImage: "https://i.ytimg.com/vi/IqW6NVxPaTc/hqdefault.jpg"
+---
+
+import YouTubeEmbed from '../../components/youtube-embed/YouTubeEmbed.astro';
+
+Authentication is easy to describe and surprisingly easy to misunderstand. An application needs to know who is making a request, what that user is allowed to do, and how to keep credentials and sessions safe. Spring Security provides the pieces for all of those jobs, but its filter chain and authentication abstractions can feel opaque when they are introduced only through configuration snippets.
+
+Amigoscode's *Spring Security 7 Tutorial* takes a practical route through those concepts using Spring Boot 4 and Java 25. The tutorial starts with the architecture behind a secured request, then builds form login, sessions, Basic Authentication, custom users, and password encoding step by step.
+
+The goal is not to memorise one `SecurityFilterChain` bean. It is to understand what happens before a controller runs and how each authentication mechanism changes the request and security context.
+
+## The Security Filter Chain Is the Entry Point
+
+Spring Security sits in front of application controllers as a chain of servlet filters. Each filter has a focused responsibility: loading or creating a security context, processing credentials, handling a logout request, enforcing CSRF protection, or translating an authentication failure into an HTTP response.
+
+A simplified request flow looks like this:
+
+```text
+HTTP request
+    |
+    v
+Security filter chain
+    |
+    +--> authenticate credentials
+    +--> create SecurityContext
+    +--> check authorization
+    |
+    v
+Controller or authentication response
+```
+
+This explains why an unauthenticated request may be redirected to a login page before it reaches a controller. It also explains why the same endpoint can behave differently depending on whether the request contains a session cookie, an `Authorization` header, or a CSRF token.
+
+The chain is assembled from the application configuration and the enabled Spring Security features. Reading the filter chain as a request-processing pipeline is more useful than treating it as framework magic: identify where credentials are extracted, where they are verified, and where the resulting `Authentication` is stored.
+
+## Form Login: Authentication Through a Session
+
+Form login is a natural fit for browser applications. A user submits a username and password to a login endpoint, Spring Security authenticates those credentials, and the application keeps the authenticated identity in a session.
+
+A minimal configuration can enable the form-login flow and require authentication for other requests:
+
+```java
+@Bean
+SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers("/login", "/css/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(Customizer.withDefaults());
+
+    return http.build();
+}
+```
+
+The exact endpoints and authorization rules depend on the application, but the sequence stays similar:
+
+1. The browser requests a protected resource.
+2. Spring Security redirects the browser to the login page.
+3. The user submits credentials.
+4. An authentication filter creates an authentication request.
+5. An `AuthenticationManager` delegates the request to a provider.
+6. On success, the authenticated principal is placed in the security context.
+7. The browser receives a session cookie and can access protected resources.
+
+Login success does not mean that every future request is independently checking the password. The session represents the established authentication, which makes session management and cookie protection part of the security design.
+
+## Sessions and the JSESSIONID Cookie
+
+After a successful form login, the server usually associates the authenticated security context with an HTTP session. The browser stores the session identifier in a `JSESSIONID` cookie and sends it with subsequent requests.
+
+The cookie is only an identifier; it should not contain the user's password or an entire authentication object. The server uses it to find the corresponding session data. That data may live in the application process for a simple deployment or in shared storage such as JDBC or Redis when multiple application instances need to serve the same user.
+
+Session-based authentication brings several operational questions:
+
+- Are session cookies marked `Secure` so they are sent only over HTTPS?
+- Is `HttpOnly` enabled so browser scripts cannot read the cookie?
+- Is the cookie's `SameSite` policy appropriate for the application?
+- When should a session expire or be invalidated?
+- Does scaling require a shared session store?
+
+Logout should invalidate the session and clear the relevant cookie. A custom login or logout page changes the user experience, but it does not remove the need to handle the underlying session lifecycle.
+
+## Basic Authentication Is a Different Trade-off
+
+Basic Authentication sends credentials in the `Authorization` header on each request:
+
+```http
+Authorization: Basic <base64(username:password)>
+```
+
+Base64 is an encoding, not encryption. Basic Authentication is therefore only appropriate over HTTPS, and clients must protect the credentials they keep and transmit.
+
+The request flow differs from form login:
+
+1. The client sends an `Authorization` header.
+2. Spring Security decodes the header and creates an authentication request.
+3. An authentication provider verifies the credentials.
+4. The request is authenticated without relying on a browser login session.
+
+This mechanism is often useful for simple APIs, command-line clients, and internal integrations. It is commonly paired with a stateless policy because the header is presented on every request:
+
+```java
+http
+    .csrf(csrf -> csrf.disable())
+    .sessionManagement(session -> session
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    .httpBasic(Customizer.withDefaults());
+```
+
+Disabling CSRF in this example is not a universal rule. CSRF protection is primarily needed when a browser automatically attaches an ambient credential, such as a session cookie. If the application uses cookies elsewhere, or if authentication and state-changing requests are configured differently, the CSRF decision must be made from the actual browser threat model rather than copied from a sample.
+
+When Basic Authentication fails, the server can respond with `401 Unauthorized` and a `WWW-Authenticate` header. A realm name in that header tells the client which authentication space is being requested.
+
+## CSRF Protects Cookie-Based Requests
+
+Cross-Site Request Forgery occurs when an attacker causes a victim's browser to send a request to an application that trusts the browser's automatically attached credentials. A session cookie is the classic example: the browser may send it even though the request was initiated from an untrusted page.
+
+Spring Security can issue and validate CSRF tokens for state-changing operations. A valid token demonstrates that the request came through an expected application flow rather than relying only on a cookie that the browser attaches automatically.
+
+The important distinction is not that “CSRF is for browsers” and “APIs never need it.” The relevant questions are:
+
+- Is authentication automatically attached by the client?
+- Can another origin cause the client to send the request?
+- Are state-changing operations protected by a token or another appropriate mechanism?
+
+A stateless API using an explicit bearer-style credential may have a different CSRF profile from a browser application using session cookies. The configuration should follow that design deliberately, and disabling a protection should be documented as a consequence of the chosen authentication model.
+
+## AuthenticationManager and AuthenticationProvider
+
+The `AuthenticationManager` coordinates authentication, while an `AuthenticationProvider` knows how to authenticate a particular kind of credential. This separation allows Spring Security to support different mechanisms without putting credential verification directly into controllers.
+
+Conceptually, the flow is:
+
+```text
+Authentication request
+        |
+        v
+AuthenticationManager
+        |
+        +--> AuthenticationProvider
+        |        |
+        |        +--> load user
+        |        +--> verify credentials
+        |        +--> return authenticated principal
+        |
+        v
+SecurityContext
+```
+
+For username and password authentication, a DAO-style provider typically obtains user information through a `UserDetailsService` and checks the submitted password with a `PasswordEncoder`. If authentication fails, the provider's exception and the surrounding filter chain determine the response shown to the client.
+
+This design is also useful for debugging. Instead of starting at the controller, follow the request through the filter that extracted the credentials, the manager that delegated them, the provider that attempted verification, and the user lookup that supplied the account data.
+
+## Custom Users with UserDetailsService
+
+The default in-memory examples are useful for learning the flow, but production applications normally load users from a database or another identity store. `UserDetailsService` provides the lookup boundary for username-based authentication:
+
+```java
+@Service
+public class ApplicationUserDetailsService
+        implements UserDetailsService {
+
+    private final UserRepository users;
+
+    public ApplicationUserDetailsService(UserRepository users) {
+        this.users = users;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        ApplicationUser user = users.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(username));
+
+        return User.withUsername(user.username())
+            .password(user.passwordHash())
+            .authorities(user.authorities())
+            .disabled(!user.enabled())
+            .build();
+    }
+}
+```
+
+The service should return the account data Spring Security needs, not expose database concerns throughout the rest of the application. In addition to the username and password hash, that data can include authorities and account flags such as enabled, expired, or locked.
+
+A useful debugging habit is to verify the whole boundary: the submitted username, the database lookup, the returned username, the stored hash, and the authorities. Authentication problems often come from a mismatch at one of those points rather than from the login form itself.
+
+## Passwords Must Be Encoded
+
+Passwords should never be stored as plain text. A password encoder stores a one-way password hash and later checks a submitted password against that hash:
+
+```java
+@Bean
+PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+}
+```
+
+When a user is created or a password is changed, encode it before persistence:
+
+```java
+String passwordHash = passwordEncoder.encode(rawPassword);
+userRepository.save(new ApplicationUser(username, passwordHash));
+```
+
+During login, the authentication provider uses the encoder to compare the submitted password with the stored hash. The application should never decode the stored value or compare raw password strings itself.
+
+The encoder configuration must match the data already stored. A common failure is saving a raw password while configuring an encoder that expects a hash, or changing encoder formats without a migration strategy. Development shortcuts such as `NoOpPasswordEncoder` can help explain the flow, but they are not suitable for real user credentials.
+
+## A Practical Way to Learn the Framework
+
+The tutorial's progression is valuable because each feature answers a different question:
+
+- **The filter chain** explains where security decisions happen.
+- **Form login** shows browser authentication and sessions.
+- **Basic Authentication** shows a request that carries credentials directly.
+- **CSRF** explains why credential transport changes the threat model.
+- **AuthenticationManager and providers** separate coordination from verification.
+- **UserDetailsService** connects authentication to application users.
+- **Password encoding** protects the most sensitive value in the flow.
+
+When implementing Spring Security in a real application, start by writing down the authentication model before choosing configuration:
+
+1. Which clients are calling the application?
+2. Is the credential automatically attached by a browser?
+3. Should the application keep a server-side session?
+4. Which routes are public, authenticated, or restricted by authority?
+5. Where are users loaded from, and how are passwords encoded?
+6. How will failed authentication and logout be observed and tested?
+
+That exercise makes the configuration easier to review and prevents copying a setting, such as disabling CSRF or making a session stateless, without understanding its consequences.
+
+Spring Security 7 is easier to approach when its abstractions are treated as a request-processing system rather than as a collection of annotations. Once the filter chain, authentication manager, provider, user lookup, and password encoder are clear, the configuration becomes a description of the security design instead of a set of framework incantations.
+
+This article is for educational purposes. Authentication settings must be adapted to the application's clients, data, deployment, and threat model. Use HTTPS, protect session cookies, store only password hashes, and consult the current Spring Security documentation before deploying a security configuration.
+
+---
+
+<YouTubeEmbed
+	id="IqW6NVxPaTc"
+	title="Spring Security 7 Tutorial — Amigoscode"
+/>
