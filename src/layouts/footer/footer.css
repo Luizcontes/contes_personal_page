@@ -18,6 +18,22 @@
 	pointer-events: auto;
 }
 
+.footer-cta-slot {
+	position: absolute;
+	right: 50%;
+	bottom: var(--space-3);
+	width: min(100% - var(--space-8), 72rem);
+	transform: translateX(50%);
+	display: flex;
+	justify-content: flex-end;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.footer-cta-slot .send-email-button {
+	pointer-events: auto;
+}
+
 .footer-compact,
 .footer-expanded {
 	width: min(100% - var(--space-8), 72rem);
@@ -37,6 +53,8 @@
 }
 
 .footer-expanded {
+	position: relative;
+	z-index: 1;
 	display: grid;
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
@@ -78,27 +96,6 @@
 	padding-right: 8rem;
 }
 
-.site-footer .send-email-button {
-	position: absolute;
-	right: var(--space-4);
-	top: 50%;
-	transform: translateY(-50%);
-}
-
-.footer-contact {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	gap: var(--space-3);
-	min-width: 0;
-}
-
-.footer-contact-button {
-	position: static !important;
-	transform: none !important;
-	flex: 0 0 auto;
-}
-
 .footer-copyright {
 	margin: 0;
 	color: var(--color-text-muted);
@@ -119,6 +116,9 @@
 	height: 2.25rem;
 	border-radius: var(--radius-circle);
 	color: var(--color-text-muted);
+	position: relative;
+	z-index: 3;
+	pointer-events: auto;
 	transition:
 		color var(--duration-base) var(--ease-standard),
 		background-color var(--duration-base) var(--ease-standard),
@@ -165,17 +165,41 @@
 		width: min(100% - var(--space-4), 72rem);
 	}
 
+	.site-footer[data-expanded="true"] {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
+
 	.footer-expanded {
 		grid-template-columns: 1fr;
 		justify-items: center;
-	}
-
-	.footer-contact {
-		flex-direction: column;
-		justify-content: center;
+		order: 2;
 	}
 
 	.footer-copyright {
 		text-align: center;
+	}
+
+	.footer-cta-slot {
+		position: absolute;
+		width: min(100% - var(--space-4), 72rem);
+	}
+
+	.site-footer[data-expanded="true"] .footer-cta-slot {
+		position: static;
+		order: 1;
+		width: min(100% - var(--space-4), 72rem);
+		margin: 0 auto;
+		padding: var(--space-4) 0 0;
+		transform: none;
+		justify-content: center;
+		pointer-events: auto;
+		z-index: 2;
+	}
+
+	.site-footer[data-expanded="true"] .footer-expanded {
+		width: min(100% - var(--space-4), 72rem);
+		padding-bottom: var(--space-4);
 	}
 }

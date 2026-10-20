@@ -16,7 +16,6 @@ const currentYear = new Date().getFullYear();
 <footer class="site-footer" data-sticky="false" data-expanded="false">
 	<div class="footer-compact">
 		<p class="footer-text" data-i18n="footer.tagline">Let's turn your idea into reality.</p>
-		<SendEmailButton locale={locale} />
 	</div>
 	<div class="footer-expanded" data-footer-expanded-content>
 		<nav class="footer-social" aria-label="Footer links" data-i18n-aria-label="footer.linksLabel">
@@ -42,9 +41,9 @@ const currentYear = new Date().getFullYear();
 			</a>
 		</nav>
 		<p class="footer-copyright">© {currentYear} Luiz Contes</p>
-		<div class="footer-contact">
-			<SendEmailButton locale={locale} className="send-email-button footer-contact-button" />
-		</div>
+	</div>
+	<div class="footer-cta-slot">
+		<SendEmailButton locale={locale} />
 	</div>
 </footer>
 
