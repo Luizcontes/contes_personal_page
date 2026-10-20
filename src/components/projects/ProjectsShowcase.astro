@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import './projects-showcase.css';
+
+const projects = (await getCollection('projects'))
+	.filter(({ data }) => !data.draft)
+	.sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const featuredProject = projects.find(({ data }) => data.featured) ?? projects[0];
+---
+
+<div
+	class="projects-showcase"
+	data-projects-showcase
+	data-featured-project={featuredProject?.slug}
+>
+	<div class="projects-featured" data-featured-project-panel>
+		<div class="projects-featured-copy">
+			<p class="projects-eyebrow" data-i18n="projects.featured.eyebrow">
+				Featured project
+			</p>
+			<h3 data-featured-title data-i18n={featuredProject?.data.titleKey}>
+				{featuredProject?.data.title}
+			</h3>
+			<p class="projects-featured-summary" data-featured-summary data-i18n={featuredProject?.data.summaryKey}>
+				{featuredProject?.data.summary}
+			</p>
+			<a
+				class:list={[
+					'projects-cta',
+					{ 'projects-cta--disabled': !featuredProject?.data.liveUrl && !featuredProject?.data.repoUrl },
+				]}
+				href={featuredProject?.data.liveUrl ?? featuredProject?.data.repoUrl ?? '#'}
+				target="_blank"
+				rel="noreferrer"
+				data-featured-cta
+				data-i18n="projects.cta.visit"
+				aria-disabled={!featuredProject?.data.liveUrl && !featuredProject?.data.repoUrl ? 'true' : undefined}
+			>
+				<span data-project-cta-label>Visit project</span>
+			</a>
+		</div>
+		<div class="projects-featured-preview">
+			<img
+				src={featuredProject?.data.preview}
+				alt={featuredProject?.data.title}
+				data-featured-preview
+				data-featured-preview-alt={featuredProject?.data.titleKey}
+				data-i18n-alt={featuredProject?.data.titleKey}
+				decoding="async"
+			/>
+		</div>
+	</div>
+
+	<div class="projects-card-region">
+		<div class="projects-card-header">
+			<h3 class="sr-only" data-i18n="projects.list.title">More projects</h3>
+			<div class="projects-carousel-controls">
+				<button type="button" class="projects-carousel-button" data-projects-previous aria-label="Previous project" data-i18n-aria-label="projects.carousel.previous">
+					<span aria-hidden="true">←</span>
+				</button>
+				<button type="button" class="projects-carousel-button" data-projects-next aria-label="Next project" data-i18n-aria-label="projects.carousel.next">
+					<span aria-hidden="true">→</span>
+				</button>
+			</div>
+		</div>
+		<div class="projects-card-grid" data-projects-card-grid>
+			{projects.map((project) => (
+				<button
+					type="button"
+					class="project-card"
+					data-project-card
+					data-project-slug={project.slug}
+					data-project-title-key={project.data.titleKey}
+					data-project-summary-key={project.data.summaryKey}
+					data-project-preview={project.data.preview}
+					data-project-live-url={project.data.liveUrl ?? ''}
+					data-project-repo-url={project.data.repoUrl ?? ''}
+					data-project-featured={String(project.data.featured)}
+				>
+					<img class="project-card-icon" src={project.data.icon} alt="" aria-hidden="true" />
+					<span class="project-card-content">
+						<strong data-i18n={project.data.titleKey}>{project.data.title}</strong>
+						<span data-i18n={project.data.summaryKey}>{project.data.summary}</span>
+					</span>
+				</button>
+			))}
+		</div>
+	</div>
+</div>
+
+<script>
+	import { initProjectsShowcase } from './projectsShowcaseRuntime';
+	initProjectsShowcase();
+</script>

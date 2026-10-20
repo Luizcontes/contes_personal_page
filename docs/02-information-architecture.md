@@ -6,7 +6,6 @@ Last updated: 2026-04-17
 ## Route Map
 - / (Home)
 - /who-i-am (Who I Am)
-- /projects (Projects)
 - /blog (Blog index)
 - /blog/[slug] (Blog detail)
 
@@ -54,7 +53,6 @@ Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact 
 4. Projects teaser chunk
 	- Section heading and intro
 	- Curated subset/cards for Home
-	- Link handoff to /projects
 	- Anchor support (#projects)
 5. Stack chunk
 	- Tools, skills, and workflow overview
@@ -71,7 +69,6 @@ Note: Who I Am is a dedicated page (/who-i-am), not a home section. The contact 
 	- Mailto: contact link (no form — contact is handled via mailto:)
 9. Navigation integration chunk
 	- Home, Projects, Stack, Experience, Blog (Who I Am and Contact planned)
-	- Projects mapped to /projects
 	- Stack mapped to /#stack
 	- Blog mapped to /#blog
 	- Who I Am CTA in hero maps to /who-i-am
@@ -102,7 +99,7 @@ For each chunk:
 ## Navigation Model
 Top navigation (current): Home, Projects, Stack, Experience, Blog.
 Top navigation (planned): add Who I Am (→ /who-i-am) and Contact (→ mailto: link) once those surfaces are complete.
-Navigation behavior: Projects points to /projects.
+Navigation behavior: Projects points to the Projects section on the home page.
 Footer: tagline, mailto contact button (Send Email), quick links and copyright planned.
 
 Note: Who I Am and Contact are NOT currently in the primary nav. Hero CTAs link to /who-i-am and the mailto: contact link directly.
@@ -130,7 +127,6 @@ Locale preference is stored in `localStorage` and used on subsequent visits befo
 2. Link targets:
 	- Home -> /
 	- Who I Am -> /#who-i-am
-	- Projects -> /projects
 	- Stack -> /#stack
 	- Blog -> /blog
 	- Contact -> /#contact

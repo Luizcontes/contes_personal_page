@@ -58,7 +58,7 @@ Use clamp() for all heading and body sizes so text scales naturally without brea
 - Tablet: two-column card grid.
 - Desktop: two or three-column card grid depending on card density.
 
-### Projects Page (/projects)
+### Projects section
 - Mobile: single column list.
 - Tablet: two-column grid.
 - Desktop: three-column grid with optional filter controls above.

@@ -1,13 +1,18 @@
 ---
-title: "Starter Project"
-summary: "Placeholder project to validate projects collection wiring."
+title: "Gameasily"
+summary: "A city game app for discovering playful challenges and experiences."
+titleKey: "project.gameasily.title"
+summaryKey: "project.gameasily.summary"
 stack:
   - Astro
   - TypeScript
 featured: true
-draft: true
-status: planned
+draft: false
+icon: "/images/projects/icons/gameasily.svg"
+preview: "/images/projects/gameasily.svg"
+status: active
 year: 2026
+liveUrl: "https://example.com/gameasily"
 ---
 
-This draft entry exists to validate the projects collection schema.
+A city game app for discovering playful challenges and experiences.

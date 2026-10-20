@@ -18,7 +18,6 @@ Each project entry should highlight context, decisions, outcomes, and links to s
 The product vision is delivered through these core routes:
 - / (Home)
 - /who-i-am
-- /projects
 - /blog
 - /blog/[slug]
 
@@ -35,7 +34,7 @@ Top navigation should prioritize discoverability and conversion:
 - Current nav: Home, Projects, Blog
 - Planned additions: Who I Am (→ /who-i-am), Contact (→ mailto: link)
 - Who I Am navigates to the dedicated /who-i-am route
-- Projects navigates to the dedicated /projects route
+- Projects is an interactive section on the home page
 
 ## Theme Preference
 The site should support an accessible light/dark theme toggle so readers can choose their preferred reading mode.

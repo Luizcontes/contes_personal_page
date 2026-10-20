@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680">
+  <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+  <rect width="1200" height="680" fill="#131929"/>
+  <circle cx="920" cy="280" r="260" fill="url(#g)" opacity=".3"/>
+  <circle cx="600" cy="330" r="180" fill="#e2e8f0" opacity=".12"/>
+  <path d="M0 560c220-120 360-120 600 0s380 120 600 0v120H0Z" fill="#0a0f1e"/>
+  <text x="100" y="170" font-family="sans-serif" font-size="58" font-weight="700" fill="#e2e8f0">Togatherfy</text>
+  <text x="105" y="225" font-family="sans-serif" font-size="26" fill="#22d3ee">Find your next wellness moment</text>
+</svg>

@@ -10,7 +10,6 @@ Leverage static site generation so crawlers receive full HTML content immediatel
 Core routes that must have complete metadata:
 - /
 - /who-i-am
-- /projects
 - /blog
 - /blog/[slug]
 
@@ -30,7 +29,7 @@ Core routes that must have complete metadata:
 ## Per-Route Metadata Intent
 - Home (/): brand positioning + primary conversion intent.
 - Who I Am (/who-i-am): background, skills, and narrative context.
-- Projects (/projects): portfolio credibility, technical decisions, outcomes.
+- Projects section on the home page: portfolio credibility, technical decisions, outcomes.
 - Blog index (/blog): topical authority and content discovery.
 - Blog detail (/blog/[slug]): post-specific keywords, publish date, and share-ready social preview.
 
@@ -58,7 +57,7 @@ Generate sitemap automatically using Astro sitemap integration.
 
 ## Validation Checklist
 - Source contains expected meta tags
-- Sitemap contains published core routes including /projects
+- Sitemap contains the published core routes; projects are represented on the home page.
 - No duplicate titles across core pages
 - Canonical tags match production domain and route paths
 - OpenGraph and Twitter tags are present on Home, Who I Am, Projects, Blog index, and Blog detail

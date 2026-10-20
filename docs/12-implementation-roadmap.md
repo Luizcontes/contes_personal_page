@@ -9,7 +9,7 @@ Objective: lock decisions and avoid rework during coding.
 Steps:
 1. Review and align Product Vision, Information Architecture, and Component Strategy.
 2. Confirm route map and navigation behavior:
-	- /, /about, /projects, /blog, /blog/[slug]
+	- /, /about, /blog, /blog/[slug]
 	- Home anchors: #who-i-am, #projects, #contact
 3. Resolve architecture-impacting decisions in Open Decisions:
 	- contact backend
@@ -144,8 +144,6 @@ Steps:
 	- Run tests and build
 	- Pause for approval before the next chunk
 3. Add section anchors for Home (`#hero`, `#projects`, `#blog`).
-4. Build `/projects` page with full project grid/list.
-5. Create reusable project card component used on Home and `/projects`.
 6. Build `/who-i-am` page with biography, trajectory, and skills.
 7. Validate internal linking between Home, Projects, Blog, and Who I Am.
 
@@ -178,7 +176,6 @@ Steps:
 3. Deploy from `main` and verify published routes:
 	- /
 	- /who-i-am
-	- /projects
 	- /blog
 4. Validate metadata and canonical settings in production.
 5. Confirm sitemap and social metadata behavior.
@@ -203,7 +200,7 @@ Exit criteria:
 
 ## Done Criteria
 - Build passes without errors
-- Core routes are functional: /, /about, /projects, /blog, /blog/[slug]
+- Core routes are functional: /, /about, /blog, /blog/[slug]
 - Home anchors work: #who-i-am, #projects, #contact
 - Sitemap and metadata are present and valid
 - Contact path is working end-to-end

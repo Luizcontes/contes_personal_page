@@ -4,6 +4,7 @@ import SendEmailButton from "../components/send-email-button/SendEmailButton.ast
 import ContentSection from "../components/content-section/ContentSection.astro";
 import StackSection from "../components/stack/StackSection.astro";
 import ExperienceSection from "../components/experience/ExperienceSection.astro";
+import ProjectsShowcase from "../components/projects/ProjectsShowcase.astro";
 ---
 
 <BaseLayout title="Luiz Contes">
@@ -57,13 +58,10 @@ import ExperienceSection from "../components/experience/ExperienceSection.astro"
 			<ExperienceSection />
 		</section>
 		<section id="projects" class="home-section">
-			<ContentSection
-				titleKey="section.projects"
-				titleDefault="Projects"
-				ctaHref="/projects"
-				ctaKey="section.cta.projects"
-				ctaDefault="View Projects"
-			/>
+			<div class="section-container">
+				<h2 data-i18n="section.projects">Projects</h2>
+				<ProjectsShowcase />
+			</div>
 		</section>
 		<section id="blog" class="home-section">
 			<ContentSection

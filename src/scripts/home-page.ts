@@ -47,6 +47,16 @@ const applyTranslations = (locale: string, langPicker: Element | null, langOptio
 		element.setAttribute('aria-label', t(resolvedLocale, key));
 	});
 
+	document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+		if (!(element instanceof HTMLImageElement)) {
+			return;
+		}
+		const key = element.dataset.i18nAlt;
+		if (key) {
+			element.alt = t(resolvedLocale, key);
+		}
+	});
+
 	if (langPicker instanceof HTMLButtonElement) {
 		langPicker.dataset.lang = resolvedLocale;
 		langPicker.setAttribute(

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+  <rect width="1200" height="680" fill="#0a0f1e"/>
+  <circle cx="900" cy="120" r="280" fill="url(#g)" opacity=".35"/>
+  <path d="M0 560 250 350l170 90 220-250 190 160 150-95 220 180v245H0Z" fill="#131929"/>
+  <rect x="105" y="120" width="340" height="220" rx="24" fill="#e2e8f0" opacity=".92"/>
+  <text x="145" y="205" font-family="sans-serif" font-size="44" font-weight="700" fill="#0a0f1e">GAMEASILY</text>
+  <text x="145" y="260" font-family="sans-serif" font-size="24" fill="#475569">Play your city</text>
+</svg>

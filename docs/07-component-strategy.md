@@ -6,7 +6,7 @@ Last updated: 2026-04-17
 ## Architecture Intent
 Components should support the IA flow and conversion path:
 Hero -> Who I Am -> Projects -> Stack -> Work Experience -> Recent Posts -> Contact.
-Projects must be usable both as a home teaser section and as a standalone /projects page.
+Projects are presented as an interactive home section.
 
 ## Hero Section
 Build with static HTML and CSS for immediate rendering and strong first impression.
@@ -17,8 +17,8 @@ The hero CTA on Home links directly to `/who-i-am`.
 This is NOT a home page anchor section — it is a standalone page.
 
 ## Projects Layer
-Use a reusable project card component for consistency across Home and /projects.
-Home should show a curated subset (teaser), while /projects shows the complete set.
+Use reusable project showcase and card components within Home.
+The home section shows the complete published project set.
 Each project card should include title, short summary, stack, and primary link.
 
 ## Content Layer
@@ -44,7 +44,6 @@ No form backend, no client-side hydration, and no form validation are needed.
 - WhoIAmSection (planned — /who-i-am page)
 - ProjectCard (planned)
 - ProjectsSection — Home teaser (planned)
-- ProjectsGridPage — /projects (planned)
 - Blog card (planned)
 
 ## Stylesheet Architecture
@@ -142,7 +141,6 @@ Component-specific styles are never defined in the global stylesheet.
 ## Section Mapping by Route
 - / : Hero, Projects shell, Stack, Work Experience, Blog shell (Who I Am, Recent Posts, Contact CTA planned).
 - /who-i-am : Personal background and trajectory (placeholder page).
-- /projects : Full projects grid and optional category/filter controls (placeholder page).
 - /blog : Blog listing (placeholder page).
 - /blog/[slug] : Blog detail.
 
@@ -150,7 +148,7 @@ Component-specific styles are never defined in the global stylesheet.
 To keep implementation small, testable, and approval-gated, Home should be delivered in this order:
 1. Page shell and anchor skeleton (done: #hero, #projects, #stack, #experience, #blog)
 2. Hero (done: headline, eyebrow, support paragraphs, mailto CTA, Who I Am CTA, hero image)
-3. Projects teaser shell (done: ContentSection placeholder)
+3. Projects interactive showcase (done)
 4. Stack section (done: static tools, skills, and workflow cards)
 5. Work Experience section (done: static placeholder timeline)
 6. Recent posts shell (done: ContentSection placeholder)
